@@ -69,3 +69,10 @@ footer img {
     bottom: 10px;
     left: 10px;
 }
+/* Style for images inside the #about section */
+#about img {
+    max-width: 100%;      /* Make image responsive */
+    height: auto;         /* Maintain aspect ratio */
+    border-radius: 8px;   /* Optional: Add rounded corners */
+    margin: 20px 0;       /* Optional: Add margin around the image */
+}
