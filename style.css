@@ -14,13 +14,6 @@ header {
     position: relative;
 }
 
-header img {
-    width: 80px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
 h1 {
     font-size: 3em;
     font-weight: 700;
@@ -64,9 +57,3 @@ footer {
     position: relative;
 }
 
-footer img {
-    width: 60px;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-}
