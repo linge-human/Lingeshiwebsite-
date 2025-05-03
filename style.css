@@ -1,61 +1,5 @@
+/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
-
-body {
-    background-color: #111;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    margin: 0;
-}
-
-header {
-    padding: 50px;
-    background: linear-gradient(135deg, #1b1b1b, #333);
-    position: relative;
-}
-
-h1 {
-    font-size: 3em;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-p {
-    font-size: 1.2em;
-    opacity: 0.8;
-}
-
-.btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #444;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #666;
-}
-
-.zigzag {
-    border-top: 2px dashed #555;
-    margin: 30px 0;
-    height: 0;
-    background: none;
-}
-
-section {
-    padding: 70px 20px;
-}
-
-footer {
-    background: #000;
-    padding: 20px;
-    position: relative;
-}
 
 /* General Reset */
 * {
@@ -66,73 +10,82 @@ footer {
 
 /* Body Styling */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #111;
+    color: #fff;
+    text-align: center;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa; /* Light background for readability */
-    padding: 20px;
+    margin: 0;
+    padding: 0;
 }
 
 /* Header Styling */
 header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.header-image {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    display: block;
-    margin-bottom: 15px;
+    padding: 50px;
+    background: linear-gradient(135deg, #1b1b1b, #333);
 }
 
 header h1 {
     font-size: 2.5rem;
-    color: #222;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
 }
 
-.subtitle {
-    font-size: 1.2rem;
-    color: #555;
+/* Button Styling */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #444;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #666;
 }
 
 /* Section Styling */
-main {
-    max-width: 800px;
-    margin: 0 auto;
+section {
+    padding: 70px 20px;
 }
 
-#about h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #444;
-}
-
-#about p {
-    margin: 10px 0;
-    line-height: 1.8;
-}
-
-#about strong {
-    color: #007BFF; /* Highlight key points in blue */
+/* Divider Styling */
+.zigzag {
+    border-top: 2px dashed #555;
+    margin: 30px 0;
 }
 
 /* Footer Styling */
 footer {
+    background: #000;
+    padding: 20px;
     text-align: center;
-    margin-top: 20px;
 }
 
 footer .btn {
-    text-decoration: none;
-    color: #fff;
     background-color: #007BFF;
+    color: #fff;
     padding: 10px 15px;
     border-radius: 5px;
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
 footer .btn:hover {
     background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .btn {
+        padding: 8px 15px;
+    }
 }
