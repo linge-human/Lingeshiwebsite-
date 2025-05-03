@@ -1,91 +1,78 @@
-/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
 
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body Styling */
 body {
-    font-family: 'Montserrat', sans-serif;
     background-color: #111;
-    color: #fff;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
-    line-height: 1.6;
     margin: 0;
-    padding: 0;
 }
 
-/* Header Styling */
 header {
     padding: 50px;
     background: linear-gradient(135deg, #1b1b1b, #333);
+    position: relative;
 }
 
-header h1 {
-    font-size: 2.5rem;
+header img {
+    width: 80px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+h1 {
+    font-size: 3em;
     font-weight: 700;
     text-transform: uppercase;
-    color: #fff;
 }
 
-/* Button Styling */
+p {
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
 .btn {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
     background: #444;
-    color: #fff;
+    color: white;
     text-decoration: none;
     border-radius: 5px;
-    transition: background 0.3s ease;
+    transition: 0.3s;
 }
 
 .btn:hover {
     background: #666;
 }
 
-/* Section Styling */
-section {
-    padding: 70px 20px;
-}
-
-/* Divider Styling */
 .zigzag {
-    border-top: 2px dashed #555;
-    margin: 30px 0;
+    height: 40px;
+    background: url('images/zigzag.svg');
+    background-size: cover;
 }
 
-/* Footer Styling */
+section {
+    padding: 80px 20px;
+}
+
 footer {
     background: #000;
     padding: 20px;
-    text-align: center;
+    position: relative;
 }
 
-footer .btn {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+footer img {
+    width: 60px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
 }
-
-footer .btn:hover {
-    background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2rem;
-    }
-
-    .btn {
-        padding: 8px 15px;
-    }
+/* Style for images inside the #about section */
+#about img {
+    max-width: 100%;      /* Make image responsive */
+    height: auto;         /* Maintain aspect ratio */
+    border-radius: 8px;   /* Optional: Add rounded corners */
+    margin: 20px 0;       /* Optional: Add margin around the image */
 }
