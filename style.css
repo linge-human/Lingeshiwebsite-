@@ -8,10 +8,13 @@ body {
     margin: 0;
 }
 
+
 header {
     padding: 50px;
-    background: linear-gradient(135deg, #1b1b1b, #333);
+    background: url('images/The School of Athens.jpg') no-repeat center center; /* Add background image */
+    background-size: cover; /* Make sure the image covers the entire header */
     position: relative;
+    text-align: left; /* Align the text to the left */
 }
 
 header img {
