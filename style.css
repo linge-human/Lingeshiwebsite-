@@ -8,7 +8,6 @@ body {
     margin: 0;
 }
 
-
 header {
     padding: 50px;
     background: url('images/The School of Athens.jpg') no-repeat center center; /* Add background image */
@@ -26,6 +25,18 @@ header img {
 
 h1 {
     font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* New Style for Portfolio Heading */
+.portfolio-heading {
+    background: url('images/life&life.jpg') no-repeat center center;
+    background-size: cover;
+    color: white; /* Ensures text is visible */
+    padding: 20px;
+    text-align: center;
+    font-size: 2.5em;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -72,6 +83,7 @@ footer img {
     bottom: 10px;
     left: 10px;
 }
+
 /* Style for images inside the #about section */
 #about img {
     max-width: 100%;      /* Make image responsive */
