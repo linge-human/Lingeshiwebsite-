@@ -23,6 +23,18 @@ header img {
     right: 10px;
 }
 
+/* Add this snippet for the Education header */
+header h1 {
+    background-image: url('images/curiosity.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 40px 20px;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+
 h1 {
     font-size: 3em;
     font-weight: 700;
