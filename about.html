@@ -19,9 +19,8 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
-            color: #fff; /* Updated to match the dark theme */
+            color: #fff;
             background-color: #111; /* Updated to match the site-wide color scheme */
-            margin: 0;
         }
 
         /* Hero Section */
@@ -35,21 +34,13 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            z-index: 10; /* Bring the image to the front */
         }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-            z-index: 1;
-        }
-
+        /* Removed overlay to ensure the image is fully visible */
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 11; /* Text content should still appear above the image */
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
@@ -103,7 +94,6 @@
 </head>
 <body>
     <header class="hero-section">
-        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>ABOUT ME</h1>
             <p>Curious mind exploring science, technology, and creativity.</p>
