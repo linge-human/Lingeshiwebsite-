@@ -11,9 +11,32 @@
             border-top: 2px dashed #333; 
             margin: 20px 0; 
         }
+        
         /* Align all headings and text to the left */
         h1, h2, p, a, button {
             text-align: left;
+        }
+
+        /* Subpage styling with images inside the boxes */
+        section {
+            padding: 20px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        #about {
+            background-image: url('school_of_athens.jpg');
+        }
+
+        #education {
+            background-image: url('life_to_life.jpg'), url('curiosity.jpg');
+            background-position: top left, bottom right;
+            background-size: 50% 50%, 50% 50%;
+        }
+
+        #projects, #secret {
+            background-color: rgba(0, 0, 0, 0.7); /* Transparent background for sections without images */
         }
     </style>
 </head>
@@ -21,7 +44,7 @@
     <!-- Header with background image -->
     <header style="background-image: url('lookup.jpg'); background-size: cover; background-repeat: no-repeat; text-align: left; padding: 50px; color: white;">
         <h1>MY PORT FOLIO</h1>
-        <p>Here is everything about me(Linge shi) that I couldn't fit on my resume.</p>
+        <p>Here is everything about me (Linge Shi) that I couldn't fit on my resume.</p>
     </header>
 
     <div class="divider"></div>
