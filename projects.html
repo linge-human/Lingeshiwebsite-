@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Projects - Linge Shi</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <style>
+        :root {
+            --terminal-bg: #1a1a1a;
+            --neon-green: #39ff14;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Fira Code', monospace;
+            background-color: var(--terminal-bg);
+            color: var(--text-color);
+        }
+
+        nav {
+            padding: 1rem 2rem;
+            background: #111;
+            border-bottom: 1px solid var(--neon-green);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links a[href="projects.html"] {
+            color: var(--neon-green);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            margin: 0 0 0.5rem 0;
+            color: var(--neon-green);
+        }
+
+        .hero .subtitle {
+            margin: 0;
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
         .project-card {
             background: var(--terminal-bg);
             padding: 2rem;
@@ -32,13 +98,32 @@
             margin: 1rem 0;
             border-radius: 4px;
         }
+
+        .paper-link-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .paper-link-button:hover {
+            background-color: var(--neon-green);
+            color: var(--terminal-bg);
+        }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-content">
             <div class="logo">
-                <a href="index.html">&lt;LS/&gt;</a>
+                <a href="index.html" style="color: var(--neon-green); font-weight: 700; font-size: 1.5rem;">
+                    &lt;LS/&gt;
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="projects.html" style="color: var(--neon-green);">PROJECTS</a></li>
@@ -53,8 +138,14 @@
     <main>
         <header class="hero">
             <h1>PROJECTS</h1>
-            <p class="subtitle">A collection of my academic and engineering endeavors</p>
+            <p class="subtitle">A collection of my academic and engineering and science endeavors</p>
         </header>
+
+        <div class="project-card">
+            <h3>Math and Stats Research Challenge</h3>
+            <p>I started wondering off into the abyss of maths, encountering multiple difficulties, e.g. how to use EXCEL, but i maganed to overcome it by developing an app to analyze the data, so here's the link https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427.</p>
+            <p>It was with no doubt one fo the most challenging projects apart from the robot hand and the theoretical physics experiment.(and yes, i do vibe code, its simple and i do know how to code, its just more efficient.</p>
+        </div>
 
         <div class="project-card">
             <h3>Monash Scholars Program</h3>
@@ -63,12 +154,19 @@
 
         <div class="project-card">
             <h3>Science Talent Search</h3>
-            <p>This project explores Richard Feynman's quantum theories through a hands-on laser interference experiment. I aimed to model the behavior of light as quantum interference, using semi-permeable structures and Moiré patterns to simulate photon path superposition.</p>
+            <p>This project explores Richard Feynman's quantum theories through a hands-on laser interference experiment. I aimed to model the behavior of light as quantum interference, using semi-permeable structures and Moiré patterns to simulate photon path superposition.i also developed an app for photon diffraction patten analyzation, so here's the link https://claude.ai/public/artifacts/f41cb096-a8dc-4bcd-a48a-3fa8aad1e1b9.</p>
+            <p>i can almost say i can't live without Claude, GPT, Perplaxity, Copilot, Grok, Sora... (i do try to limit my asks and make the water used to cool down the mega computers worth it)</p>
+            <p>BTW, here's also a link to the paper if your interested <3 </p>
+            <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" 
+               class="paper-link-button" target="_blank" rel="noopener noreferrer">
+               The Actual Paper
+            </a>
         </div>
 
         <div class="project-card">
             <h3>Satellite Project</h3>
-            <img src="placeholder-satellite.jpg" alt="A satellite designed by Linge Shi" class="project-image">
+            <img src="placeholder-satellite.jpg" alt="A satellite designed by Linge Shi" class="project-image" />
+            <p> (idk, i can'y upload images, for some reasone, its already 1 am. I'll figure it out next week, hopefully) i was about to upload an image of the satalight i made, it was really cool. but you can still see it in my port folio.<p>
             <p>Systems engineering opened me to a brand new world. This project marked my entry into systems engineering and applied automation. Within the first three weeks of the course, I independently learned CAD modelling using Sharp3D and designed a functional robotic arm.</p>
         </div>
 
@@ -84,7 +182,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Linge Shi • Built with 🚀</p>
+        <p style="text-align:center; padding:1rem 0;">&copy; 2025 Linge Shi • Built with 🚀</p>
     </footer>
 </body>
 </html>
