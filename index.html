@@ -92,6 +92,7 @@
       margin-bottom: 2rem;
       border: 1px solid transparent;
       transition: border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
 
     .academic-card:hover {
@@ -244,7 +245,7 @@
       outline: none;
     }
 
-    /* Bill Cipher styles */
+    /* Bill Cipher (fish) styles */
     #billCipherWandering {
       position: fixed;
       width: 80px;
@@ -258,6 +259,9 @@
       top: 50px;
       left: 0; /* start from left */
       transition: none; /* will be managed by JS */
+      user-select: none;
+      pointer-events: none;
+      will-change: transform, left, top;
     }
 
     /* Flipping horizontally when swimming/back */
@@ -299,6 +303,36 @@
 
     #billSpeechBubble.show {
       opacity: 1 !important;
+    }
+
+    /* Grid container and items styling */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .grid-item {
+      background: var(--terminal-bg);
+      padding: 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .grid-item:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+    }
+
+    .explore-btn {
+      margin-top: 1rem;
+      color: var(--neon-green);
+      font-weight: 600;
+      user-select: none;
+      font-family: 'Fira Code', monospace;
     }
   </style>
 </head>
@@ -428,7 +462,7 @@
       <section class="projects-section">
         <h2>OTHER PROJECTS</h2>
         <div class="project-grid">
-          <div class="project-card">
+          <div class="project-card" onclick="alert('Please click on this card!')">
             <h3>Higher Order Derivatives Simulation</h3>
             <p class="highlight-text">Please click, you won't regret it!</p>
             <div class="project-description">
@@ -531,103 +565,209 @@
         startFishSwimming();
       });
 
-      function startFishSwimming() {
-        billWandering.style.display = 'block';
-        billCipherActive = true;
+      // Variables for wandering swimming fish
+      let position = { x: 100, y: 150 };
+      let velocity = { x: 2, y: 1.2 };
+      let direction = 1; // 1 = swim right, -1 = swim left
 
-        let direction = 1; // 1 = swim right, -1 = swim left
-        let positionX = 0;
-        const swimSpeed = 2; // pixels per frame approx
-        const floatingAmplitude = 20; // vertical floating amplitude
-        const floatingFrequency = 0.02; // how fast floats vertically
+      // Parameters for wandering behavior
+      const maxSpeed = 3;
+      const minSpeed = 1;
+      const changeInterval = 3000; // ms, how often velocity changes direction/speed smoothly
+      let lastChangeTime = 0;
 
-        let startTime = null;
+      // For random prompt messages timing
+      let lastPromptTime = 0;
+      const promptInterval = 12000; // ms, every 12 seconds show prompt
+      let cardPromptIndex = 0;
 
-        function animateFish(timestamp) {
-          if (!startTime) startTime = timestamp;
-          const elapsed = timestamp - startTime;
+      function getRandomVelocity() {
+        // return random small velocity vector within maxSpeed range
+        const angle = Math.random() * Math.PI * 2;
+        const speed = minSpeed + Math.random() * (maxSpeed - minSpeed);
+        return { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed };
+      }
 
-          if (!billCipherActive) {
-            billWandering.style.display = 'none';
-            return; // stop animation if inactive
-          }
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
 
-          // Update horizontal position
-          positionX += direction * swimSpeed;
-
-          // Change direction if hits screen edges with some margin
-          const maxX = window.innerWidth - billWandering.offsetWidth - 10;
-          if (positionX >= maxX) {
-            direction = -1;
-            // Flip horizontally to face left
-            billWandering.classList.remove('swim-right');
-            billWandering.classList.add('swim-left');
-          } else if (positionX <= 0) {
-            direction = 1;
-            billWandering.classList.remove('swim-left');
-            billWandering.classList.add('swim-right');
-          }
-
-          // Update vertical position with sine wave floating effect
-          const posY =
-            100 + floatingAmplitude * Math.sin(elapsed * floatingFrequency * 2 * Math.PI);
-
-          billWandering.style.left = positionX + 'px';
-          billWandering.style.top = posY + 'px';
-
-          // Schedule next frame
-          requestAnimationFrame(animateFish);
+      // Animate fish swimming randomly in the viewport
+      function animateFish(timestamp) {
+        if (!billCipherActive) {
+          billWandering.style.display = 'none';
+          return; // stop animation if inactive
         }
 
-        // Set initial orientation to right
-        billWandering.classList.add('swim-right');
+        if (!lastChangeTime) lastChangeTime = timestamp;
+        if (!lastPromptTime) lastPromptTime = timestamp;
+
+        // Smooth velocity changes every changeInterval ms
+        if (timestamp - lastChangeTime > changeInterval) {
+          const newVel = getRandomVelocity();
+          // Smooth velocity transition over next frames:
+          // We'll just assign new velocity directly to keep it simple
+          velocity = newVel;
+          lastChangeTime = timestamp;
+        }
+
+        // Update position by velocity
+        position.x += velocity.x;
+        position.y += velocity.y;
+
+        // Get viewport bounds, leave margin to avoid clipping
+        const margin = 20;
+        const maxX = window.innerWidth - billWandering.offsetWidth - margin;
+        const maxY = window.innerHeight - billWandering.offsetHeight - margin;
+        const minX = margin;
+        const minY = margin;
+
+        // Bounce from edges by reversing velocity component if needed
+        if (position.x > maxX) {
+          position.x = maxX;
+          velocity.x = -Math.abs(velocity.x);
+        } else if (position.x < minX) {
+          position.x = minX;
+          velocity.x = Math.abs(velocity.x);
+        }
+
+        if (position.y > maxY) {
+          position.y = maxY;
+          velocity.y = -Math.abs(velocity.y);
+        } else if (position.y < minY) {
+          position.y = minY;
+          velocity.y = Math.abs(velocity.y);
+        }
+
+        // Update direction for flipping the image
+        direction = velocity.x >= 0 ? 1 : -1;
+
+        billWandering.style.left = position.x + 'px';
+        billWandering.style.top = position.y + 'px';
+
+        if (direction === 1) {
+          billWandering.classList.add('swim-right');
+          billWandering.classList.remove('swim-left');
+        } else {
+          billWandering.classList.add('swim-left');
+          billWandering.classList.remove('swim-right');
+        }
+
+        // Periodically show prompts pointing at cards (approx every promptInterval ms)
+        if (timestamp - lastPromptTime > promptInterval) {
+          showPromptNearRandomCard();
+          lastPromptTime = timestamp;
+        }
 
         requestAnimationFrame(animateFish);
       }
 
-      function showBillSpeech() {
-        const quote = billQuotes[Math.floor(Math.random() * billQuotes.length)];
-        billSpeechBubble.textContent = quote;
+      // Show speech bubble with message near fish
+      function showSpeechBubble(text) {
+        billSpeechBubble.textContent = text;
 
         const billRect = billWandering.getBoundingClientRect();
-        billSpeechBubble.style.left = billRect.left - 100 + 'px';
-        billSpeechBubble.style.top = billRect.top - 60 + 'px';
+
+        // Position bubble above and a bit left or right depending on direction
+        let bubbleX = billRect.left + (direction === 1 ? 20 : -20);
+        // Clamp bubble inside viewport horizontally
+        bubbleX = clamp(bubbleX, 10, window.innerWidth - billSpeechBubble.offsetWidth - 10);
+
+        let bubbleY = billRect.top - billSpeechBubble.offsetHeight - 15;
+        if (bubbleY < 10) bubbleY = billRect.bottom + 10; // place below if not enough space on top
+
+        billSpeechBubble.style.left = bubbleX + 'px';
+        billSpeechBubble.style.top = bubbleY + 'px';
         billSpeechBubble.classList.add('show');
 
-        setTimeout(() => {
+        // Hide bubble after 4.5 seconds
+        clearTimeout(billSpeechBubble.hideTimeout);
+        billSpeechBubble.hideTimeout = setTimeout(() => {
           billSpeechBubble.classList.remove('show');
-        }, 4000);
+        }, 4500);
       }
 
-      function pointAtCard() {
-        const cards = document.querySelectorAll('.grid-item, .project-card, .academic-card');
+      // Pick a random card and make fish swim near it, then show prompt telling user to click on cards
+      function showPromptNearRandomCard() {
+        const cards = Array.from(document.querySelectorAll('.grid-item, .project-card, .academic-card'));
         if (cards.length === 0) return;
 
+        // Random card
         const randomCard = cards[Math.floor(Math.random() * cards.length)];
+
         const cardRect = randomCard.getBoundingClientRect();
 
-        // Position Bill near the card with a little offset
-        billWandering.style.left = cardRect.left - 100 + 'px';
-        billWandering.style.top = cardRect.top + cardRect.height / 2 - 40 + 'px';
+        // Position fish near but not overlapping the card
+        // We'll position fish to the left or right randomly
+        const side = Math.random() < 0.5 ? 'left' : 'right';
 
-        billWandering.style.transform = direction === 1 ? 'scaleX(1)' : 'scaleX(-1)';
+        // Compute target position near card
+        let targetX, targetY;
+        if (side === 'left') {
+          targetX = cardRect.left - billWandering.offsetWidth - 15;
+          direction = -1;
+        } else {
+          targetX = cardRect.right + 15;
+          direction = 1;
+        }
+        targetY = cardRect.top + cardRect.height / 2 - billWandering.offsetHeight / 2;
 
-        billSpeechBubble.textContent = "CHECK THIS OUT! (Also, HELP ME!)";
-        billSpeechBubble.style.left = cardRect.left - 120 + 'px';
-        billSpeechBubble.style.top = cardRect.top - 60 + 'px';
-        billSpeechBubble.classList.add('show');
+        // Clamp target to visible area
+        const margin = 10;
+        targetX = clamp(targetX, margin, window.innerWidth - billWandering.offsetWidth - margin);
+        targetY = clamp(targetY, margin, window.innerHeight - billWandering.offsetHeight - margin);
 
+        // Move fish instantly near the card
+        position.x = targetX;
+        position.y = targetY;
+
+        billWandering.style.left = position.x + 'px';
+        billWandering.style.top = position.y + 'px';
+
+        if (direction === 1) {
+          billWandering.classList.add('swim-right');
+          billWandering.classList.remove('swim-left');
+        } else {
+          billWandering.classList.add('swim-left');
+          billWandering.classList.remove('swim-right');
+        }
+
+        // Highlight the card to draw attention
         const originalBorder = randomCard.style.border;
         const originalBoxShadow = randomCard.style.boxShadow;
 
         randomCard.style.border = '2px solid #ffff00';
-        randomCard.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.5)';
+        randomCard.style.boxShadow = '0 0 25px rgba(255, 255, 0, 0.7)';
 
+        // Show speech bubble with a custom prompt
+        showSpeechBubble("Hey! Click on the cards to explore!");
+
+        // Remove highlight after 4 seconds
         setTimeout(() => {
           randomCard.style.border = originalBorder;
           randomCard.style.boxShadow = originalBoxShadow;
-          billSpeechBubble.classList.remove('show');
-        }, 3000);
+        }, 4000);
+      }
+
+      function startFishSwimming() {
+        billWandering.style.display = 'block';
+        billCipherActive = true;
+
+        // Initialize position in viewport center horizontally left side
+        position = { x: 100, y: window.innerHeight / 2 };
+        velocity = getRandomVelocity();
+
+        // Set initial direction for flipping
+        direction = velocity.x >= 0 ? 1 : -1;
+        if (direction === 1) {
+          billWandering.classList.add('swim-right');
+          billWandering.classList.remove('swim-left');
+        } else {
+          billWandering.classList.add('swim-left');
+          billWandering.classList.remove('swim-right');
+        }
+
+        requestAnimationFrame(animateFish);
       }
 
       // Email consent reveal code
@@ -653,15 +793,7 @@
         emailPlaceholder2.style.display = 'none';
 
         if (billCipherActive) {
-          billSpeechBubble.textContent = "EMAILS REVEALED! Now help me escape this digital prison!";
-          const billRect = billWandering.getBoundingClientRect();
-          billSpeechBubble.style.left = billRect.left - 100 + 'px';
-          billSpeechBubble.style.top = billRect.top - 60 + 'px';
-          billSpeechBubble.classList.add('show');
-
-          setTimeout(() => {
-            billSpeechBubble.classList.remove('show');
-          }, 3000);
+          showSpeechBubble("Emails revealed! Thanks for being responsible.");
         }
       });
 
@@ -669,15 +801,7 @@
         emailConsentOverlay.style.display = 'none';
 
         if (billCipherActive) {
-          billSpeechBubble.textContent = "Smart choice! Don't trust that teenager with your data!";
-          const billRect = billWandering.getBoundingClientRect();
-          billSpeechBubble.style.left = billRect.left - 100 + 'px';
-          billSpeechBubble.style.top = billRect.top - 60 + 'px';
-          billSpeechBubble.classList.add('show');
-
-          setTimeout(() => {
-            billSpeechBubble.classList.remove('show');
-          }, 3000);
+          showSpeechBubble("Smart choice! Respect is important.");
         }
       });
 
@@ -695,22 +819,18 @@
         }
       });
 
-      // Fix Bill position on window resize
+      // Fix Bill position on window resize to keep inside viewport
       window.addEventListener('resize', () => {
         if (!billCipherActive) return;
-        const maxX = window.innerWidth - billWandering.offsetWidth - 10;
-        const maxY = window.innerHeight - billWandering.offsetHeight - 10;
+        const margin = 20;
+        const maxX = window.innerWidth - billWandering.offsetWidth - margin;
+        const maxY = window.innerHeight - billWandering.offsetHeight - margin;
 
-        let left = parseFloat(billWandering.style.left) || 0;
-        let top = parseFloat(billWandering.style.top) || 100;
+        position.x = clamp(position.x, margin, maxX);
+        position.y = clamp(position.y, margin, maxY);
 
-        if (left > maxX) left = maxX;
-        if (top > maxY) top = maxY;
-        if (left < 0) left = 0;
-        if (top < 0) top = 0;
-
-        billWandering.style.left = left + 'px';
-        billWandering.style.top = top + 'px';
+        billWandering.style.left = position.x + 'px';
+        billWandering.style.top = position.y + 'px';
       });
     });
   </script>
