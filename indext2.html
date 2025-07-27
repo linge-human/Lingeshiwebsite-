@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linge Shi | Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="terminal-header">
+        <span>// Current User: linge-human</span>
+        <span>// Repository: Lingeshiwebsite-</span>
+        <span>// Last Updated: 2025-07-27 05:20:12 UTC</span>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#about">about.me</a>
+            <a href="#projects">projects.js</a>
+            <a href="#hobbies">hobbies.py</a>
+            <a href="#achievements">achievements.md</a>
+            <a href="#future">future.ts</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <div class="section-content">
+                <h2 class="section-title">/* About Me */</h2>
+                <div class="code-block">
+                    <span class="keyword">const</span> developer = {
+                    <br>&nbsp;&nbsp;name: <span class="string">"Linge (Lin) Shi"</span>,
+                    <br>&nbsp;&nbsp;currentSchool: <span class="string">"Box Hill High School"</span>,
+                    <br>&nbsp;&nbsp;location: <span class="string">"Australia"</span>,
+                    <br>&nbsp;&nbsp;interests: [<span class="string">"Science"</span>, <span class="string">"Engineering"</span>, <span class="string">"Problem Solving"</span>]
+                    <br>};
+                </div>
+                <p><span class="comment">// A brief introduction</span></p>
+                <p>Hello, I'm Linge Shi. I'm passionate about science, engineering, and solving complex problems. I use maths and science not just to study theories, but to test ideas and bring them to life through hands-on projects.</p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-content">
+                <h2 class="section-title">/* Projects & Experience */</h2>
+                <div class="code-block">
+                    <span class="keyword">class</span> Projects {
+                    <br>&nbsp;&nbsp;<span class="keyword">constructor</span>() {
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;this.current = [
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Monash Scholars Program"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Science Talent Search"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Satellite Project"</span>
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;];
+                    <br>&nbsp;&nbsp;}
+                    <br>}
+                </div>
+                
+                <!-- Project details with coding-style formatting -->
+                <div class="project-item">
+                    <h3><span class="keyword">function</span> MonashScholarsProgram() {</h3>
+                    <p class="project-description">
+                        &nbsp;&nbsp;<span class="comment">// One of my proudest achievements</span><br>
+                        &nbsp;&nbsp;return "Selected and welcomed into the Monash University community";
+                    </p>
+                    <p>}</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Similar styling for other sections -->
+        <section id="achievements">
+            <div class="section-content">
+                <h2 class="section-title">/* Achievements */</h2>
+                <div class="code-block">
+                    <span class="keyword">const</span> achievements = [
+                    <br>&nbsp;&nbsp;{
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;title: <span class="string">"NAPLAN Mathematics"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;result: <span class="string">"High Achiever"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;year: 2023
+                    <br>&nbsp;&nbsp;},
+                    <br>&nbsp;&nbsp;{
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;title: <span class="string">"Class Captain"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;duration: <span class="string">"2022/3/24 - 2022/7/1"</span>
+                    <br>&nbsp;&nbsp;}
+                    <br>];
+                </div>
+            </div>
+        </section>
+
+        <section id="future">
+            <div class="section-content">
+                <h2 class="section-title">/* Future Plans */</h2>
+                <div class="code-block">
+                    <span class="keyword">async function</span> careerGoals() {
+                    <br>&nbsp;&nbsp;<span class="keyword">return</span> [
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Forensic Pathologist"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Aerospace Engineer"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Genetic Engineer"</span>,
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Cardiovascular Surgeon"</span>
+                    <br>&nbsp;&nbsp;];
+                    <br>}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add line numbers to sections
+        document.querySelectorAll('section').forEach((section, index) => {
+            const lineCount = section.offsetHeight / 24; // Approximate lines based on height
+            const numbers = Array.from({length: Math.floor(lineCount)}, (_, i) => i + 1);
+            section.style.setProperty('--line-numbers', `"${numbers.join('\n')}"`);
+        });
+    </script>
+</body>
+</html>
