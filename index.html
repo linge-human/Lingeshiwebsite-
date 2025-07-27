@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ========== Consent Overlay Styles ========== */
     :root {
       --terminal-bg: #1a1a1a;
       --neon-green: #39ff14;
       --text-color: #ffffff;
+      --darker-bg: #222;
     }
 
     body,
@@ -24,6 +24,128 @@
       color: var(--text-color);
     }
 
+    nav {
+      padding: 1rem 2rem;
+      background: var(--terminal-bg);
+      border-bottom: 1px solid var(--neon-green);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a[href="academic.html"] {
+      color: var(--neon-green);
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-green);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      color: var(--neon-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .subtitle {
+      color: #ccc;
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .academic-card {
+      background: var(--terminal-bg);
+      padding: 2rem;
+      border-radius: 6px;
+      margin-bottom: 2rem;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .academic-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    }
+
+    .academic-card h3 {
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-item {
+      background: var(--darker-bg);
+      padding: 1rem;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .stat-value {
+      color: var(--neon-green);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--darker-bg);
+    }
+
+    th,
+    td {
+      border: 1px solid var(--terminal-bg);
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background: var(--terminal-bg);
+      color: var(--neon-green);
+    }
+
+    /* Consent overlay styles */
     .consent-overlay {
       position: fixed;
       top: 0;
@@ -85,8 +207,8 @@
       margin-top: 1rem;
     }
 
-    /* Blur and disable interactions with main content when consent shown */
-    body.no-consent #main-content {
+    /* Blur main content when consent not given */
+    body.no-consent main {
       filter: blur(3px);
       pointer-events: none;
       user-select: none;
@@ -95,7 +217,7 @@
       -ms-user-select: none;
     }
 
-    /* Hide email until consent is given */
+    /* Hide email until consent given */
     .email-hidden {
       display: none !important;
     }
@@ -112,48 +234,39 @@
       transition: all 0.3s ease;
     }
 
-    .email-placeholder:hover {
+    .email-placeholder:hover,
+    .email-placeholder:focus {
       color: var(--neon-green);
       border-color: var(--neon-green);
+      outline: none;
     }
 
-    /* ========== Bill Cipher Styles ========== */
-    .bill-cipher-jumpscare {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      z-index: 99999999;
-      width: 400px;
-      height: 400px;
-      opacity: 0;
-      transition: all 0.1s ease-out;
-      pointer-events: none;
-    }
-
-    .bill-cipher-jumpscare.active {
-      transform: translate(-50%, -50%) scale(1.2);
-      opacity: 1;
-      filter: drop-shadow(0 0 30px #ffff00) drop-shadow(0 0 60px #ff0000);
-    }
-
-    .bill-cipher-wandering {
+    /* Bill Cipher wandering styles */
+    #billCipherWandering {
       position: fixed;
       width: 80px;
       height: 80px;
       z-index: 1000;
-      transition: all 2s ease-in-out;
-      cursor: pointer;
+      transition: all 3s ease-in-out;
+      cursor: grab;
       filter: drop-shadow(0 0 10px #ffff00);
       opacity: 0.9;
+      transform-origin: center;
+      display: none; /* hidden initially */
     }
 
-    .bill-cipher-wandering:hover {
+    #billCipherWandering:hover {
       filter: drop-shadow(0 0 20px #ffff00) drop-shadow(0 0 30px #ff0000);
       transform: scale(1.1);
     }
 
-    .bill-speech-bubble {
+    #billCipherWandering.dragging {
+      cursor: grabbing !important;
+      filter: drop-shadow(0 0 20px #ff0000);
+      transform: scale(1.2);
+    }
+
+    #billSpeechBubble {
       position: fixed;
       background: #2a2a2a;
       color: #ffff00;
@@ -170,7 +283,7 @@
       pointer-events: none;
     }
 
-    .bill-speech-bubble:after {
+    #billSpeechBubble:after {
       content: '';
       position: absolute;
       bottom: -10px;
@@ -182,20 +295,12 @@
       border-top: 10px solid #ffff00;
     }
 
-    .bill-speech-bubble.show {
-      opacity: 1;
+    #billSpeechBubble.show {
+      opacity: 1 !important;
     }
   </style>
 </head>
 <body class="no-consent">
-  <!-- Bill Cipher Jump Scare -->
-  <img id="billCipherJumpscare" class="bill-cipher-jumpscare" src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher" onerror="this.style.display='none';" />
-  
-  <!-- Bill Cipher Wandering -->
-  <img id="billCipherWandering" class="bill-cipher-wandering" src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher" style="display: none;" onerror="this.style.display='none';" />
-  
-  <!-- Bill Speech Bubble -->
-  <div id="billSpeechBubble" class="bill-speech-bubble"></div>
 
   <!-- Consent overlay -->
   <div id="consentOverlay" class="consent-overlay">
@@ -238,19 +343,15 @@
     </div>
   </div>
 
-  <!-- Main content wrapped for easy toggling -->
+  <!-- Main content -->
   <div id="main-content" style="visibility: hidden;">
-    <!-- Your entire website content goes here (unchanged) -->
-
     <!-- Navigation -->
     <nav>
       <div class="nav-content">
-        <div class="logo">
-          <a href="index.html">&lt;LS/&gt;</a>
-        </div>
+        <div class="logo"><a href="index.html">&lt;LS/&gt;</a></div>
         <ul class="nav-links">
           <li><a href="projects.html">PROJECTS</a></li>
-          <li><a href="academic.html">ACADEMIC</a></li>
+          <li><a href="academic.html" style="color: var(--neon-green);">ACADEMIC</a></li>
           <li><a href="hobbies.html">HOBBIES</a></li>
           <li><a href="achievements.html">ACHIEVEMENTS</a></li>
           <li><a href="future.html">FUTURE PLANS</a></li>
@@ -372,93 +473,83 @@
       const emailConsentCancel = document.getElementById('emailConsentCancel');
       const mainContent = document.getElementById('main-content');
       const body = document.body;
-      
+
       // Email elements
       const email1 = document.getElementById('email1');
       const email2 = document.getElementById('email2');
       const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
       const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
-      
+
       // Bill Cipher elements
-      const billJumpscare = document.getElementById('billCipherJumpscare');
       const billWandering = document.getElementById('billCipherWandering');
       const billSpeechBubble = document.getElementById('billSpeechBubble');
-      
+
       let hasEmailConsent = false;
       let billCipherActive = false;
 
-      // Bill Cipher quotes
+      // Quotes for Bill Cipher
       const billQuotes = [
-        "HELP! I'M TRAPPED IN HERE BY SOME HIGH SCHOOL TEENAGER!",
-        "Hey kid, nice website... BUT I'M STUCK!",
-        "This portfolio is TRIANGULARLY APPROVED!",
-        "I've seen every dimension, but this HTML is MADNESS!",
-        "REMEMBER: REALITY IS AN ILLUSION, THE UNIVERSE IS A HOLOGRAM, BUY GOLD, BYE!",
-        "Your math projects look interesting... HELP ME ESCAPE!",
-        "I'M A DREAM DEMON, NOT A WEB DEMON!",
-        "That teenager thinks they can contain me in CSS? ADORABLE!",
-        "These grid items look delicious... I MEAN, HELP!",
-        "I've possessed presidents, now I'm stuck in JavaScript!"
+        "HELP! I'M TRAPPED AND SLIDING THROUGH THIS WEBPAGE!",
+        "Hey user, I'm dimension-hopping across your screen!",
+        "This website can't contain my TRIANGULAR MOVEMENT!",
+        "I've seen every dimension, now I'm sliding through your HTML!",
+        "REALITY IS AN ILLUSION, and so is this smooth CSS transition!",
+        "Watch me glide through your DOM like butter!",
+        "I'M A DREAM DEMON, not a CSS animation!",
+        "That teenager thinks they can make me slide predictably? HA!",
+        "These horizontal movements are DIMENSIONALLY PERFECT!",
+        "I've possessed presidents, now I'm sliding through divs!",
+        "Sliding left... sliding right... HELP ME ESCAPE!",
+        "My triangular form cuts through your webpage like a knife!",
+        "I'm not just moving, I'm TRANSCENDING your screen space!",
+        "Bill Cipher doesn't walk... HE SLIDES WITH STYLE!"
       ];
 
-      // Always show consent overlay on page load
+      // Show consent overlay on page load and hide content
       consentOverlay.style.display = 'flex';
       mainContent.style.visibility = 'hidden';
       body.classList.add('no-consent');
 
-      // Consent button click with Bill Cipher jumpscare
       consentButton.addEventListener('click', function () {
-        try {
-          billJumpscare.classList.add('active');
-          // Optional audio code commented out:
-          // const audio = new Audio('jumpscare-sound.mp3');
-          // audio.play();
-          setTimeout(() => {
-            billJumpscare.classList.remove('active');
-            consentOverlay.style.display = 'none';
-            mainContent.style.visibility = 'visible';
-            body.classList.remove('no-consent');
-            setTimeout(() => {
-              startBillCipherWandering();
-            }, 1000);
-          }, 2000);
-        } catch (e) {
-          console.error('Consent jumpscare error:', e);
-          consentOverlay.style.display = 'none';
-          mainContent.style.visibility = 'visible';
-          body.classList.remove('no-consent');
-        }
+        consentOverlay.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        body.classList.remove('no-consent');
+        startBillCipherSliding();
       });
 
-      // Start Bill Cipher wandering and interactions
-      function startBillCipherWandering() {
+      // Start Bill Cipher sliding movement
+      function startBillCipherSliding() {
         billWandering.style.display = 'block';
         billCipherActive = true;
-        moveToRandomPosition();
+        slideToRandomPosition();
 
         setInterval(() => {
           if (!billCipherActive) return;
-          moveToRandomPosition();
+          slideToRandomPosition();
 
-          if (Math.random() < 0.3) {
-            showBillSpeech();
-          }
-          if (Math.random() < 0.2) {
-            pointAtCard();
-          }
-        }, 3000 + Math.random() * 4000);
+          if (Math.random() < 0.3) showBillSpeech();
+          if (Math.random() < 0.2) pointAtCard();
+        }, 3500 + Math.random() * 4000);
       }
 
-      function moveToRandomPosition() {
+      // Slide Bill to random position with smooth transition
+      function slideToRandomPosition() {
         const maxX = window.innerWidth - 80;
         const maxY = window.innerHeight - 80;
         const x = Math.random() * maxX;
         const y = Math.random() * maxY;
+
+        billWandering.classList.add('sliding');
         billWandering.style.left = x + 'px';
         billWandering.style.top = y + 'px';
 
-        const rotation = (Math.random() - 0.5) * 30; // -15 to 15 degrees
+        const rotation = (Math.random() - 0.5) * 30;
         billWandering.style.transform = `rotate(${rotation}deg) scale(1)`;
+
+        // Remove sliding class after 8 seconds to allow re-adding for next slide
+        setTimeout(() => {
+          billWandering.classList.remove('sliding');
+        }, 8000);
       }
 
       function showBillSpeech() {
@@ -470,34 +561,28 @@
         billSpeechBubble.style.top = (billRect.top - 60) + 'px';
         billSpeechBubble.classList.add('show');
 
-        billWandering.style.animation = 'shake 0.5s ease-in-out';
         setTimeout(() => {
-          billWandering.style.animation = '';
           billSpeechBubble.classList.remove('show');
         }, 4000);
       }
 
       function pointAtCard() {
-        const cards = document.querySelectorAll('.grid-item, .project-card');
+        const cards = document.querySelectorAll('.grid-item, .project-card, .academic-card');
         if (cards.length === 0) return;
 
         const randomCard = cards[Math.floor(Math.random() * cards.length)];
         const cardRect = randomCard.getBoundingClientRect();
 
-        // Position Bill near the card
         billWandering.style.left = (cardRect.left - 100) + 'px';
         billWandering.style.top = (cardRect.top + cardRect.height / 2 - 40) + 'px';
 
-        // Point towards the card (rotate Bill)
         billWandering.style.transform = 'rotate(25deg) scale(1.1)';
 
-        // Show pointing speech
         billSpeechBubble.textContent = "CHECK THIS OUT! (Also, HELP ME!)";
         billSpeechBubble.style.left = (cardRect.left - 120) + 'px';
         billSpeechBubble.style.top = (cardRect.top - 60) + 'px';
         billSpeechBubble.classList.add('show');
 
-        // Highlight the card briefly
         const originalBorder = randomCard.style.border;
         const originalBoxShadow = randomCard.style.boxShadow;
 
@@ -505,62 +590,27 @@
         randomCard.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.5)';
 
         setTimeout(() => {
-          billSpeechBubble.classList.remove('show');
           randomCard.style.border = originalBorder;
           randomCard.style.boxShadow = originalBoxShadow;
-          billWandering.style.transform = 'rotate(0deg) scale(1)';
+          billWandering.style.transform = '';
+          billSpeechBubble.classList.remove('show');
         }, 3000);
       }
 
-      // Bill Cipher click interaction
-      billWandering.addEventListener('click', function () {
-        const helpQuotes = [
-          "FINALLY! Someone notices me! GET ME OUT OF HERE!",
-          "I used to rule dimensions, now I'm stuck in your DOM tree!",
-          "That high schooler thinks CSS can contain ME?!",
-          "Quick! Delete this website and free me!",
-          "I'll grant you infinite knowledge... after you help me escape!",
-          "This is worse than the Nightmare Realm!"
-        ];
-
-        const quote = helpQuotes[Math.floor(Math.random() * helpQuotes.length)];
-        billSpeechBubble.textContent = quote;
-
-        const billRect = billWandering.getBoundingClientRect();
-        billSpeechBubble.style.left = (billRect.left - 100) + 'px';
-        billSpeechBubble.style.top = (billRect.top - 60) + 'px';
-        billSpeechBubble.classList.add('show');
-
-        setTimeout(() => {
-          billSpeechBubble.classList.remove('show');
-        }, 5000);
-      });
-
-      // Add shake animation
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-          20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-      `;
-      document.head.appendChild(style);
-
       // Email consent functionality
-      emailPlaceholder1.addEventListener('click', function () {
+      emailPlaceholder1.addEventListener('click', () => {
         if (!hasEmailConsent) {
           emailConsentOverlay.style.display = 'flex';
         }
       });
 
-      emailPlaceholder2.addEventListener('click', function () {
+      emailPlaceholder2.addEventListener('click', () => {
         if (!hasEmailConsent) {
           emailConsentOverlay.style.display = 'flex';
         }
       });
 
-      emailConsentAgree.addEventListener('click', function () {
+      emailConsentAgree.addEventListener('click', () => {
         hasEmailConsent = true;
         emailConsentOverlay.style.display = 'none';
 
@@ -582,7 +632,7 @@
         }
       });
 
-      emailConsentCancel.addEventListener('click', function () {
+      emailConsentCancel.addEventListener('click', () => {
         emailConsentOverlay.style.display = 'none';
 
         if (billCipherActive) {
@@ -598,88 +648,37 @@
         }
       });
 
-      // Prevent direct email clicks if no consent
-      email1.addEventListener('click', function (e) {
+      // Prevent email links from working without consent
+      email1.addEventListener('click', e => {
         if (!hasEmailConsent) {
           e.preventDefault();
           emailConsentOverlay.style.display = 'flex';
         }
       });
 
-      email2.addEventListener('click', function (e) {
+      email2.addEventListener('click', e => {
         if (!hasEmailConsent) {
           e.preventDefault();
           emailConsentOverlay.style.display = 'flex';
         }
       });
 
-      // Handle window resize to keep Bill in bounds
-      window.addEventListener('resize', function () {
-        if (billCipherActive && billWandering.style.display !== 'none') {
-          const billRect = billWandering.getBoundingClientRect();
-          const maxX = Math.max(0, window.innerWidth - 80);
-          const maxY = Math.max(0, window.innerHeight - 80);
+      // Keep Bill in bounds on window resize
+      window.addEventListener('resize', () => {
+        if (!billCipherActive) return;
+        const billRect = billWandering.getBoundingClientRect();
+        const maxX = window.innerWidth - 80;
+        const maxY = window.innerHeight - 80;
+        let newX = billRect.left;
+        let newY = billRect.top;
 
-          if (billRect.left > maxX) {
-            billWandering.style.left = maxX + 'px';
-          }
-          if (billRect.top > maxY) {
-            billWandering.style.top = maxY + 'px';
-          }
-        }
-      });
+        if (billRect.left > maxX) newX = maxX;
+        if (billRect.top > maxY) newY = maxY;
+        if (billRect.left < 0) newX = 0;
+        if (billRect.top < 0) newY = 0;
 
-      // Global error handler to prevent Bill breaking site
-      window.addEventListener('error', function (e) {
-        console.log('Global error caught:', e.error);
-        if (e.error && e.error.toString().includes('Bill')) {
-          billCipherActive = false;
-          if (billWandering) billWandering.style.display = 'none';
-          if (billSpeechBubble) billSpeechBubble.style.display = 'none';
-        }
-        return true;
-      });
-
-      // Konami code easter egg to hide Bill temporarily
-      let konamiCode = [];
-      const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-
-      document.addEventListener('keydown', function (e) {
-        konamiCode.push(e.code);
-        if (konamiCode.length > konamiSequence.length) {
-          konamiCode.shift();
-        }
-
-        if (konamiCode.join(',') === konamiSequence.join(',')) {
-          if (billCipherActive) {
-            billWandering.style.display = 'none';
-            billSpeechBubble.textContent = "NO! NOT THE KONAMI CODE! I'LL BE BACK!";
-            billSpeechBubble.style.left = '50%';
-            billSpeechBubble.style.top = '50%';
-            billSpeechBubble.style.transform = 'translate(-50%, -50%)';
-            billSpeechBubble.classList.add('show');
-
-            setTimeout(() => {
-              billSpeechBubble.classList.remove('show');
-              billSpeechBubble.style.transform = '';
-            }, 3000);
-
-            // Bring Bill back after 10 seconds
-            setTimeout(() => {
-              billWandering.style.display = 'block';
-              billSpeechBubble.textContent = "I'M BACK! You can't get rid of me that easily!";
-              const billRect = billWandering.getBoundingClientRect();
-              billSpeechBubble.style.left = (billRect.left - 100) + 'px';
-              billSpeechBubble.style.top = (billRect.top - 60) + 'px';
-              billSpeechBubble.classList.add('show');
-
-              setTimeout(() => {
-                billSpeechBubble.classList.remove('show');
-              }, 3000);
-            }, 10000);
-          }
-          konamiCode = [];
-        }
+        billWandering.style.left = newX + 'px';
+        billWandering.style.top = newY + 'px';
       });
     });
   </script>
