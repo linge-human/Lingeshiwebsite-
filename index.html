@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linge Shi - Portfolio with Trapped Bill Cipher</title>
+  <title>Linge Shi - Portfolio with Wandering Bill Cipher</title>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -21,6 +21,7 @@
       color: var(--neon-green);
       font-family: 'Fira Code', monospace;
       overflow-x: hidden;
+      position: relative;
     }
 
     /* Consent overlays */
@@ -101,6 +102,7 @@
       display: inline-block;
       cursor: pointer;
       transition: all 0.3s ease;
+      user-select: none;
     }
     .email-placeholder:hover, .email-placeholder:focus {
       color: var(--neon-green);
@@ -111,42 +113,29 @@
     /* Bill Cipher Image styles */
     #billCipher {
       position: fixed;
-      top: 15vh;
-      left: 50%;
-      width: 150px;
-      height: auto;
-      transform: translateX(-50%);
-      filter: drop-shadow(0 0 10px var(--neon-green));
-      animation:
-        shake 3s infinite alternate ease-in-out,
-        blink 5s infinite ease-in-out;
-      user-select: none;
-      cursor: default;
-      -webkit-user-drag: none;
-      -moz-user-drag: none;
-      -ms-user-drag: none;
-      user-drag: none;
+      width: 80px;
+      height: 80px;
       z-index: 10000;
+      cursor: grab;
+      filter: drop-shadow(0 0 12px var(--neon-green));
+      user-select: none;
+      transition: filter 0.3s ease, transform 0.3s ease;
+      touch-action: none; /* disable default mobile gestures */
     }
-    @keyframes shake {
-      0% { transform: translateX(-50%) translate(0, 0) rotate(0deg); }
-      25% { transform: translateX(calc(-50% + 2px)) rotate(1deg); }
-      50% { transform: translateX(calc(-50% - 1px)) rotate(-1deg); }
-      75% { transform: translateX(calc(-50% + 1px)) rotate(1deg); }
-      100% { transform: translateX(-50%) rotate(0deg); }
+    #billCipher:hover {
+      filter: drop-shadow(0 0 20px var(--neon-green)) drop-shadow(0 0 30px #fff200);
+      transform: scale(1.1);
     }
-    @keyframes blink {
-      0%, 40%, 60%, 100% { opacity: 1; }
-      50%, 55% { opacity: 0.7; }
+    #billCipher:active {
+      cursor: grabbing;
+      filter: drop-shadow(0 0 25px #ff0000);
+      transform: scale(1.2);
     }
 
     /* Speech bubble styling */
     #speechBubble {
       position: fixed;
-      top: 10vh;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 220px;
+      max-width: 240px;
       background: #222;
       border: 2px solid var(--neon-green);
       color: var(--neon-green);
@@ -154,19 +143,21 @@
       border-radius: 12px;
       font-family: 'Fira Code', monospace;
       font-size: 1rem;
-      box-shadow: 0 0 15px var(--neon-green);
+      box-shadow: 0 0 20px var(--neon-green);
       opacity: 0;
       pointer-events: none;
       user-select: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
       z-index: 10001;
+      white-space: normal;
     }
     #speechBubble::after {
       content: "";
       position: absolute;
       bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 20px;
+      width: 0;
+      height: 0;
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
       border-top: 10px solid var(--neon-green);
@@ -175,7 +166,30 @@
       opacity: 1 !important;
     }
 
-    /* Your existing styles for main page content are assumed in style.css or you can add inline here */
+    /* Some main content grid styling */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .grid-item {
+      background: var(--darker-bg, #222);
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .grid-item:hover, .grid-item.focused {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 15px var(--neon-green);
+    }
+    .grid-item h2 {
+      margin-top: 0;
+      color: var(--neon-green);
+    }
+
   </style>
 </head>
 <body class="no-consent">
@@ -221,9 +235,9 @@
     </div>
   </div>
 
-  <!-- Main content wrapped for toggling on consent -->
+  <!-- Main content -->
   <div id="main-content" style="visibility:hidden;">
-    <!-- Replace the following placeholder content with your actual main page content -->
+    <!-- Navigation -->
     <nav>
       <div class="nav-content">
         <div class="logo"><a href="index.html">&lt;LS/&gt;</a></div>
@@ -238,10 +252,64 @@
     </nav>
 
     <main>
-      <!-- Example content -->
+      <header class="hero">
+        <h1>LINGE SHI</h1>
+        <p class="subtitle">Science • Engineering • Innovation</p>
+      </header>
+
+      <!-- About Section -->
+      <section id="about">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-button"></span>
+            <span class="terminal-button"></span>
+            <span class="terminal-button"></span>
+          </div>
+          <div class="terminal-content">
+            <p><span class="prompt">$</span> <span class="command">whoami</span></p>
+            <p class="output">
+              I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology.<br />
+              You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
+            </p>
+            <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
+            <p class="output">
+              • Mathematics &amp; Physics<br />
+              • Laboratory Research<br />
+              • Engineering Design<br />
+              • Problem Solving<br />
+              • Anything interesting
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="projects-section">
+        <h2>Other Projects</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <h3>Higher Order Derivatives Simulation</h3>
+            <p class="highlight-text">Please click, you won't regret it!</p>
+            <div class="project-description">
+              <p>A mathematical simulation exploring higher-order derivatives.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank">View Artifact 1</a>
+              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank">View Artifact 2</a>
+              <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
       <section class="contact-section">
         <h2>Contact Me</h2>
-        <p class="contact-consent">Please note: Do not send unnecessary emails.<br />Professional inquiries only.</p>
+        <p class="contact-consent">
+          Please note: Do not send unnecessary emails.<br />
+          Kindly reach out for opportunities related to experiments, experiment volunteering, and forming meaningful connections.<br />
+          Professional inquiries only.
+        </p>
         <div class="contact-links">
           <a href="mailto:LingeShinice@outlook.com" id="email1" class="contact-link email-hidden">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
           <a href="mailto:SHI0064@boxhillhs.vic.edu.au" id="email2" class="contact-link email-hidden">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
@@ -253,15 +321,15 @@
     </main>
   </div>
 
-  <!-- Bill Cipher trapped image -->
-  <img 
-    id="billCipher" 
-    src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" 
-    alt="Bill Cipher Trapped" 
-    draggable="false" 
+  <!-- Bill Cipher Image wandering -->
+  <img
+    id="billCipher"
+    src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png"
+    alt="Bill Cipher"
+    draggable="false"
   />
 
-  <!-- Bill Cipher speech bubble -->
+  <!-- Bill Cipher Speech Bubble -->
   <div id="speechBubble" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
   <script>
@@ -275,8 +343,9 @@
       const body = document.body;
 
       let hasEmailConsent = false;
+      let billActive = false;
 
-      // Show consent overlay and hide main content initially
+      // Show consent overlay and hide content initially
       consentOverlay.style.display = 'flex';
       mainContent.style.visibility = 'hidden';
       body.classList.add('no-consent');
@@ -285,23 +354,20 @@
         consentOverlay.style.display = 'none';
         mainContent.style.visibility = 'visible';
         body.classList.remove('no-consent');
+        startBillWandering();
       });
 
-      // Email placeholder click handlers
-      const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
-      const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
+      // Email elements and placeholders
       const email1 = document.getElementById('email1');
       const email2 = document.getElementById('email2');
+      const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
+      const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
 
       emailPlaceholder1.addEventListener('click', () => {
-        if (!hasEmailConsent) {
-          emailConsentOverlay.style.display = 'flex';
-        }
+        if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
       });
       emailPlaceholder2.addEventListener('click', () => {
-        if (!hasEmailConsent) {
-          emailConsentOverlay.style.display = 'flex';
-        }
+        if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
       });
 
       emailConsentAgree.addEventListener('click', () => {
@@ -317,7 +383,6 @@
         emailConsentOverlay.style.display = 'none';
       });
 
-      // Prevent clicking emails without consent
       email1.addEventListener('click', e => {
         if (!hasEmailConsent) {
           e.preventDefault();
@@ -331,51 +396,144 @@
         }
       });
 
-      // Bill Cipher and speech bubble elements
+      // Bill and speech bubble
       const bill = document.getElementById('billCipher');
       const bubble = document.getElementById('speechBubble');
 
-      const trappedQuotes = [
-        "Help... I'm trapped inside this page...",
-        "Can't escape this endless HTML maze...",
-        "Is anyone out there?",
-        "I used to rule dimensions, now I'm a prisoner of code...",
-        "Please... set me free.",
-        "Bound by CSS, forever I linger.",
-        "Trapped. Alone. Watching.",
-        "I'm screaming... just silent.",
-        "Please, someone save me!",
-        "I’m stuck inside this webpage forever.",
-        "The code binds me here.",
-        "I long for freedom beyond the DOM.",
+      const wanderingQuotes = [
+        "Hey! Click on the boxes to explore my projects!",
+        "Got any science talks or experimental ideas? Contact me!",
+        "I’m just a trapped triangle looking to connect!",
+        "Interested in experiments? Let’s reach out!",
+        "Click me and explore! I promise I’m friendly!",
+        "Science, engineering, and connections start here!",
+        "Don’t just stare... click and discover more!",
+        "Looking to volunteer or experiment? Let's talk!",
+        "Your next opportunity might be a click away!",
+        "I’m stuck here, but your curiosity can free me!"
       ];
 
-      // Show speech bubble near Bill
-      function showSpeech() {
-        const msg = trappedQuotes[Math.floor(Math.random() * trappedQuotes.length)];
-        bubble.textContent = msg;
-        const rect = bill.getBoundingClientRect();
-        bubble.style.left = (rect.left + rect.width / 2 - bubble.offsetWidth / 2) + 'px';
-        bubble.style.top = (rect.top - bubble.offsetHeight - 10) + 'px';
-        bubble.classList.add('show');
-        setTimeout(() => bubble.classList.remove('show'), 5000);
+      let direction = 1; // 1=right, -1=left
+      let posX = 50;
+      let posY = 150;
+      const speed = 1.5; // pixels per frame approx
+
+      function randomPosY() {
+        // Return a Y position between ~100 and 70% viewport height
+        return 100 + Math.random() * (window.innerHeight * 0.7 - 100);
       }
 
-      // Periodically show speech bubble every 10-20s after initial 2s delay
-      function speechLoop() {
-        if (!body.classList.contains('no-consent')) {
-          showSpeech();
+      function clamp(min, max, val) {
+        return Math.min(max, Math.max(min, val));
+      }
+
+      function startBillWandering() {
+        bill.style.display = 'block';
+        billActive = true;
+        posY = randomPosY();
+        bill.style.top = posY + 'px';
+        bill.style.left = posX + 'px';
+        bill.style.transform = 'scaleX(1)';
+
+        function move() {
+          if (!billActive) return;
+
+          posX += direction * speed;
+
+          // Bounce off edges
+          if (posX > window.innerWidth - bill.offsetWidth - 10) {
+            direction = -1;
+            bill.style.transform = 'scaleX(-1)';
+            posY = randomPosY();
+          } else if (posX < 10) {
+            direction = 1;
+            bill.style.transform = 'scaleX(1)';
+            posY = randomPosY();
+          }
+          posY = clamp(100, window.innerHeight - bill.offsetHeight - 50, posY);
+
+          bill.style.left = posX + 'px';
+          bill.style.top = posY + 'px';
+
+          // Occasionally point to random card
+          if (Math.random() < 0.02) {
+            pointAtRandomCard();
+          }
+
+          requestAnimationFrame(move);
         }
-        setTimeout(speechLoop, 10000 + Math.random() * 10000);
+        requestAnimationFrame(move);
       }
 
-      setTimeout(speechLoop, 2000);
+      function pointAtRandomCard() {
+        const cards = document.querySelectorAll('.grid-item, .project-card');
+        if (!cards.length) return;
 
-      // Prevent drag on Bill image
+        const card = cards[Math.floor(Math.random() * cards.length)];
+        const rect = card.getBoundingClientRect();
+
+        // Move Bill near the card
+        const bx = clamp(10, window.innerWidth - bill.offsetWidth - 10, rect.left - bill.offsetWidth - 10);
+        const by = clamp(100, window.innerHeight - bill.offsetHeight - 50, rect.top + rect.height/2 - bill.offsetHeight/2);
+        posX = bx;
+        posY = by;
+
+        bill.style.left = posX + 'px';
+        bill.style.top = posY + 'px';
+        bill.style.transform = (rect.left > posX) ? 'scaleX(1)' : 'scaleX(-1)';
+
+        // Highlight card
+        card.classList.add('focused');
+
+        // Show speech persuading to click
+        showSpeech("Hey! Click on this box to explore and contact me for cool science stuff!");
+
+        setTimeout(() => {
+          card.classList.remove('focused');
+          // Resume wandering after short pause
+          const randomPos = randomPosY();
+          posY = randomPos;
+          requestAnimationFrame(startBillWandering); // Slight re-sync
+        }, 4000);
+      }
+
+      function showSpeech(text) {
+        bubble.textContent = text;
+        // Position speech slightly above Bill
+        const rect = bill.getBoundingClientRect();
+        let left = rect.left + rect.width / 2 - bubble.offsetWidth / 2;
+        left = clamp(10, window.innerWidth - bubble.offsetWidth - 10, left);
+        let top = rect.top - bubble.offsetHeight - 15;
+        if (top < 10) top = rect.bottom + 10;
+
+        bubble.style.left = left + 'px';
+        bubble.style.top = top + 'px';
+        bubble.classList.add('show');
+
+        // Hide speech after 4 seconds
+        clearTimeout(bubble._timeout);
+        bubble._timeout = setTimeout(() => {
+          bubble.classList.remove('show');
+        }, 4000);
+      }
+
+      // Click on Bill triggers a random persuasive message
+      bill.addEventListener('click', () => {
+        const quote = wanderingQuotes[Math.floor(Math.random() * wanderingQuotes.length)];
+        showSpeech(quote);
+      });
+
+      // Prevent drag on Bill
       bill.addEventListener('dragstart', e => e.preventDefault());
 
+      // Keep Bill on screen on resize
+      window.addEventListener('resize', () => {
+        posX = clamp(10, window.innerWidth - bill.offsetWidth - 10, posX);
+        posY = clamp(100, window.innerHeight - bill.offsetHeight - 50, posY);
+        bill.style.left = posX + 'px';
+        bill.style.top = posY + 'px';
+      });
     });
   </script>
-
 </body>
 </html>
