@@ -6,6 +6,70 @@
     <title>Linge Shi - Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+    .highlight-text {
+        color: var(--neon-green);
+        font-size: 0.9em;
+        margin-top: 0.5rem;
+        font-weight: 500;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.6; }
+        100% { opacity: 1; }
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .project-card {
+        background: var(--terminal-bg);
+        padding: 2rem;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    }
+
+    .project-card h3 {
+        color: var(--neon-green);
+        margin-bottom: 1rem;
+    }
+
+    .project-description {
+        margin: 1rem 0;
+    }
+
+    .project-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .project-link {
+        color: var(--neon-green);
+        text-decoration: none;
+        border: 1px solid var(--neon-green);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .project-link:hover {
+        background-color: var(--neon-green);
+        color: var(--terminal-bg);
+    }
+    </style>
 </head>
 <body>
     <nav>
@@ -22,13 +86,11 @@
             </ul>
         </div>
     </nav>
-
     <main>
         <header class="hero">
             <h1>LINGE SHI</h1>
             <p class="subtitle">Science • Engineering • Innovation</p>
         </header>
-
         <section id="about">
             <div class="terminal-window">
                 <div class="terminal-header">
@@ -44,40 +106,49 @@
                 </div>
             </div>
         </section>
-
         <div class="grid-container">
             <section class="grid-item" onclick="location.href='projects.html'">
                 <h2>PROJECTS</h2>
                 <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
                 <div class="explore-btn">&gt; Explore Projects</div>
             </section>
-
             <section class="grid-item" onclick="location.href='academic.html'">
                 <h2>ACADEMIC</h2>
                 <p>Mathematics, Science, Engineering achievements and pursuits...</p>
                 <div class="explore-btn">&gt; View Academic</div>
             </section>
-
             <section class="grid-item" onclick="location.href='hobbies.html'">
                 <h2>HOBBIES</h2>
                 <p>Piano, Sports, Traditional Dance, and other activities...</p>
                 <div class="explore-btn">&gt; See Hobbies</div>
             </section>
-
             <section class="grid-item" onclick="location.href='achievements.html'">
                 <h2>ACHIEVEMENTS</h2>
                 <p>Academic awards, leadership roles, and competition success...</p>
                 <div class="explore-btn">&gt; View Achievements</div>
             </section>
-
             <section class="grid-item" onclick="location.href='future.html'">
                 <h2>FUTURE PLANS</h2>
                 <p>Research goals, engineering aspirations, and long-term vision...</p>
                 <div class="explore-btn">&gt; See Future Plans</div>
             </section>
         </div>
+        <section class="projects-section">
+            <h2>OTHER PROJECTS</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Higher Order Derivatives Simulation</h3>
+                    <p class="highlight-text">Please check this out!</p>
+                    <div class="project-description">
+                        <p>A mathematical simulation exploring higher-order derivatives</p>
+                    </div>
+                    <div class="project-links">
+                        <a href="higher_order_derivatives_with_first.tsx" class="project-link">View Code</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-
     <footer>
         <p>&copy; 2025 Linge Shi • Built with 🚀</p>
     </footer>
