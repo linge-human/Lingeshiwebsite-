@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Linge Shi - Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
       --terminal-bg: #1a1a1a;
@@ -51,7 +54,7 @@
       transition: color 0.3s;
     }
 
-    .nav-links a[href="academic.html"] {
+    .nav-links a[href='academic.html'] {
       color: var(--neon-green);
     }
 
@@ -241,29 +244,28 @@
       outline: none;
     }
 
-    /* Bill Cipher wandering styles */
+    /* Bill Cipher styles */
     #billCipherWandering {
       position: fixed;
       width: 80px;
       height: 80px;
       z-index: 1000;
-      transition: all 3s ease-in-out;
       cursor: grab;
       filter: drop-shadow(0 0 10px #ffff00);
       opacity: 0.9;
       transform-origin: center;
-      display: none; /* hidden initially */
+      display: none; /* initially hidden */
+      top: 50px;
+      left: 0; /* start from left */
+      transition: none; /* will be managed by JS */
     }
 
-    #billCipherWandering:hover {
-      filter: drop-shadow(0 0 20px #ffff00) drop-shadow(0 0 30px #ff0000);
-      transform: scale(1.1);
+    /* Flipping horizontally when swimming/back */
+    #billCipherWandering.swim-right {
+      transform: scaleX(1);
     }
-
-    #billCipherWandering.dragging {
-      cursor: grabbing !important;
-      filter: drop-shadow(0 0 20px #ff0000);
-      transform: scale(1.2);
+    #billCipherWandering.swim-left {
+      transform: scaleX(-1);
     }
 
     #billSpeechBubble {
@@ -348,10 +350,12 @@
     <!-- Navigation -->
     <nav>
       <div class="nav-content">
-        <div class="logo"><a href="index.html">&lt;LS/&gt;</a></div>
+        <div class="logo">
+          <a href="index.html">&lt;LS/&gt;</a>
+        </div>
         <ul class="nav-links">
           <li><a href="projects.html">PROJECTS</a></li>
-          <li><a href="academic.html" style="color: var(--neon-green);">ACADEMIC</a></li>
+          <li><a href="academic.html">ACADEMIC</a></li>
           <li><a href="hobbies.html">HOBBIES</a></li>
           <li><a href="achievements.html">ACHIEVEMENTS</a></li>
           <li><a href="future.html">FUTURE PLANS</a></li>
@@ -451,7 +455,7 @@
           <!-- Email links that are hidden by default -->
           <a href="mailto:LingeShinice@outlook.com" class="contact-link email-hidden" id="email1">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
           <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
-          
+
           <!-- Email placeholders that show when emails are hidden -->
           <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email">📧 Click to reveal primary email (consent required)</div>
           <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email">📧 Click to reveal school email (consent required)</div>
@@ -463,6 +467,17 @@
       <p>&copy; 2025 Linge Shi • Built with 🚀</p>
     </footer>
   </div>
+
+  <!-- Bill Cipher Fish swimming image -->
+  <img
+    id="billCipherWandering"
+    src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png"
+    alt="Bill Cipher"
+    draggable="false"
+  />
+
+  <!-- Bill Cipher Speech Bubble -->
+  <div id="billSpeechBubble" class="bill-speech-bubble"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -487,25 +502,24 @@
       let hasEmailConsent = false;
       let billCipherActive = false;
 
-      // Quotes for Bill Cipher
       const billQuotes = [
-        "HELP! I'M TRAPPED AND SLIDING THROUGH THIS WEBPAGE!",
-        "Hey user, I'm dimension-hopping across your screen!",
-        "This website can't contain my TRIANGULAR MOVEMENT!",
-        "I've seen every dimension, now I'm sliding through your HTML!",
+        "HELP! I'M TRAPPED AND SWIMMING ACROSS THIS WEBPAGE!",
+        "Hey user, I'm gliding smoothly like a fish!",
+        "This website can't contain my TRIANGULAR SWIM!",
+        "I've seen every dimension, now I'm flowing through your HTML!",
         "REALITY IS AN ILLUSION, and so is this smooth CSS transition!",
-        "Watch me glide through your DOM like butter!",
+        "Watch me glide through your DOM like water!",
         "I'M A DREAM DEMON, not a CSS animation!",
-        "That teenager thinks they can make me slide predictably? HA!",
+        "That teenager thinks they can make me swim predictably? HA!",
         "These horizontal movements are DIMENSIONALLY PERFECT!",
-        "I've possessed presidents, now I'm sliding through divs!",
+        "I've possessed presidents, now I'm swimming through divs!",
         "Sliding left... sliding right... HELP ME ESCAPE!",
         "My triangular form cuts through your webpage like a knife!",
         "I'm not just moving, I'm TRANSCENDING your screen space!",
-        "Bill Cipher doesn't walk... HE SLIDES WITH STYLE!"
+        "Bill Cipher doesn't walk... HE SWIMS WITH STYLE!"
       ];
 
-      // Show consent overlay on page load and hide content
+      // Show consent overlay and hide main content initially
       consentOverlay.style.display = 'flex';
       mainContent.style.visibility = 'hidden';
       body.classList.add('no-consent');
@@ -514,42 +528,61 @@
         consentOverlay.style.display = 'none';
         mainContent.style.visibility = 'visible';
         body.classList.remove('no-consent');
-        startBillCipherSliding();
+        startFishSwimming();
       });
 
-      // Start Bill Cipher sliding movement
-      function startBillCipherSliding() {
+      function startFishSwimming() {
         billWandering.style.display = 'block';
         billCipherActive = true;
-        slideToRandomPosition();
 
-        setInterval(() => {
-          if (!billCipherActive) return;
-          slideToRandomPosition();
+        let direction = 1; // 1 = swim right, -1 = swim left
+        let positionX = 0;
+        const swimSpeed = 2; // pixels per frame approx
+        const floatingAmplitude = 20; // vertical floating amplitude
+        const floatingFrequency = 0.02; // how fast floats vertically
 
-          if (Math.random() < 0.3) showBillSpeech();
-          if (Math.random() < 0.2) pointAtCard();
-        }, 3500 + Math.random() * 4000);
-      }
+        let startTime = null;
 
-      // Slide Bill to random position with smooth transition
-      function slideToRandomPosition() {
-        const maxX = window.innerWidth - 80;
-        const maxY = window.innerHeight - 80;
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        function animateFish(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
 
-        billWandering.classList.add('sliding');
-        billWandering.style.left = x + 'px';
-        billWandering.style.top = y + 'px';
+          if (!billCipherActive) {
+            billWandering.style.display = 'none';
+            return; // stop animation if inactive
+          }
 
-        const rotation = (Math.random() - 0.5) * 30;
-        billWandering.style.transform = `rotate(${rotation}deg) scale(1)`;
+          // Update horizontal position
+          positionX += direction * swimSpeed;
 
-        // Remove sliding class after 8 seconds to allow re-adding for next slide
-        setTimeout(() => {
-          billWandering.classList.remove('sliding');
-        }, 8000);
+          // Change direction if hits screen edges with some margin
+          const maxX = window.innerWidth - billWandering.offsetWidth - 10;
+          if (positionX >= maxX) {
+            direction = -1;
+            // Flip horizontally to face left
+            billWandering.classList.remove('swim-right');
+            billWandering.classList.add('swim-left');
+          } else if (positionX <= 0) {
+            direction = 1;
+            billWandering.classList.remove('swim-left');
+            billWandering.classList.add('swim-right');
+          }
+
+          // Update vertical position with sine wave floating effect
+          const posY =
+            100 + floatingAmplitude * Math.sin(elapsed * floatingFrequency * 2 * Math.PI);
+
+          billWandering.style.left = positionX + 'px';
+          billWandering.style.top = posY + 'px';
+
+          // Schedule next frame
+          requestAnimationFrame(animateFish);
+        }
+
+        // Set initial orientation to right
+        billWandering.classList.add('swim-right');
+
+        requestAnimationFrame(animateFish);
       }
 
       function showBillSpeech() {
@@ -557,8 +590,8 @@
         billSpeechBubble.textContent = quote;
 
         const billRect = billWandering.getBoundingClientRect();
-        billSpeechBubble.style.left = (billRect.left - 100) + 'px';
-        billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+        billSpeechBubble.style.left = billRect.left - 100 + 'px';
+        billSpeechBubble.style.top = billRect.top - 60 + 'px';
         billSpeechBubble.classList.add('show');
 
         setTimeout(() => {
@@ -573,14 +606,15 @@
         const randomCard = cards[Math.floor(Math.random() * cards.length)];
         const cardRect = randomCard.getBoundingClientRect();
 
-        billWandering.style.left = (cardRect.left - 100) + 'px';
-        billWandering.style.top = (cardRect.top + cardRect.height / 2 - 40) + 'px';
+        // Position Bill near the card with a little offset
+        billWandering.style.left = cardRect.left - 100 + 'px';
+        billWandering.style.top = cardRect.top + cardRect.height / 2 - 40 + 'px';
 
-        billWandering.style.transform = 'rotate(25deg) scale(1.1)';
+        billWandering.style.transform = direction === 1 ? 'scaleX(1)' : 'scaleX(-1)';
 
         billSpeechBubble.textContent = "CHECK THIS OUT! (Also, HELP ME!)";
-        billSpeechBubble.style.left = (cardRect.left - 120) + 'px';
-        billSpeechBubble.style.top = (cardRect.top - 60) + 'px';
+        billSpeechBubble.style.left = cardRect.left - 120 + 'px';
+        billSpeechBubble.style.top = cardRect.top - 60 + 'px';
         billSpeechBubble.classList.add('show');
 
         const originalBorder = randomCard.style.border;
@@ -592,12 +626,11 @@
         setTimeout(() => {
           randomCard.style.border = originalBorder;
           randomCard.style.boxShadow = originalBoxShadow;
-          billWandering.style.transform = '';
           billSpeechBubble.classList.remove('show');
         }, 3000);
       }
 
-      // Email consent functionality
+      // Email consent reveal code
       emailPlaceholder1.addEventListener('click', () => {
         if (!hasEmailConsent) {
           emailConsentOverlay.style.display = 'flex';
@@ -622,8 +655,8 @@
         if (billCipherActive) {
           billSpeechBubble.textContent = "EMAILS REVEALED! Now help me escape this digital prison!";
           const billRect = billWandering.getBoundingClientRect();
-          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
-          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.style.left = billRect.left - 100 + 'px';
+          billSpeechBubble.style.top = billRect.top - 60 + 'px';
           billSpeechBubble.classList.add('show');
 
           setTimeout(() => {
@@ -638,8 +671,8 @@
         if (billCipherActive) {
           billSpeechBubble.textContent = "Smart choice! Don't trust that teenager with your data!";
           const billRect = billWandering.getBoundingClientRect();
-          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
-          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.style.left = billRect.left - 100 + 'px';
+          billSpeechBubble.style.top = billRect.top - 60 + 'px';
           billSpeechBubble.classList.add('show');
 
           setTimeout(() => {
@@ -648,37 +681,36 @@
         }
       });
 
-      // Prevent email links from working without consent
-      email1.addEventListener('click', e => {
+      // Prevent clicking emails without consent
+      email1.addEventListener('click', (e) => {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+      email2.addEventListener('click', (e) => {
         if (!hasEmailConsent) {
           e.preventDefault();
           emailConsentOverlay.style.display = 'flex';
         }
       });
 
-      email2.addEventListener('click', e => {
-        if (!hasEmailConsent) {
-          e.preventDefault();
-          emailConsentOverlay.style.display = 'flex';
-        }
-      });
-
-      // Keep Bill in bounds on window resize
+      // Fix Bill position on window resize
       window.addEventListener('resize', () => {
         if (!billCipherActive) return;
-        const billRect = billWandering.getBoundingClientRect();
-        const maxX = window.innerWidth - 80;
-        const maxY = window.innerHeight - 80;
-        let newX = billRect.left;
-        let newY = billRect.top;
+        const maxX = window.innerWidth - billWandering.offsetWidth - 10;
+        const maxY = window.innerHeight - billWandering.offsetHeight - 10;
 
-        if (billRect.left > maxX) newX = maxX;
-        if (billRect.top > maxY) newY = maxY;
-        if (billRect.left < 0) newX = 0;
-        if (billRect.top < 0) newY = 0;
+        let left = parseFloat(billWandering.style.left) || 0;
+        let top = parseFloat(billWandering.style.top) || 100;
 
-        billWandering.style.left = newX + 'px';
-        billWandering.style.top = newY + 'px';
+        if (left > maxX) left = maxX;
+        if (top > maxY) top = maxY;
+        if (left < 0) left = 0;
+        if (top < 0) top = 0;
+
+        billWandering.style.left = left + 'px';
+        billWandering.style.top = top + 'px';
       });
     });
   </script>
