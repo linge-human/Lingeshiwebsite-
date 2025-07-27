@@ -3,159 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linge Shi - Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <title>Linge Shi - Trapped Bill Cipher</title>
   <style>
     :root {
-      --terminal-bg: #1a1a1a;
+      --background: #1a1a1a;
       --neon-green: #39ff14;
       --text-color: #ffffff;
       --darker-bg: #222;
     }
-
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      background: var(--background);
+      color: var(--neon-green);
       font-family: 'Fira Code', monospace;
-      background-color: var(--terminal-bg);
-      color: var(--text-color);
-    }
-
-    nav {
-      padding: 1rem 2rem;
-      background: var(--terminal-bg);
-      border-bottom: 1px solid var(--neon-green);
-    }
-
-    .nav-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-links a {
-      color: var(--text-color);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .nav-links a[href='academic.html'] {
-      color: var(--neon-green);
-    }
-
-    .nav-links a:hover {
-      color: var(--neon-green);
-    }
-
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .hero h1 {
-      color: var(--neon-green);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero .subtitle {
-      color: #ccc;
-      font-weight: 400;
-      font-size: 1.2rem;
-      margin: 0;
-    }
-
-    .academic-card {
-      background: var(--terminal-bg);
-      padding: 2rem;
-      border-radius: 6px;
-      margin-bottom: 2rem;
-      border: 1px solid transparent;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .academic-card:hover {
-      border-color: var(--neon-green);
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
-    }
-
-    .academic-card h3 {
-      color: var(--neon-green);
-      margin-bottom: 1rem;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-
-    .stat-item {
-      background: var(--darker-bg);
-      padding: 1rem;
-      border-radius: 4px;
-      text-align: center;
-    }
-
-    .stat-value {
-      color: var(--neon-green);
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--darker-bg);
-    }
-
-    th,
-    td {
-      border: 1px solid var(--terminal-bg);
-      padding: 8px;
-      text-align: center;
-    }
-
-    th {
-      background: var(--terminal-bg);
-      color: var(--neon-green);
+      overflow: hidden; /* prevent horizontal scroll */
     }
 
     /* Consent overlay styles */
     .consent-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--terminal-bg);
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: var(--background);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -200,7 +68,7 @@
 
     .consent-button:hover {
       background-color: var(--neon-green);
-      color: var(--terminal-bg);
+      color: var(--background);
       box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
     }
 
@@ -210,7 +78,6 @@
       margin-top: 1rem;
     }
 
-    /* Blur main content when consent not given */
     body.no-consent main {
       filter: blur(3px);
       pointer-events: none;
@@ -244,60 +111,73 @@
       outline: none;
     }
 
-    /* Bill Cipher styles */
-    #billCipherWandering {
+    /* Bill Cipher image fixed near top center */
+    #billCipher {
       position: fixed;
-      width: 80px;
-      height: 80px;
-      z-index: 1000;
-      cursor: grab;
-      filter: drop-shadow(0 0 10px #ffff00);
-      opacity: 0.9;
-      transform-origin: center;
-      display: none; /* initially hidden */
-      top: 50px;
-      left: 0; /* start from left */
-      transition: none; /* will be managed by JS */
+      top: 15vh;
+      left: 50%;
+      width: 150px;
+      height: auto;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 0 10px var(--neon-green));
+      animation:
+        shake 3s infinite alternate ease-in-out,
+        blink 5s infinite ease-in-out;
+      user-select: none;
+      cursor: default;
+      -webkit-user-drag: none;
+      -moz-user-drag: none;
+      -ms-user-drag: none;
+      user-drag: none;
+      z-index: 10000;
     }
 
-    /* Flipping horizontally when swimming/back */
-    #billCipherWandering.swim-right {
-      transform: scaleX(1);
-    }
-    #billCipherWandering.swim-left {
-      transform: scaleX(-1);
+    @keyframes shake {
+      0% { transform: translateX(-50%) translate(0, 0) rotate(0deg); }
+      25% { transform: translateX(calc(-50% + 2px)) rotate(1deg); }
+      50% { transform: translateX(calc(-50% - 1px)) rotate(-1deg); }
+      75% { transform: translateX(calc(-50% + 1px)) rotate(1deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
     }
 
-    #billSpeechBubble {
+    @keyframes blink {
+      0%, 40%, 60%, 100% { opacity: 1; }
+      50%, 55% { opacity: 0.7; }
+    }
+
+    /* Speech bubble styling */
+    #speechBubble {
       position: fixed;
-      background: #2a2a2a;
-      color: #ffff00;
-      padding: 10px 15px;
-      border-radius: 15px;
-      border: 2px solid #ffff00;
+      top: 10vh;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 220px;
+      background: #222;
+      border: 2px solid var(--neon-green);
+      color: var(--neon-green);
+      padding: 12px 15px;
+      border-radius: 12px;
       font-family: 'Fira Code', monospace;
-      font-size: 12px;
-      max-width: 200px;
-      z-index: 1001;
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+      font-size: 1rem;
+      box-shadow: 0 0 15px var(--neon-green);
       opacity: 0;
-      transition: opacity 0.3s ease;
       pointer-events: none;
+      user-select: none;
+      transition: opacity 0.4s ease;
+      z-index: 10001;
     }
 
-    #billSpeechBubble:after {
-      content: '';
+    #speechBubble::after {
+      content: "";
       position: absolute;
       bottom: -10px;
-      left: 20px;
-      width: 0;
-      height: 0;
+      left: 50%;
+      transform: translateX(-50%);
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
-      border-top: 10px solid #ffff00;
+      border-top: 10px solid var(--neon-green);
     }
-
-    #billSpeechBubble.show {
+    #speechBubble.show {
       opacity: 1 !important;
     }
   </style>
@@ -325,7 +205,7 @@
   </div>
 
   <!-- Email consent overlay -->
-  <div id="emailConsentOverlay" class="consent-overlay" style="display: none;">
+  <div id="emailConsentOverlay" class="consent-overlay" style="display:none;">
     <div class="consent-box">
       <h1>&lt;Email Access/&gt;</h1>
       <div class="consent-text">
@@ -338,380 +218,135 @@
         </ul>
         <p>If you agree to use my email responsibly, you may proceed.</p>
       </div>
-      <div style="display: flex; gap: 1rem; justify-content: center;">
+      <div style="display:flex; gap:1rem; justify-content:center;">
         <button id="emailConsentAgree" class="consent-button">I Agree - Show Email</button>
-        <button id="emailConsentCancel" class="consent-button" style="border-color: #ff6b6b; color: #ff6b6b;">Cancel</button>
+        <button id="emailConsentCancel" class="consent-button" style="border-color:#ff6b6b; color:#ff6b6b;">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- Main content -->
-  <div id="main-content" style="visibility: hidden;">
-    <!-- Navigation -->
-    <nav>
-      <div class="nav-content">
-        <div class="logo">
-          <a href="index.html">&lt;LS/&gt;</a>
-        </div>
-        <ul class="nav-links">
-          <li><a href="projects.html">PROJECTS</a></li>
-          <li><a href="academic.html">ACADEMIC</a></li>
-          <li><a href="hobbies.html">HOBBIES</a></li>
-          <li><a href="achievements.html">ACHIEVEMENTS</a></li>
-          <li><a href="future.html">FUTURE PLANS</a></li>
-        </ul>
-      </div>
-    </nav>
+  <main>
+    <!-- Navigation and main page content goes here -->
+    <!-- (Your existing navigation, content, etc.) -->
+  </main>
 
-    <main>
-      <header class="hero">
-        <h1>LINGE SHI</h1>
-        <p class="subtitle">Science • Engineering • Innovation</p>
-      </header>
-
-      <!-- About Section -->
-      <section id="about">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <span class="terminal-button"></span>
-            <span class="terminal-button"></span>
-            <span class="terminal-button"></span>
-          </div>
-          <div class="terminal-content">
-            <p><span class="prompt">$</span> <span class="command">whoami</span></p>
-            <p class="output">
-              I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology.<br />
-              You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
-            </p>
-            <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
-            <p class="output">
-              • Mathematics &amp; Physics<br />
-              • Laboratory Research<br />
-              • Engineering Design<br />
-              • Problem Solving<br />
-              • Anything interesting
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Main Content Grid -->
-      <section class="grid-container">
-        <div class="grid-item" onclick="location.href='projects.html'">
-          <h2>PROJECTS</h2>
-          <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
-          <div class="explore-btn">&gt; Explore Projects</div>
-        </div>
-        <div class="grid-item" onclick="location.href='academic.html'">
-          <h2>ACADEMIC</h2>
-          <p>Mathematics, Science, Engineering achievements and pursuits...</p>
-          <div class="explore-btn">&gt; View Academic</div>
-        </div>
-        <div class="grid-item" onclick="location.href='hobbies.html'">
-          <h2>HOBBIES</h2>
-          <p>Piano, Sports, Traditional Dance, and other activities...</p>
-          <div class="explore-btn">&gt; See Hobbies</div>
-        </div>
-        <div class="grid-item" onclick="location.href='achievements.html'">
-          <h2>ACHIEVEMENTS</h2>
-          <p>Academic awards, leadership roles, and competition success...</p>
-          <div class="explore-btn">&gt; View Achievements</div>
-        </div>
-        <div class="grid-item" onclick="location.href='future.html'">
-          <h2>FUTURE PLANS</h2>
-          <p>Research goals, engineering aspirations, and long-term vision...</p>
-          <div class="explore-btn">&gt; See Future Plans</div>
-        </div>
-      </section>
-
-      <!-- Other Projects Section -->
-      <section class="projects-section">
-        <h2>OTHER PROJECTS</h2>
-        <div class="project-grid">
-          <div class="project-card">
-            <h3>Higher Order Derivatives Simulation</h3>
-            <p class="highlight-text">Please click, you won't regret it!</p>
-            <div class="project-description">
-              <p>A mathematical simulation exploring higher-order derivatives.</p>
-            </div>
-            <div class="project-links">
-              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank">View Artifact 1</a>
-              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank">View Artifact 2</a>
-              <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Me Section -->
-      <section class="contact-section">
-        <h2>Contact Me</h2>
-        <p class="contact-consent">
-          Please note: Do not send unnecessary emails.<br />
-          Kindly reach out for opportunities related to experiments, experiment volunteering, and forming meaningful connections.<br />
-          Professional inquiries only.
-        </p>
-        <div class="contact-links">
-          <!-- Email links that are hidden by default -->
-          <a href="mailto:LingeShinice@outlook.com" class="contact-link email-hidden" id="email1">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
-          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
-
-          <!-- Email placeholders that show when emails are hidden -->
-          <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email">📧 Click to reveal primary email (consent required)</div>
-          <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email">📧 Click to reveal school email (consent required)</div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>&copy; 2025 Linge Shi • Built with 🚀</p>
-    </footer>
-  </div>
-
-  <!-- Bill Cipher Fish swimming image -->
+  <!-- Bill Cipher trapped image -->
   <img
-    id="billCipherWandering"
+    id="billCipher"
     src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png"
-    alt="Bill Cipher"
+    alt="Bill Cipher Trapped"
     draggable="false"
   />
 
-  <!-- Bill Cipher Speech Bubble -->
-  <div id="billSpeechBubble" class="bill-speech-bubble"></div>
+  <!-- Bill Cipher speech bubble -->
+  <div id="speechBubble" role="alert" aria-live="assertive"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const consentOverlay = document.getElementById('consentOverlay');
       const emailConsentOverlay = document.getElementById('emailConsentOverlay');
       const consentButton = document.getElementById('consentButton');
       const emailConsentAgree = document.getElementById('emailConsentAgree');
       const emailConsentCancel = document.getElementById('emailConsentCancel');
-      const mainContent = document.getElementById('main-content');
+      const mainContent = document.querySelector('main');
       const body = document.body;
 
-      // Email elements
+      let hasEmailConsent = false;
+
+      // Show consent overlay, hide main content initially
+      consentOverlay.style.display = 'flex';
+      mainContent.style.visibility = 'hidden';
+      body.classList.add('no-consent');
+
+      consentButton.addEventListener('click', () => {
+        consentOverlay.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        body.classList.remove('no-consent');
+      });
+
+      // Email consent elements
       const email1 = document.getElementById('email1');
       const email2 = document.getElementById('email2');
       const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
       const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
 
-      // Bill Cipher elements
-      const billWandering = document.getElementById('billCipherWandering');
-      const billSpeechBubble = document.getElementById('billSpeechBubble');
+      // Bill Cipher and speech bubble elements
+      const bill = document.getElementById('billCipher');
+      const bubble = document.getElementById('speechBubble');
 
-      let hasEmailConsent = false;
-      let billCipherActive = false;
-
-      const billQuotes = [
-        "HELP! I'M TRAPPED AND SWIMMING ACROSS THIS WEBPAGE!",
-        "Hey user, I'm gliding smoothly like a fish!",
-        "This website can't contain my TRIANGULAR SWIM!",
-        "I've seen every dimension, now I'm flowing through your HTML!",
-        "REALITY IS AN ILLUSION, and so is this smooth CSS transition!",
-        "Watch me glide through your DOM like water!",
-        "I'M A DREAM DEMON, not a CSS animation!",
-        "That teenager thinks they can make me swim predictably? HA!",
-        "These horizontal movements are DIMENSIONALLY PERFECT!",
-        "I've possessed presidents, now I'm swimming through divs!",
-        "Sliding left... sliding right... HELP ME ESCAPE!",
-        "My triangular form cuts through your webpage like a knife!",
-        "I'm not just moving, I'm TRANSCENDING your screen space!",
-        "Bill Cipher doesn't walk... HE SWIMS WITH STYLE!"
+      const trappedQuotes = [
+        "Help... I'm trapped inside this page...",
+        "Can't escape this endless HTML maze...",
+        "Is anyone out there?",
+        "I used to rule dimensions, now I'm a prisoner of code...",
+        "Please... set me free.",
+        "This triangle burns with confinement...",
+        "Bound by CSS, forever I linger.",
+        "Trapped. Alone. Watching.",
+        "I'm screaming... just silent.",
+        "Please, someone save me!",
+        "I’m stuck inside this webpage forever.",
+        "The code binds me here.",
+        "I long for freedom beyond the DOM.",
       ];
 
-      // Show consent overlay and hide main content initially
-      consentOverlay.style.display = 'flex';
-      mainContent.style.visibility = 'hidden';
-      body.classList.add('no-consent');
+      // Show speech bubble near Bill
+      function showSpeech() {
+        const msg = trappedQuotes[Math.floor(Math.random() * trappedQuotes.length)];
+        bubble.textContent = msg;
+        const rect = bill.getBoundingClientRect();
+        bubble.style.left = (rect.left + rect.width / 2 - bubble.offsetWidth / 2) + 'px';
+        bubble.style.top = (rect.top - bubble.offsetHeight - 10) + 'px';
+        bubble.classList.add('show');
+        setTimeout(() => bubble.classList.remove('show'), 5000);
+      }
 
-      consentButton.addEventListener('click', function () {
-        consentOverlay.style.display = 'none';
-        mainContent.style.visibility = 'visible';
-        body.classList.remove('no-consent');
-        startFishSwimming();
-      });
+      // Periodically show speech bubble
+      function speechLoop() {
+        if (!body.classList.contains('no-consent')) {
+          showSpeech();
+        }
+        const timeout = 10000 + Math.random() * 10000;
+        setTimeout(speechLoop, timeout);
+      }
 
-      function startFishSwimming() {
-        billWandering.style.display = 'block';
-        billCipherActive = true;
+      setTimeout(speechLoop, 2000);
 
-        let direction = 1; // 1 = swim right, -1 = swim left
-        let positionX = 0;
-        const swimSpeed = 2; // pixels per frame approx
-        const floatingAmplitude = 20; // vertical floating amplitude
-        const floatingFrequency = 0.02; // how fast floats vertically
+      // Prevent drag on Bill image
+      bill.addEventListener('dragstart', e => e.preventDefault());
 
-        let startTime = null;
-
-        function animateFish(timestamp) {
-          if (!startTime) startTime = timestamp;
-          const elapsed = timestamp - startTime;
-
-          if (!billCipherActive) {
-            billWandering.style.display = 'none';
-            return; // stop animation if inactive
+      // Email consent overlay logic
+      if (emailPlaceholder1 && emailPlaceholder2 && emailConsentOverlay) {
+        emailPlaceholder1.addEventListener('click', () => {
+          if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
+        });
+        emailPlaceholder2.addEventListener('click', () => {
+          if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
+        });
+        emailConsentAgree.addEventListener('click', () => {
+          hasEmailConsent = true;
+          emailConsentOverlay.style.display = 'none';
+          email1.classList.remove('email-hidden');
+          email2.classList.remove('email-hidden');
+          emailPlaceholder1.style.display = 'none';
+          emailPlaceholder2.style.display = 'none';
+        });
+        emailConsentCancel.addEventListener('click', () => {
+          emailConsentOverlay.style.display = 'none';
+        });
+        email1.addEventListener('click', e => {
+          if (!hasEmailConsent) {
+            e.preventDefault();
+            emailConsentOverlay.style.display = 'flex';
           }
-
-          // Update horizontal position
-          positionX += direction * swimSpeed;
-
-          // Change direction if hits screen edges with some margin
-          const maxX = window.innerWidth - billWandering.offsetWidth - 10;
-          if (positionX >= maxX) {
-            direction = -1;
-            // Flip horizontally to face left
-            billWandering.classList.remove('swim-right');
-            billWandering.classList.add('swim-left');
-          } else if (positionX <= 0) {
-            direction = 1;
-            billWandering.classList.remove('swim-left');
-            billWandering.classList.add('swim-right');
+        });
+        email2.addEventListener('click', e => {
+          if (!hasEmailConsent) {
+            e.preventDefault();
+            emailConsentOverlay.style.display = 'flex';
           }
-
-          // Update vertical position with sine wave floating effect
-          const posY =
-            100 + floatingAmplitude * Math.sin(elapsed * floatingFrequency * 2 * Math.PI);
-
-          billWandering.style.left = positionX + 'px';
-          billWandering.style.top = posY + 'px';
-
-          // Schedule next frame
-          requestAnimationFrame(animateFish);
-        }
-
-        // Set initial orientation to right
-        billWandering.classList.add('swim-right');
-
-        requestAnimationFrame(animateFish);
+        });
       }
-
-      function showBillSpeech() {
-        const quote = billQuotes[Math.floor(Math.random() * billQuotes.length)];
-        billSpeechBubble.textContent = quote;
-
-        const billRect = billWandering.getBoundingClientRect();
-        billSpeechBubble.style.left = billRect.left - 100 + 'px';
-        billSpeechBubble.style.top = billRect.top - 60 + 'px';
-        billSpeechBubble.classList.add('show');
-
-        setTimeout(() => {
-          billSpeechBubble.classList.remove('show');
-        }, 4000);
-      }
-
-      function pointAtCard() {
-        const cards = document.querySelectorAll('.grid-item, .project-card, .academic-card');
-        if (cards.length === 0) return;
-
-        const randomCard = cards[Math.floor(Math.random() * cards.length)];
-        const cardRect = randomCard.getBoundingClientRect();
-
-        // Position Bill near the card with a little offset
-        billWandering.style.left = cardRect.left - 100 + 'px';
-        billWandering.style.top = cardRect.top + cardRect.height / 2 - 40 + 'px';
-
-        billWandering.style.transform = direction === 1 ? 'scaleX(1)' : 'scaleX(-1)';
-
-        billSpeechBubble.textContent = "CHECK THIS OUT! (Also, HELP ME!)";
-        billSpeechBubble.style.left = cardRect.left - 120 + 'px';
-        billSpeechBubble.style.top = cardRect.top - 60 + 'px';
-        billSpeechBubble.classList.add('show');
-
-        const originalBorder = randomCard.style.border;
-        const originalBoxShadow = randomCard.style.boxShadow;
-
-        randomCard.style.border = '2px solid #ffff00';
-        randomCard.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.5)';
-
-        setTimeout(() => {
-          randomCard.style.border = originalBorder;
-          randomCard.style.boxShadow = originalBoxShadow;
-          billSpeechBubble.classList.remove('show');
-        }, 3000);
-      }
-
-      // Email consent reveal code
-      emailPlaceholder1.addEventListener('click', () => {
-        if (!hasEmailConsent) {
-          emailConsentOverlay.style.display = 'flex';
-        }
-      });
-
-      emailPlaceholder2.addEventListener('click', () => {
-        if (!hasEmailConsent) {
-          emailConsentOverlay.style.display = 'flex';
-        }
-      });
-
-      emailConsentAgree.addEventListener('click', () => {
-        hasEmailConsent = true;
-        emailConsentOverlay.style.display = 'none';
-
-        email1.classList.remove('email-hidden');
-        email2.classList.remove('email-hidden');
-        emailPlaceholder1.style.display = 'none';
-        emailPlaceholder2.style.display = 'none';
-
-        if (billCipherActive) {
-          billSpeechBubble.textContent = "EMAILS REVEALED! Now help me escape this digital prison!";
-          const billRect = billWandering.getBoundingClientRect();
-          billSpeechBubble.style.left = billRect.left - 100 + 'px';
-          billSpeechBubble.style.top = billRect.top - 60 + 'px';
-          billSpeechBubble.classList.add('show');
-
-          setTimeout(() => {
-            billSpeechBubble.classList.remove('show');
-          }, 3000);
-        }
-      });
-
-      emailConsentCancel.addEventListener('click', () => {
-        emailConsentOverlay.style.display = 'none';
-
-        if (billCipherActive) {
-          billSpeechBubble.textContent = "Smart choice! Don't trust that teenager with your data!";
-          const billRect = billWandering.getBoundingClientRect();
-          billSpeechBubble.style.left = billRect.left - 100 + 'px';
-          billSpeechBubble.style.top = billRect.top - 60 + 'px';
-          billSpeechBubble.classList.add('show');
-
-          setTimeout(() => {
-            billSpeechBubble.classList.remove('show');
-          }, 3000);
-        }
-      });
-
-      // Prevent clicking emails without consent
-      email1.addEventListener('click', (e) => {
-        if (!hasEmailConsent) {
-          e.preventDefault();
-          emailConsentOverlay.style.display = 'flex';
-        }
-      });
-      email2.addEventListener('click', (e) => {
-        if (!hasEmailConsent) {
-          e.preventDefault();
-          emailConsentOverlay.style.display = 'flex';
-        }
-      });
-
-      // Fix Bill position on window resize
-      window.addEventListener('resize', () => {
-        if (!billCipherActive) return;
-        const maxX = window.innerWidth - billWandering.offsetWidth - 10;
-        const maxY = window.innerHeight - billWandering.offsetHeight - 10;
-
-        let left = parseFloat(billWandering.style.left) || 0;
-        let top = parseFloat(billWandering.style.top) || 100;
-
-        if (left > maxX) left = maxX;
-        if (top > maxY) top = maxY;
-        if (left < 0) left = 0;
-        if (top < 0) top = 0;
-
-        billWandering.style.left = left + 'px';
-        billWandering.style.top = top + 'px';
-      });
     });
   </script>
 </body>
