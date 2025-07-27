@@ -13,6 +13,7 @@
     :root {
       --terminal-bg: #1a1a1a;
       --neon-green: #39ff14;
+      --neon-blue: #00ffff;
       --text-color: #ffffff;
       --darker-bg: #222;
     }
@@ -234,10 +235,11 @@
       border: 1px solid #666;
       padding: 0.5rem 1rem;
       border-radius: 4px;
-      margin: 0.5rem;
+      margin: 0.5rem 0;
       display: inline-block;
       cursor: pointer;
       transition: all 0.3s ease;
+      user-select: none;
     }
 
     .email-placeholder:hover,
@@ -322,6 +324,9 @@
       cursor: pointer;
       border: 1px solid transparent;
       transition: border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .grid-item:hover {
@@ -335,6 +340,148 @@
       font-weight: 600;
       user-select: none;
       font-family: 'Fira Code', monospace;
+      text-align: right;
+    }
+
+    /* Project Section with boxed style */
+    .projects-section {
+      margin: 3rem 0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: var(--darker-bg);
+      border: 1px solid var(--neon-green);
+    }
+
+    .projects-section h2 {
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+      font-weight: 600;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+
+    .project-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--terminal-bg);
+      padding: 1rem 1.5rem 1.5rem 1.5rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      width: 100%;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--neon-green);
+      user-select: none;
+    }
+
+    .highlight-text {
+      margin-top: 0;
+      margin-bottom: 0.7rem;
+      color: var(--neon-green);
+      font-weight: 600;
+      user-select: none;
+      font-style: normal;
+    }
+
+    .project-description {
+      flex-grow: 1;
+      color: #ccc;
+    }
+
+    .project-links {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .project-link {
+      text-decoration: none;
+      color: var(--neon-blue);
+      font-family: 'Fira Code', monospace;
+      font-weight: 600;
+      transition: color 0.3s;
+      user-select: none;
+    }
+
+    .project-link:hover,
+    .project-link:focus {
+      color: var(--neon-green);
+      outline: none;
+      text-decoration: underline;
+    }
+
+    /* Contact Section styles */
+    .contact-section {
+      margin: 3rem 0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: var(--darker-bg);
+      border: 1px solid var(--neon-green);
+      color: var(--text-color);
+    }
+
+    .contact-section h2 {
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+      font-weight: 600;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+
+    .contact-consent {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #ccc;
+      user-select: none;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .contact-link {
+      color: var(--neon-blue);
+      font-weight: 600;
+      font-family: 'Fira Code', monospace;
+      text-decoration: none;
+      user-select: text;
+      transition: color 0.3s;
+    }
+
+    .contact-link:hover,
+    .contact-link:focus {
+      color: var(--neon-green);
+      outline: none;
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      color: #666;
+      font-size: 0.8rem;
+      user-select: none;
     }
   </style>
 </head>
@@ -407,20 +554,20 @@
 
       <!-- About Section -->
       <section id="about">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <span class="terminal-button"></span>
-            <span class="terminal-button"></span>
-            <span class="terminal-button"></span>
+        <div class="terminal-window" style="background: var(--darker-bg); border: 1px solid var(--neon-green); border-radius: 6px; padding: 1.5rem; margin-bottom: 2rem; user-select: text;">
+          <div class="terminal-header" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+            <span class="terminal-button" style="width: 12px; height: 12px; background: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+            <span class="terminal-button" style="width: 12px; height: 12px; background: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+            <span class="terminal-button" style="width: 12px; height: 12px; background: #27c93f; border-radius: 50%; display: inline-block;"></span>
           </div>
-          <div class="terminal-content">
-            <p><span class="prompt">$</span> <span class="command">whoami</span></p>
-            <p class="output">
+          <div class="terminal-content" style="color: #ccc; font-size: 0.95rem; line-height: 1.5;">
+            <p><span class="prompt" style="color: var(--neon-green); user-select: none;">$</span> <span class="command" style="color: var(--neon-green); user-select: none;">whoami</span></p>
+            <p class="output" style="margin-top: 0; margin-bottom: 1rem;">
               I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology.<br />
               You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
             </p>
-            <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
-            <p class="output">
+            <p><span class="prompt" style="color: var(--neon-green); user-select: none;">$</span> <span class="command" style="color: var(--neon-green); user-select: none;">cat skills.txt</span></p>
+            <p class="output" style="margin-top: 0;">
               • Mathematics &amp; Physics<br />
               • Laboratory Research<br />
               • Engineering Design<br />
@@ -433,27 +580,27 @@
 
       <!-- Main Content Grid -->
       <section class="grid-container">
-        <div class="grid-item" onclick="location.href='projects.html'">
+        <div class="grid-item" onclick="location.href='projects.html'" aria-label="Navigate to Projects">
           <h2>PROJECTS</h2>
           <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
           <div class="explore-btn">&gt; Explore Projects</div>
         </div>
-        <div class="grid-item" onclick="location.href='academic.html'">
+        <div class="grid-item" onclick="location.href='academic.html'" aria-label="Navigate to Academic">
           <h2>ACADEMIC</h2>
           <p>Mathematics, Science, Engineering achievements and pursuits...</p>
           <div class="explore-btn">&gt; View Academic</div>
         </div>
-        <div class="grid-item" onclick="location.href='hobbies.html'">
+        <div class="grid-item" onclick="location.href='hobbies.html'" aria-label="Navigate to Hobbies">
           <h2>HOBBIES</h2>
           <p>Piano, Sports, Traditional Dance, and other activities...</p>
           <div class="explore-btn">&gt; See Hobbies</div>
         </div>
-        <div class="grid-item" onclick="location.href='achievements.html'">
+        <div class="grid-item" onclick="location.href='achievements.html'" aria-label="Navigate to Achievements">
           <h2>ACHIEVEMENTS</h2>
           <p>Academic awards, leadership roles, and competition success...</p>
           <div class="explore-btn">&gt; View Achievements</div>
         </div>
-        <div class="grid-item" onclick="location.href='future.html'">
+        <div class="grid-item" onclick="location.href='future.html'" aria-label="Navigate to Future Plans">
           <h2>FUTURE PLANS</h2>
           <p>Research goals, engineering aspirations, and long-term vision...</p>
           <div class="explore-btn">&gt; See Future Plans</div>
@@ -461,18 +608,18 @@
       </section>
 
       <!-- Other Projects Section -->
-      <section class="projects-section">
+      <section class="projects-section" aria-label="Other projects section">
         <h2>OTHER PROJECTS</h2>
         <div class="project-grid">
-          <div class="project-card" onclick="alert('Please click on this card!')">
+          <div class="project-card" onclick="alert('Please click on this card!')" role="button" tabindex="0" aria-pressed="false" aria-label="Higher Order Derivatives Simulation Project">
             <h3>Higher Order Derivatives Simulation</h3>
             <p class="highlight-text">Please click, you won't regret it!</p>
             <div class="project-description">
               <p>A mathematical simulation exploring higher-order derivatives.</p>
             </div>
             <div class="project-links">
-              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank">View Artifact 1</a>
-              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank">View Artifact 2</a>
+              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank" rel="noopener noreferrer">View Artifact 1</a>
+              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank" rel="noopener noreferrer">View Artifact 2</a>
               <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
             </div>
           </div>
@@ -480,7 +627,7 @@
       </section>
 
       <!-- Contact Me Section -->
-      <section class="contact-section">
+      <section class="contact-section" aria-label="Contact me section">
         <h2>Contact Me</h2>
         <p class="contact-consent">
           Please note: Do not send unnecessary emails.<br />
@@ -489,12 +636,12 @@
         </p>
         <div class="contact-links">
           <!-- Email links that are hidden by default -->
-          <a href="mailto:LingeShinice@outlook.com" class="contact-link email-hidden" id="email1">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
-          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
+          <a href="mailto:LingeShinice@outlook.com" class="contact-link email-hidden" id="email1" aria-hidden="true">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
+          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2" aria-hidden="true">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
 
           <!-- Email placeholders that show when emails are hidden -->
-          <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email">📧 Click to reveal primary email (consent required)</div>
-          <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email">📧 Click to reveal school email (consent required)</div>
+          <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email (consent required)">📧 Click to reveal primary email (consent required)</div>
+          <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email (consent required)">📧 Click to reveal school email (consent required)</div>
         </div>
       </section>
     </main>
@@ -537,23 +684,6 @@
 
       let hasEmailConsent = false;
       let billCipherActive = false;
-
-      const billQuotes = [
-        "HELP! I'M TRAPPED AND SWIMMING ACROSS THIS WEBPAGE!",
-        "Hey user, I'm gliding smoothly like a fish!",
-        "This website can't contain my TRIANGULAR SWIM!",
-        "I've seen every dimension, now I'm flowing through your HTML!",
-        "REALITY IS AN ILLUSION, and so is this smooth CSS transition!",
-        "Watch me glide through your DOM like water!",
-        "I'M A DREAM DEMON, not a CSS animation!",
-        "That teenager thinks they can make me swim predictably? HA!",
-        "These horizontal movements are DIMENSIONALLY PERFECT!",
-        "I've possessed presidents, now I'm swimming through divs!",
-        "Sliding left... sliding right... HELP ME ESCAPE!",
-        "My triangular form cuts through your webpage like a knife!",
-        "I'm not just moving, I'm TRANSCENDING your screen space!",
-        "Bill Cipher doesn't walk... HE SWIMS WITH STYLE!"
-      ];
 
       // Show consent overlay and hide main content initially
       consentOverlay.style.display = 'flex';
@@ -717,6 +847,16 @@
           e.preventDefault();
           emailConsentOverlay.style.display = 'flex';
         }
+      });
+
+      // Keyboard accessibility for email placeholders (support Enter/Space)
+      [emailPlaceholder1, emailPlaceholder2].forEach(elem => {
+        elem.addEventListener('keydown', (e) => {
+          if ((e.key === 'Enter' || e.key === ' ') && !hasEmailConsent) {
+            e.preventDefault();
+            emailConsentOverlay.style.display = 'flex';
+          }
+        });
       });
 
       // Fix Bill position on window resize to keep inside viewport
