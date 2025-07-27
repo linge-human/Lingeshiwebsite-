@@ -93,6 +93,123 @@
       -moz-user-select: none;
       -ms-user-select: none;
     }
+
+    /* === Your existing styles for projects, contact etc. === */
+    .highlight-text {
+      color: var(--neon-green);
+      font-size: 0.9em;
+      margin-top: 0.5rem;
+      font-weight: 500;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .projects-section {
+      padding: 2rem;
+    }
+
+    .projects-section h2 {
+      text-align: center;
+      color: var(--neon-green);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      background: var(--terminal-bg);
+      padding: 2rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    }
+
+    .project-card h3 {
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+    }
+
+    .project-description {
+      margin: 1rem 0;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .project-link {
+      color: var(--neon-green);
+      text-decoration: none;
+      border: 1px solid var(--neon-green);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+      display: inline-block;
+    }
+
+    .project-link:hover {
+      background-color: var(--neon-green);
+      color: var(--terminal-bg);
+    }
+
+    .contact-section {
+      padding: 2rem;
+      background: var(--terminal-bg);
+      margin-top: 2rem;
+      border-top: 2px solid var(--neon-green);
+    }
+
+    .contact-section h2 {
+      text-align: center;
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+    }
+
+    .contact-consent {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .contact-links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .contact-link {
+      color: var(--neon-green);
+      text-decoration: none;
+      border: 1px solid var(--neon-green);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      transition: background-color 0.3s, color 0.3s;
+      display: inline-block;
+    }
+
+    .contact-link:hover {
+      background-color: var(--neon-green);
+      color: var(--terminal-bg);
+    }
   </style>
 </head>
 <body class="no-consent">
@@ -111,15 +228,13 @@
         </ul>
         <p>Thank you so much for visiting my website! I'm really happy you're here! ❤️</p>
       </div>
-      <button id="consentButton" class="consent-button">I Understand & Agree WITH MY LIFE</button>
+      <button id="consentButton" class="consent-button">I Understand &amp; Agree WITH MY LIFE</button>
       <div class="timestamp">Last Updated: 2025-07-27 08:26:59 UTC</div>
     </div>
   </div>
 
-  <!-- Main content wrapped in a container for toggling -->
+  <!-- Main content wrapped for easy toggling -->
   <div id="main-content" style="visibility: hidden;">
-    <!-- Your entire website content goes here (unchanged) -->
-
     <!-- Navigation -->
     <nav>
       <div class="nav-content">
@@ -142,9 +257,93 @@
         <p class="subtitle">Science • Engineering • Innovation</p>
       </header>
 
-      <!-- Add the rest of your page content below exactly as you have it -->
-      <!-- ... -->
+      <!-- About Section -->
+      <section id="about">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-button"></span>
+            <span class="terminal-button"></span>
+            <span class="terminal-button"></span>
+          </div>
+          <div class="terminal-content">
+            <p><span class="prompt">$</span> <span class="command">whoami</span></p>
+            <p class="output">
+              I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology.<br />
+              You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
+            </p>
+            <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
+            <p class="output">
+              • Mathematics &amp; Physics<br />
+              • Laboratory Research<br />
+              • Engineering Design<br />
+              • Problem Solving<br />
+              • Anything interesting
+            </p>
+          </div>
+        </div>
+      </section>
 
+      <!-- Main Content Grid -->
+      <section class="grid-container">
+        <div class="grid-item" onclick="location.href='projects.html'">
+          <h2>PROJECTS</h2>
+          <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
+          <div class="explore-btn">&gt; Explore Projects</div>
+        </div>
+        <div class="grid-item" onclick="location.href='academic.html'">
+          <h2>ACADEMIC</h2>
+          <p>Mathematics, Science, Engineering achievements and pursuits...</p>
+          <div class="explore-btn">&gt; View Academic</div>
+        </div>
+        <div class="grid-item" onclick="location.href='hobbies.html'">
+          <h2>HOBBIES</h2>
+          <p>Piano, Sports, Traditional Dance, and other activities...</p>
+          <div class="explore-btn">&gt; See Hobbies</div>
+        </div>
+        <div class="grid-item" onclick="location.href='achievements.html'">
+          <h2>ACHIEVEMENTS</h2>
+          <p>Academic awards, leadership roles, and competition success...</p>
+          <div class="explore-btn">&gt; View Achievements</div>
+        </div>
+        <div class="grid-item" onclick="location.href='future.html'">
+          <h2>FUTURE PLANS</h2>
+          <p>Research goals, engineering aspirations, and long-term vision...</p>
+          <div class="explore-btn">&gt; See Future Plans</div>
+        </div>
+      </section>
+
+      <!-- Other Projects Section -->
+      <section class="projects-section">
+        <h2>OTHER PROJECTS</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <h3>Higher Order Derivatives Simulation</h3>
+            <p class="highlight-text">Please click, you won't regret it!</p>
+            <div class="project-description">
+              <p>A mathematical simulation exploring higher-order derivatives.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank">View Artifact 1</a>
+              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank">View Artifact 2</a>
+              <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Me Section -->
+      <section class="contact-section">
+        <h2>Contact Me</h2>
+        <p class="contact-consent">
+          Please note: Do not send unnecessary emails.<br />
+          Kindly reach out for opportunities related to experiments, experiment volunteering, and forming meaningful connections.<br />
+          Professional inquiries only.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:LingeShinice@outlook.com" class="contact-link">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
+          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -159,14 +358,18 @@
       const mainContent = document.getElementById('main-content');
       const body = document.body;
 
-      // Always show consent overlay on page load
-      consentOverlay.style.display = 'flex';
-      mainContent.style.visibility = 'hidden';
-      body.classList.add('no-consent');
+      if(localStorage.getItem('websiteConsent') === 'true') {
+        consentOverlay.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        body.classList.remove('no-consent');
+      } else {
+        consentOverlay.style.display = 'flex';
+        mainContent.style.visibility = 'hidden';
+        body.classList.add('no-consent');
+      }
 
-      // When user clicks consent button
       consentButton.addEventListener('click', function () {
-        // Hide the overlay and show main content
+        localStorage.setItem('websiteConsent', 'true');
         consentOverlay.style.display = 'none';
         mainContent.style.visibility = 'visible';
         body.classList.remove('no-consent');
