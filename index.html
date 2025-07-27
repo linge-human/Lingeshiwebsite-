@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linge Shi - Trapped Bill Cipher</title>
+  <title>Linge Shi - Portfolio with Trapped Bill Cipher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --background: #1a1a1a;
@@ -11,25 +12,28 @@
       --text-color: #ffffff;
       --darker-bg: #222;
     }
+
     html, body {
-      margin: 0; padding: 0; height: 100%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
       background: var(--background);
       color: var(--neon-green);
       font-family: 'Fira Code', monospace;
-      overflow: hidden; /* prevent horizontal scroll */
+      overflow-x: hidden;
     }
 
-    /* Consent overlay styles */
+    /* Consent overlays */
     .consent-overlay {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: var(--background);
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 9999999;
     }
-
     .consent-box {
       background-color: #2a2a2a;
       padding: 2rem;
@@ -42,18 +46,15 @@
       color: var(--text-color);
       position: relative;
     }
-
     .consent-box h1 {
       color: var(--neon-green);
       margin-bottom: 1.5rem;
     }
-
     .consent-text {
       margin-bottom: 2rem;
       line-height: 1.6;
       text-align: left;
     }
-
     .consent-button {
       background-color: transparent;
       color: var(--neon-green);
@@ -65,20 +66,19 @@
       font-family: 'Fira Code', monospace;
       margin: 1rem;
     }
-
     .consent-button:hover {
       background-color: var(--neon-green);
       color: var(--background);
       box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
     }
-
     .timestamp {
       font-size: 0.8rem;
       color: #666;
       margin-top: 1rem;
     }
 
-    body.no-consent main {
+    /* Blur main content when consent not given */
+    body.no-consent #main-content {
       filter: blur(3px);
       pointer-events: none;
       user-select: none;
@@ -87,11 +87,10 @@
       -ms-user-select: none;
     }
 
-    /* Hide email until consent given */
+    /* Hide emails and show placeholders */
     .email-hidden {
       display: none !important;
     }
-
     .email-placeholder {
       color: #666;
       font-style: italic;
@@ -103,15 +102,13 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
-    .email-placeholder:hover,
-    .email-placeholder:focus {
+    .email-placeholder:hover, .email-placeholder:focus {
       color: var(--neon-green);
       border-color: var(--neon-green);
       outline: none;
     }
 
-    /* Bill Cipher image fixed near top center */
+    /* Bill Cipher Image styles */
     #billCipher {
       position: fixed;
       top: 15vh;
@@ -131,7 +128,6 @@
       user-drag: none;
       z-index: 10000;
     }
-
     @keyframes shake {
       0% { transform: translateX(-50%) translate(0, 0) rotate(0deg); }
       25% { transform: translateX(calc(-50% + 2px)) rotate(1deg); }
@@ -139,7 +135,6 @@
       75% { transform: translateX(calc(-50% + 1px)) rotate(1deg); }
       100% { transform: translateX(-50%) rotate(0deg); }
     }
-
     @keyframes blink {
       0%, 40%, 60%, 100% { opacity: 1; }
       50%, 55% { opacity: 0.7; }
@@ -166,7 +161,6 @@
       transition: opacity 0.4s ease;
       z-index: 10001;
     }
-
     #speechBubble::after {
       content: "";
       position: absolute;
@@ -180,15 +174,17 @@
     #speechBubble.show {
       opacity: 1 !important;
     }
+
+    /* Your existing styles for main page content are assumed in style.css or you can add inline here */
   </style>
 </head>
 <body class="no-consent">
 
   <!-- Consent overlay -->
-  <div id="consentOverlay" class="consent-overlay">
+  <div id="consentOverlay" class="consent-overlay" role="dialog" aria-modal="true" aria-labelledby="consentTitle" aria-describedby="consentDesc">
     <div class="consent-box">
-      <h1>&lt;Welcome/&gt;</h1>
-      <div class="consent-text">
+      <h1 id="consentTitle">&lt;Welcome/&gt;</h1>
+      <div class="consent-text" id="consentDesc">
         <p>Before you proceed, please read and agree to the following:</p>
         <ul>
           <li>I know you're here because you either have my resume or someone shared this without my consent.</li>
@@ -205,10 +201,10 @@
   </div>
 
   <!-- Email consent overlay -->
-  <div id="emailConsentOverlay" class="consent-overlay" style="display:none;">
+  <div id="emailConsentOverlay" class="consent-overlay" role="dialog" aria-modal="true" aria-labelledby="emailConsentTitle" aria-describedby="emailConsentDesc" style="display:none;">
     <div class="consent-box">
-      <h1>&lt;Email Access/&gt;</h1>
-      <div class="consent-text">
+      <h1 id="emailConsentTitle">&lt;Email Access/&gt;</h1>
+      <div class="consent-text" id="emailConsentDesc">
         <p>Before accessing my email, please confirm you understand:</p>
         <ul>
           <li>This email should only be used for professional opportunities, experiments, or meaningful connections.</li>
@@ -225,21 +221,48 @@
     </div>
   </div>
 
-  <main>
-    <!-- Navigation and main page content goes here -->
-    <!-- (Your existing navigation, content, etc.) -->
-  </main>
+  <!-- Main content wrapped for toggling on consent -->
+  <div id="main-content" style="visibility:hidden;">
+    <!-- Replace the following placeholder content with your actual main page content -->
+    <nav>
+      <div class="nav-content">
+        <div class="logo"><a href="index.html">&lt;LS/&gt;</a></div>
+        <ul class="nav-links">
+          <li><a href="projects.html">PROJECTS</a></li>
+          <li><a href="academic.html">ACADEMIC</a></li>
+          <li><a href="hobbies.html">HOBBIES</a></li>
+          <li><a href="achievements.html">ACHIEVEMENTS</a></li>
+          <li><a href="future.html">FUTURE PLANS</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Example content -->
+      <section class="contact-section">
+        <h2>Contact Me</h2>
+        <p class="contact-consent">Please note: Do not send unnecessary emails.<br />Professional inquiries only.</p>
+        <div class="contact-links">
+          <a href="mailto:LingeShinice@outlook.com" id="email1" class="contact-link email-hidden">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
+          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" id="email2" class="contact-link email-hidden">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
+
+          <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email">📧 Click to reveal primary email (consent required)</div>
+          <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email">📧 Click to reveal school email (consent required)</div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <!-- Bill Cipher trapped image -->
-  <img
-    id="billCipher"
-    src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png"
-    alt="Bill Cipher Trapped"
-    draggable="false"
+  <img 
+    id="billCipher" 
+    src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" 
+    alt="Bill Cipher Trapped" 
+    draggable="false" 
   />
 
   <!-- Bill Cipher speech bubble -->
-  <div id="speechBubble" role="alert" aria-live="assertive"></div>
+  <div id="speechBubble" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -248,12 +271,12 @@
       const consentButton = document.getElementById('consentButton');
       const emailConsentAgree = document.getElementById('emailConsentAgree');
       const emailConsentCancel = document.getElementById('emailConsentCancel');
-      const mainContent = document.querySelector('main');
+      const mainContent = document.getElementById('main-content');
       const body = document.body;
 
       let hasEmailConsent = false;
 
-      // Show consent overlay, hide main content initially
+      // Show consent overlay and hide main content initially
       consentOverlay.style.display = 'flex';
       mainContent.style.visibility = 'hidden';
       body.classList.add('no-consent');
@@ -264,11 +287,49 @@
         body.classList.remove('no-consent');
       });
 
-      // Email consent elements
-      const email1 = document.getElementById('email1');
-      const email2 = document.getElementById('email2');
+      // Email placeholder click handlers
       const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
       const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
+      const email1 = document.getElementById('email1');
+      const email2 = document.getElementById('email2');
+
+      emailPlaceholder1.addEventListener('click', () => {
+        if (!hasEmailConsent) {
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+      emailPlaceholder2.addEventListener('click', () => {
+        if (!hasEmailConsent) {
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      emailConsentAgree.addEventListener('click', () => {
+        hasEmailConsent = true;
+        emailConsentOverlay.style.display = 'none';
+        email1.classList.remove('email-hidden');
+        email2.classList.remove('email-hidden');
+        emailPlaceholder1.style.display = 'none';
+        emailPlaceholder2.style.display = 'none';
+      });
+
+      emailConsentCancel.addEventListener('click', () => {
+        emailConsentOverlay.style.display = 'none';
+      });
+
+      // Prevent clicking emails without consent
+      email1.addEventListener('click', e => {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+      email2.addEventListener('click', e => {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
 
       // Bill Cipher and speech bubble elements
       const bill = document.getElementById('billCipher');
@@ -280,7 +341,6 @@
         "Is anyone out there?",
         "I used to rule dimensions, now I'm a prisoner of code...",
         "Please... set me free.",
-        "This triangle burns with confinement...",
         "Bound by CSS, forever I linger.",
         "Trapped. Alone. Watching.",
         "I'm screaming... just silent.",
@@ -301,13 +361,12 @@
         setTimeout(() => bubble.classList.remove('show'), 5000);
       }
 
-      // Periodically show speech bubble
+      // Periodically show speech bubble every 10-20s after initial 2s delay
       function speechLoop() {
         if (!body.classList.contains('no-consent')) {
           showSpeech();
         }
-        const timeout = 10000 + Math.random() * 10000;
-        setTimeout(speechLoop, timeout);
+        setTimeout(speechLoop, 10000 + Math.random() * 10000);
       }
 
       setTimeout(speechLoop, 2000);
@@ -315,39 +374,8 @@
       // Prevent drag on Bill image
       bill.addEventListener('dragstart', e => e.preventDefault());
 
-      // Email consent overlay logic
-      if (emailPlaceholder1 && emailPlaceholder2 && emailConsentOverlay) {
-        emailPlaceholder1.addEventListener('click', () => {
-          if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
-        });
-        emailPlaceholder2.addEventListener('click', () => {
-          if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
-        });
-        emailConsentAgree.addEventListener('click', () => {
-          hasEmailConsent = true;
-          emailConsentOverlay.style.display = 'none';
-          email1.classList.remove('email-hidden');
-          email2.classList.remove('email-hidden');
-          emailPlaceholder1.style.display = 'none';
-          emailPlaceholder2.style.display = 'none';
-        });
-        emailConsentCancel.addEventListener('click', () => {
-          emailConsentOverlay.style.display = 'none';
-        });
-        email1.addEventListener('click', e => {
-          if (!hasEmailConsent) {
-            e.preventDefault();
-            emailConsentOverlay.style.display = 'flex';
-          }
-        });
-        email2.addEventListener('click', e => {
-          if (!hasEmailConsent) {
-            e.preventDefault();
-            emailConsentOverlay.style.display = 'flex';
-          }
-        });
-      }
     });
   </script>
+
 </body>
 </html>
