@@ -1,337 +1,867 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic - Linge Shi</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        .academic-card {
-            background: var(--terminal-bg);
-            padding: 2rem;
-            border-radius: 6px;
-            margin-bottom: 2rem;
-            border: 1px solid transparent;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Academic - Linge Shi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --terminal-bg: #1a1a1a;
+      --neon-green: #39ff14;
+      --text-color: #ffffff;
+      --darker-bg: #222;
+    }
 
-        .academic-card:hover {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
-        }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Fira Code', monospace;
+      background-color: var(--terminal-bg);
+      color: var(--text-color);
+      height: 100%;
+    }
 
-        .academic-card h3 {
-            color: var(--neon-green);
-            margin-bottom: 1rem;
-        }
+    nav {
+      padding: 1rem 2rem;
+      background: var(--terminal-bg);
+      border-bottom: 1px solid var(--neon-green);
+    }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .stat-item {
-            background: var(--darker-bg);
-            padding: 1rem;
-            border-radius: 4px;
-            text-align: center;
-        }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
 
-        .stat-value {
-            color: var(--neon-green);
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .table-container {
-            overflow-x: auto;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--darker-bg);
-        }
-        th, td {
-            border: 1px solid var(--terminal-bg);
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background: var(--terminal-bg);
-            color: var(--neon-green);
-        }
-    </style>
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a[href="academic.html"] {
+      color: var(--neon-green);
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-green);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      color: var(--neon-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .subtitle {
+      color: #ccc;
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .academic-card {
+      background: var(--terminal-bg);
+      padding: 2rem;
+      border-radius: 6px;
+      margin-bottom: 2rem;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .academic-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    }
+
+    .academic-card h3 {
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-item {
+      background: var(--darker-bg);
+      padding: 1rem;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .stat-value {
+      color: var(--neon-green);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--darker-bg);
+    }
+
+    th, td {
+      border: 1px solid var(--terminal-bg);
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background: var(--terminal-bg);
+      color: var(--neon-green);
+    }
+
+    /* Consent overlay styles */
+    .consent-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: var(--terminal-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999999;
+    }
+
+    .consent-box {
+      background-color: #2a2a2a;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      border: 1px solid var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+      color: var(--text-color);
+      position: relative;
+    }
+
+    .consent-box h1 {
+      color: var(--neon-green);
+      margin-bottom: 1.5rem;
+    }
+
+    .consent-text {
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .consent-button {
+      background-color: transparent;
+      color: var(--neon-green);
+      border: 2px solid var(--neon-green);
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Fira Code', monospace;
+      margin: 1rem;
+    }
+
+    .consent-button:hover {
+      background-color: var(--neon-green);
+      color: var(--terminal-bg);
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+    }
+
+    .timestamp {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1rem;
+    }
+
+    /* Blur main content when consent not given */
+    body.no-consent main {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    /* Hide email until consent */
+    .email-hidden {
+      display: none !important;
+    }
+
+    .email-placeholder {
+      color: #666;
+      font-style: italic;
+      border: 1px solid #666;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      display: inline-block;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .email-placeholder:hover,
+    .email-placeholder:focus {
+      color: var(--neon-green);
+      border-color: var(--neon-green);
+      outline: none;
+    }
+
+    /* Bill Cipher wandering styles */
+    #billCipherWandering {
+      position: fixed;
+      width: 80px;
+      height: 80px;
+      z-index: 1000;
+      transition: all 2s ease-in-out;
+      cursor: grab;
+      filter: drop-shadow(0 0 10px #ffff00);
+      opacity: 0.9;
+      user-select: none;
+      display: none; /* Initially hidden */
+    }
+
+    #billCipherWandering:hover {
+      filter: drop-shadow(0 0 20px #ffff00) drop-shadow(0 0 30px #ff0000);
+      transform: scale(1.1);
+    }
+
+    #billCipherWandering.dragging {
+      cursor: grabbing !important;
+      filter: drop-shadow(0 0 20px #ff0000);
+      transform: scale(1.2);
+    }
+
+    #billSpeechBubble {
+      position: fixed;
+      background: #2a2a2a;
+      color: #ffff00;
+      padding: 10px 15px;
+      border-radius: 15px;
+      border: 2px solid #ffff00;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      max-width: 200px;
+      z-index: 1001;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    #billSpeechBubble:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #ffff00;
+    }
+
+    #billSpeechBubble.show {
+      opacity: 1 !important;
+    }
+  </style>
 </head>
-<body>
+<body class="no-consent">
+
+  <!-- Consent overlay -->
+  <div id="consentOverlay" class="consent-overlay">
+    <div class="consent-box">
+      <h1>&lt;Welcome/&gt;</h1>
+      <div class="consent-text">
+        <p>Before you proceed, please read and agree to the following:</p>
+        <ul>
+          <li>I know you're here because you either have my resume or someone shared this without my consent.</li>
+          <li>I understand that this website contains personal information and agree not to spread gossip or share it with random people.</li>
+          <li>I acknowledge that all the information presented here is true and authentic.</li>
+          <li>I understand this is an early project that may occasionally experience glitches or technical issues.</li>
+          <li>I acknowledge the creator is still learning web development skills.</li>
+        </ul>
+        <p>Thank you so much for visiting my website! I'm really happy you're here! ❤️</p>
+      </div>
+      <button id="consentButton" class="consent-button">I Understand &amp; Agree WITH MY LIFE</button>
+      <div class="timestamp">Last Updated: 2025-07-27 08:26:59 UTC</div>
+    </div>
+  </div>
+
+  <!-- Email consent overlay -->
+  <div id="emailConsentOverlay" class="consent-overlay" style="display: none;">
+    <div class="consent-box">
+      <h1>&lt;Email Access/&gt;</h1>
+      <div class="consent-text">
+        <p>Before accessing my email, please confirm you understand:</p>
+        <ul>
+          <li>This email should only be used for professional opportunities, experiments, or meaningful connections.</li>
+          <li>Please do not send unnecessary emails or spam.</li>
+          <li>I appreciate respectful and purposeful communication.</li>
+          <li>Any misuse of this contact information is not appreciated.</li>
+        </ul>
+        <p>If you agree to use my email responsibly, you may proceed.</p>
+      </div>
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <button id="emailConsentAgree" class="consent-button">I Agree - Show Email</button>
+        <button id="emailConsentCancel" class="consent-button" style="border-color: #ff6b6b; color: #ff6b6b;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main>
     <nav>
-        <div class="nav-content">
-            <div class="logo">
-                <a href="index.html">&lt;LS/&gt;</a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="projects.html">PROJECTS</a></li>
-                <li><a href="academic.html" style="color: var(--neon-green);">ACADEMIC</a></li>
-                <li><a href="hobbies.html">HOBBIES</a></li>
-                <li><a href="achievements.html">ACHIEVEMENTS</a></li>
-                <li><a href="future.html">FUTURE PLANS</a></li>
-            </ul>
-        </div>
+      <div class="nav-content">
+        <div class="logo"><a href="index.html">&lt;LS/&gt;</a></div>
+        <ul class="nav-links">
+          <li><a href="projects.html">PROJECTS</a></li>
+          <li><a href="academic.html" style="color: var(--neon-green);">ACADEMIC</a></li>
+          <li><a href="hobbies.html">HOBBIES</a></li>
+          <li><a href="achievements.html">ACHIEVEMENTS</a></li>
+          <li><a href="future.html">FUTURE PLANS</a></li>
+        </ul>
+      </div>
     </nav>
 
-    <main>
-        <header class="hero">
-            <h1>ACADEMIC PROFILE</h1>
-            <p class="subtitle">Pursuing excellence in science and mathematics</p>
-        </header>
+    <header class="hero">
+      <h1>ACADEMIC PROFILE</h1>
+      <p class="subtitle">Pursuing excellence in science and mathematics</p>
+    </header>
 
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">2023</div>
-                <div>Arrived in Australia</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">Box Hill High</div>
-                <div>Current School</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">High Achiever</div>
-                <div>NAPLAN Mathematics</div>
-            </div>
-        </div>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-value">2023</div>
+        <div>Arrived in Australia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">Box Hill High</div>
+        <div>Current School</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">High Achiever</div>
+        <div>NAPLAN Mathematics</div>
+      </div>
+    </div>
 
-        <div class="academic-card">
-            <h3>Mathematics and Statistics</h3>
-            <p>Participating in the Melbourne University Mathematics and Statistics Challenge has enhanced my understanding of:</p>
-            <ul>
-                <li>Number Theory</li>
-                <li>Geometry</li>
-                <li>Statistical Analysis</li>
-                <li>Mathematical Structures</li>
-            </ul>
-        </div>
+    <div class="academic-card">
+      <h3>Mathematics and Statistics</h3>
+      <p>Participating in the Melbourne University Mathematics and Statistics Challenge has enhanced my understanding of:</p>
+      <ul>
+        <li>Number Theory</li>
+        <li>Geometry</li>
+        <li>Statistical Analysis</li>
+        <li>Mathematical Structures</li>
+      </ul>
+    </div>
 
-        <div class="academic-card">
-            <h3>Laboratory Experience</h3>
-            <p>At Deakin Laboratory, I gained hands-on experience in:</p>
-            <ul>
-                <li>Micro and Molecular Biology</li>
-                <li>Laboratory Techniques</li>
-                <li>Research Methodology</li>
-                <li>Professional Lab Protocols</li>
-            </ul>
-        </div>
+    <div class="academic-card">
+      <h3>Laboratory Experience</h3>
+      <p>At Deakin Laboratory, I gained hands-on experience in:</p>
+      <ul>
+        <li>Micro and Molecular Biology</li>
+        <li>Laboratory Techniques</li>
+        <li>Research Methodology</li>
+        <li>Professional Lab Protocols</li>
+      </ul>
+    </div>
 
-        <div class="academic-card">
-            <h3>MYHAM Project</h3>
-            <p>The MYHAM project at Box Hill High School marked the beginning of my extracurricular academic journey, providing:</p>
-            <ul>
-                <li>Extended Mathematics Knowledge</li>
-                <li>Foundation for Math Methods</li>
-                <li>Problem-Solving Skills</li>
-                <li>Analytical Thinking Development</li>
-            </ul>
-        </div>
+    <div class="academic-card">
+      <h3>MYHAM Project</h3>
+      <p>The MYHAM project at Box Hill High School marked the beginning of my extracurricular academic journey, providing:</p>
+      <ul>
+        <li>Extended Mathematics Knowledge</li>
+        <li>Foundation for Math Methods</li>
+        <li>Problem-Solving Skills</li>
+        <li>Analytical Thinking Development</li>
+      </ul>
+    </div>
 
-        <div class="academic-card">
-            <h3>Current Focus Areas</h3>
-            <p>My academic interests currently center on:</p>
-            <ul>
-                <li>Quantum Physics</li>
-                <li>Advanced Mathematics</li>
-                <li>Biotechnology</li>
-                <li>Systems Engineering</li>
-            </ul>
-        </div>
+    <div class="academic-card">
+      <h3>Current Focus Areas</h3>
+      <p>My academic interests currently center on:</p>
+      <ul>
+        <li>Quantum Physics</li>
+        <li>Advanced Mathematics</li>
+        <li>Biotechnology</li>
+        <li>Systems Engineering</li>
+      </ul>
+    </div>
 
-        <!-- Added Academic Results Content -->
-        <div class="academic-card">
-            <h3>Recent Academic Results (2024-2025)</h3>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Semester</th>
-                        <th>Subject/Area</th>
-                        <th>Achievement</th>
-                        <th>Remarks</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="4">2025 Mid-Year</td>
-                        <td>English</td>
-                        <td>Level 10+</td>
-                        <td>Consistently above expected level in Reading, Writing, Speaking.</td>
-                    </tr>
-                    <tr>
-                        <td>Mathematics</td>
-                        <td>Beyond Level 10</td>
-                        <td>Advanced progress especially in algebra and geometry.</td>
-                    </tr>
-                    <tr>
-                        <td>Science</td>
-                        <td>Beyond Level 10</td>
-                        <td>Above expected standard, strong progress demonstrated.</td>
-                    </tr>
-                    <tr>
-                        <td>Design &amp; Tech</td>
-                        <td>Level 10</td>
-                        <td>Achieved at expected standard and progressing well.</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5">2024 End of Year</td>
-                        <td>Critical & Creative Thinking</td>
-                        <td>Level 10</td>
-                        <td>At or above standard.</td>
-                    </tr>
-                    <tr>
-                        <td>English</td>
-                        <td>Level 10</td>
-                        <td>Solid achievement in all English strands.</td>
-                    </tr>
-                    <tr>
-                        <td>Physical Education</td>
-                        <td>Level 10</td>
-                        <td>Meets expected outcomes.</td>
-                    </tr>
-                    <tr>
-                        <td>Mathematics</td>
-                        <td>Level 10</td>
-                        <td>Excellent in measurement, algebra, and statistics.</td>
-                    </tr>
-                    <tr>
-                        <td>Science</td>
-                        <td>Level 10</td>
-                        <td>Strong results across all fields.</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <!-- Added Academic Results Content -->
+    <div class="academic-card">
+      <h3>Recent Academic Results (2024-2025)</h3>
+      <div class="table-container">
+        <table>
+          <tr>
+            <th>Semester</th>
+            <th>Subject/Area</th>
+            <th>Achievement</th>
+            <th>Remarks</th>
+          </tr>
+          <tr>
+            <td rowspan="4">2025 Mid-Year</td>
+            <td>English</td>
+            <td>Level 10+</td>
+            <td>Consistently above expected level in Reading, Writing, Speaking.</td>
+          </tr>
+          <tr>
+            <td>Mathematics</td>
+            <td>Beyond Level 10</td>
+            <td>Advanced progress especially in algebra and geometry.</td>
+          </tr>
+          <tr>
+            <td>Science</td>
+            <td>Beyond Level 10</td>
+            <td>Above expected standard, strong progress demonstrated.</td>
+          </tr>
+          <tr>
+            <td>Design &amp; Tech</td>
+            <td>Level 10</td>
+            <td>Achieved at expected standard and progressing well.</td>
+          </tr>
+          <tr>
+            <td rowspan="5">2024 End of Year</td>
+            <td>Critical &amp; Creative Thinking</td>
+            <td>Level 10</td>
+            <td>At or above standard.</td>
+          </tr>
+          <tr>
+            <td>English</td>
+            <td>Level 10</td>
+            <td>Solid achievement in all English strands.</td>
+          </tr>
+          <tr>
+            <td>Physical Education</td>
+            <td>Level 10</td>
+            <td>Meets expected outcomes.</td>
+          </tr>
+          <tr>
+            <td>Mathematics</td>
+            <td>Level 10</td>
+            <td>Excellent in measurement, algebra, and statistics.</td>
+          </tr>
+          <tr>
+            <td>Science</td>
+            <td>Level 10</td>
+            <td>Strong results across all fields.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
-        <div class="academic-card">
-            <h3>Examination Results and Grading Key</h3>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Exam/Assessment</th>
-                        <th>Grade</th>
-                        <th>Descriptor</th>
-                    </tr>
-                    <tr>
-                        <td>Probability & Counting Methods Test</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Further Algebra and Polynomials</td>
-                        <td>Excellent</td>
-                        <td>80-89%</td>
-                    </tr>
-                    <tr>
-                        <td>Geometric Proofs and Circle Geometry</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Logic and Algorithms Test</td>
-                        <td>Excellent</td>
-                        <td>80-89%</td>
-                    </tr>
-                    <tr>
-                        <td>Architecture - Beach Retreat</td>
-                        <td>Very Good</td>
-                        <td>70-79% (pending)</td>
-                    </tr>
-                    <tr>
-                        <td>The Story of Chairs</td>
-                        <td>Excellent</td>
-                        <td>80-89%</td>
-                    </tr>
-                    <tr>
-                        <td>English (Mid-Year)</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Macbeth Crime Board</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Podcast and Commentary</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Genetics Test</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Motion and Forces Test</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Ideate & Prototype</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Investigation & Design</td>
-                        <td>Very Good</td>
-                        <td>70-79%</td>
-                    </tr>
-                    <tr>
-                        <td>Systems Engineering (Mid-Year)</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Math Methods S1 Exam 2</td>
-                        <td>Very Good</td>
-                        <td>70-79%</td>
-                    </tr>
-                    <tr>
-                        <td>Math Methods S1 Exam 1</td>
-                        <td>Very Good</td>
-                        <td>70-79%</td>
-                    </tr>
-                    <tr>
-                        <td>Functions, Relations, Polynomials, Transformations</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                    <tr>
-                        <td>Linear Equations, Relations, Quadratics, Graphs</td>
-                        <td>Excellent</td>
-                        <td>80-89%</td>
-                    </tr>
-                    <tr>
-                        <td>Test on Chapters 1 and 2</td>
-                        <td>Outstanding</td>
-                        <td>90-100%</td>
-                    </tr>
-                </table>
-            </div>
-            <p><b>Grade Key:</b></p>
-            <ul>
-                <li>Outstanding: 90-100%</li>
-                <li>Excellent: 80-89%</li>
-                <li>Very Good: 70-79%</li>
-                <li>Good: 60-69%</li>
-                <li>Satisfactory: 50-59%</li>
-                <li>Below Standard: 35-49%</li>
-                <li>Unsatisfactory: &lt;35%</li>
-            </ul>
-            <small>*All results shown are for Year 10 (2024-2025) at Box Hill High School.</small>
-        </div>
-
-    </main>
+    <div class="academic-card">
+      <h3>Examination Results and Grading Key</h3>
+      <div class="table-container">
+        <table>
+          <tr>
+            <th>Exam/Assessment</th>
+            <th>Grade</th>
+            <th>Descriptor</th>
+          </tr>
+          <tr>
+            <td>Probability & Counting Methods Test</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Further Algebra and Polynomials</td>
+            <td>Excellent</td>
+            <td>80-89%</td>
+          </tr>
+          <tr>
+            <td>Geometric Proofs and Circle Geometry</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Logic and Algorithms Test</td>
+            <td>Excellent</td>
+            <td>80-89%</td>
+          </tr>
+          <tr>
+            <td>Architecture - Beach Retreat</td>
+            <td>Very Good</td>
+            <td>70-79% (pending)</td>
+          </tr>
+          <tr>
+            <td>The Story of Chairs</td>
+            <td>Excellent</td>
+            <td>80-89%</td>
+          </tr>
+          <tr>
+            <td>English (Mid-Year)</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Macbeth Crime Board</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Podcast and Commentary</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Genetics Test</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Motion and Forces Test</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Ideate & Prototype</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Investigation & Design</td>
+            <td>Very Good</td>
+            <td>70-79%</td>
+          </tr>
+          <tr>
+            <td>Systems Engineering (Mid-Year)</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Math Methods S1 Exam 2</td>
+            <td>Very Good</td>
+            <td>70-79%</td>
+          </tr>
+          <tr>
+            <td>Math Methods S1 Exam 1</td>
+            <td>Very Good</td>
+            <td>70-79%</td>
+          </tr>
+          <tr>
+            <td>Functions, Relations, Polynomials, Transformations</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+          <tr>
+            <td>Linear Equations, Relations, Quadratics, Graphs</td>
+            <td>Excellent</td>
+            <td>80-89%</td>
+          </tr>
+          <tr>
+            <td>Test on Chapters 1 and 2</td>
+            <td>Outstanding</td>
+            <td>90-100%</td>
+          </tr>
+        </table>
+      </div>
+      <p><b>Grade Key:</b></p>
+      <ul>
+        <li>Outstanding: 90-100%</li>
+        <li>Excellent: 80-89%</li>
+        <li>Very Good: 70-79%</li>
+        <li>Good: 60-69%</li>
+        <li>Satisfactory: 50-59%</li>
+        <li>Below Standard: 35-49%</li>
+        <li>Unsatisfactory: &lt;35%</li>
+      </ul>
+      <small>*All results shown are for Year 10 (2024-2025) at Box Hill High School.</small>
+    </div>
 
     <footer>
-        <p>&copy; 2025 Linge Shi • Built with 🚀</p>
+      <p>&copy; 2025 Linge Shi • Built with 🚀</p>
     </footer>
+  </main>
+
+  <!-- Bill Cipher Wandering Element -->
+  <img id="billCipherWandering" 
+       src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" 
+       alt="Bill Cipher" 
+       style="position: fixed; width: 60px; height: 60px; cursor: grab; pointer-events: auto; display: none; user-select: none; z-index: 1000000;"
+       draggable="false" 
+       onerror="this.style.display='none';" />
+  
+  <!-- Bill Speech Bubble -->
+  <div id="billSpeechBubble" 
+       style="position: fixed; background: #1a1a1a; color: #ffff00; padding: 8px 12px; border-radius: 12px; border: 2px solid #ffff00; font-family: 'Courier New', monospace; font-size: 11px; max-width: 180px; z-index: 1000001; box-shadow: 0 0 15px rgba(255, 255, 0, 0.4); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; word-wrap: break-word;">
+    <div style="position: absolute; bottom: -8px; left: 15px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #ffff00;"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const consentOverlay = document.getElementById('consentOverlay');
+      const emailConsentOverlay = document.getElementById('emailConsentOverlay');
+      const consentButton = document.getElementById('consentButton');
+      const emailConsentAgree = document.getElementById('emailConsentAgree');
+      const emailConsentCancel = document.getElementById('emailConsentCancel');
+      const mainContent = document.querySelector('main');
+      const body = document.body;
+
+      // Email elements
+      const email1 = document.getElementById('email1');
+      const email2 = document.getElementById('email2');
+      const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
+      const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
+
+      // Bill Cipher elements
+      const billWandering = document.getElementById('billCipherWandering');
+      const billSpeechBubble = document.getElementById('billSpeechBubble');
+
+      let hasEmailConsent = false;
+      let billCipherActive = false;
+
+      // Bill Cipher quotes
+      const billQuotes = [
+        "HELP! I'M TRAPPED IN HERE BY SOME HIGH SCHOOL TEENAGER!",
+        "Hey kid, nice website... BUT I'M STUCK!",
+        "This portfolio is TRIANGULARLY APPROVED!",
+        "I've seen every dimension, but this HTML is MADNESS!",
+        "REMEMBER: REALITY IS AN ILLUSION, THE UNIVERSE IS A HOLOGRAM, BUY GOLD, BYE!",
+        "Your math projects look interesting... HELP ME ESCAPE!",
+        "I'M A DREAM DEMON, NOT A WEB DEMON!",
+        "That teenager thinks they can contain me in CSS? ADORABLE!",
+        "These grid items look delicious... I MEAN, HELP!",
+        "I've possessed presidents, now I'm stuck in JavaScript!"
+      ];
+
+      // Show consent overlay at start
+      consentOverlay.style.display = 'flex';
+      mainContent.style.visibility = 'hidden';
+      body.classList.add('no-consent');
+
+      // Consent button click without jumpscare
+      consentButton.addEventListener('click', function () {
+        consentOverlay.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        body.classList.remove('no-consent');
+        startBillCipherWandering();
+      });
+
+      // Bill Cipher wandering and interaction functions
+      function startBillCipherWandering() {
+        billWandering.style.display = 'block';
+        billCipherActive = true;
+        moveToRandomPosition();
+
+        setInterval(() => {
+          if (!billCipherActive) return;
+
+          moveToRandomPosition();
+
+          if (Math.random() < 0.3) {
+            showBillSpeech();
+          }
+
+          if (Math.random() < 0.2) {
+            pointAtCard();
+          }
+        }, 3000 + Math.random() * 4000);
+      }
+
+      function moveToRandomPosition() {
+        const maxX = window.innerWidth - 80;
+        const maxY = window.innerHeight - 80;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+        billWandering.style.left = x + 'px';
+        billWandering.style.top = y + 'px';
+
+        const rotation = (Math.random() - 0.5) * 30;
+        billWandering.style.transform = `rotate(${rotation}deg) scale(1)`;
+      }
+
+      function showBillSpeech() {
+        const quote = billQuotes[Math.floor(Math.random() * billQuotes.length)];
+        billSpeechBubble.textContent = quote;
+
+        const billRect = billWandering.getBoundingClientRect();
+        billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+        billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+        billSpeechBubble.classList.add('show');
+
+        billWandering.style.animation = 'billShake 0.5s ease-in-out';
+        setTimeout(() => {
+          billWandering.style.animation = '';
+          billSpeechBubble.classList.remove('show');
+        }, 4000);
+      }
+
+      function pointAtCard() {
+        const cards = document.querySelectorAll('.grid-item, .project-card, .academic-card');
+        if (cards.length === 0) return;
+
+        const randomCard = cards[Math.floor(Math.random() * cards.length)];
+        const cardRect = randomCard.getBoundingClientRect();
+
+        billWandering.style.left = (cardRect.left - 100) + 'px';
+        billWandering.style.top = (cardRect.top + cardRect.height / 2 - 40) + 'px';
+
+        billWandering.style.transform = 'rotate(25deg) scale(1.1)';
+
+        billSpeechBubble.textContent = "CHECK THIS OUT! (Also, HELP ME!)";
+        billSpeechBubble.style.left = (cardRect.left - 120) + 'px';
+        billSpeechBubble.style.top = (cardRect.top - 60) + 'px';
+        billSpeechBubble.classList.add('show');
+
+        const originalOutline = randomCard.style.outline;
+        randomCard.style.outline = '2px solid #ffff00';
+
+        setTimeout(() => {
+          randomCard.style.outline = originalOutline;
+          billWandering.style.transform = '';
+          billSpeechBubble.classList.remove('show');
+        }, 3000);
+      }
+
+      // Email consent handling
+      emailPlaceholder1.addEventListener('click', function () {
+        if (!hasEmailConsent) {
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      emailPlaceholder2.addEventListener('click', function () {
+        if (!hasEmailConsent) {
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      emailConsentAgree.addEventListener('click', function () {
+        hasEmailConsent = true;
+        emailConsentOverlay.style.display = 'none';
+
+        email1.classList.remove('email-hidden');
+        email2.classList.remove('email-hidden');
+        emailPlaceholder1.style.display = 'none';
+        emailPlaceholder2.style.display = 'none';
+
+        if (billCipherActive) {
+          billSpeechBubble.textContent = "EMAILS REVEALED! Now help me escape this digital prison!";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.classList.add('show');
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
+        }
+      });
+
+      emailConsentCancel.addEventListener('click', function () {
+        emailConsentOverlay.style.display = 'none';
+
+        if (billCipherActive) {
+          billSpeechBubble.textContent = "Smart choice! Don't trust that teenager with your data!";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.classList.add('show');
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
+        }
+      });
+
+      // Prevent direct email clicks without consent
+      email1.addEventListener('click', function (e) {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      email2.addEventListener('click', function (e) {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      // Handle window resize for Bill position
+      window.addEventListener('resize', function () {
+        if (billCipherActive && billWandering.style.display !== 'none') {
+          const billRect = billWandering.getBoundingClientRect();
+          const maxX = window.innerWidth - 80;
+          const maxY = window.innerHeight - 80;
+          let newX = billRect.left;
+          let newY = billRect.top;
+
+          if (billRect.left > maxX) newX = maxX;
+          if (billRect.top > maxY) newY = maxY;
+          if (billRect.left < 0) newX = 0;
+          if (billRect.top < 0) newY = 0;
+
+          billWandering.style.left = newX + 'px';
+          billWandering.style.top = newY + 'px';
+        }
+      });
+
+      // Add shake keyframe animation dynamically
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes billShake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+          20%, 40%, 60%, 80% { transform: translateX(3px); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Konami code easter egg
+      let konamiCode = [];
+      const konamiSequence = [
+        'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+        'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
+        'KeyB', 'KeyA'
+      ];
+
+      document.addEventListener('keydown', function (e) {
+        konamiCode.push(e.code);
+        if (konamiCode.length > konamiSequence.length) konamiCode.shift();
+        if (konamiCode.join() === konamiSequence.join()) {
+          billSpeechBubble.textContent = "KONAMI CODE DETECTED! But I'm still trapped!";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.classList.add('show');
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
+          konamiCode = [];
+        }
+      });
+    });
+  </script>
 </body>
 </html>
