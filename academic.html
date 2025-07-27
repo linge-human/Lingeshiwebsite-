@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic - Linge Shi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .academic-card {
+            background: var(--terminal-bg);
+            padding: 2rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            border: 1px solid transparent;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .academic-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .academic-card h3 {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            background: var(--darker-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .stat-value {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">&lt;LS/&gt;</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="projects.html">PROJECTS</a></li>
+                <li><a href="academic.html" style="color: var(--neon-green);">ACADEMIC</a></li>
+                <li><a href="hobbies.html">HOBBIES</a></li>
+                <li><a href="achievements.html">ACHIEVEMENTS</a></li>
+                <li><a href="future.html">FUTURE PLANS</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <header class="hero">
+            <h1>ACADEMIC PROFILE</h1>
+            <p class="subtitle">Pursuing excellence in science and mathematics</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">2023</div>
+                <div>Arrived in Australia</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">Box Hill High</div>
+                <div>Current School</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">High Achiever</div>
+                <div>NAPLAN Mathematics</div>
+            </div>
+        </div>
+
+        <div class="academic-card">
+            <h3>Mathematics and Statistics</h3>
+            <p>Participating in the Melbourne University Mathematics and Statistics Challenge has enhanced my understanding of:</p>
+            <ul>
+                <li>Number Theory</li>
+                <li>Geometry</li>
+                <li>Statistical Analysis</li>
+                <li>Mathematical Structures</li>
+            </ul>
+        </div>
+
+        <div class="academic-card">
+            <h3>Laboratory Experience</h3>
+            <p>At Deakin Laboratory, I gained hands-on experience in:</p>
+            <ul>
+                <li>Micro and Molecular Biology</li>
+                <li>Laboratory Techniques</li>
+                <li>Research Methodology</li>
+                <li>Professional Lab Protocols</li>
+            </ul>
+        </div>
+
+        <div class="academic-card">
+            <h3>MYHAM Project</h3>
+            <p>The MYHAM project at Box Hill High School marked the beginning of my extracurricular academic journey, providing:</p>
+            <ul>
+                <li>Extended Mathematics Knowledge</li>
+                <li>Foundation for Math Methods</li>
+                <li>Problem-Solving Skills</li>
+                <li>Analytical Thinking Development</li>
+            </ul>
+        </div>
+
+        <div class="academic-card">
+            <h3>Current Focus Areas</h3>
+            <p>My academic interests currently center on:</p>
+            <ul>
+                <li>Quantum Physics</li>
+                <li>Advanced Mathematics</li>
+                <li>Biotechnology</li>
+                <li>Systems Engineering</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Linge Shi • Built with 🚀</p>
+    </footer>
+</body>
+</html>
