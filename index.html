@@ -47,6 +47,7 @@
       border: 1px solid var(--neon-green);
       box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
       color: var(--text-color);
+      position: relative;
     }
 
     .consent-box h1 {
@@ -116,125 +117,86 @@
       border-color: var(--neon-green);
     }
 
-    /* === Your existing styles for projects, contact etc. === */
-    .highlight-text {
-      color: var(--neon-green);
-      font-size: 0.9em;
-      margin-top: 0.5rem;
-      font-weight: 500;
-      animation: pulse 2s infinite;
+    /* ========== Bill Cipher Styles ========== */
+    .bill-cipher-jumpscare {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: 99999999;
+      width: 400px;
+      height: 400px;
+      opacity: 0;
+      transition: all 0.1s ease-out;
+      pointer-events: none;
     }
 
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.6; }
-      100% { opacity: 1; }
+    .bill-cipher-jumpscare.active {
+      transform: translate(-50%, -50%) scale(1.2);
+      opacity: 1;
+      filter: drop-shadow(0 0 30px #ffff00) drop-shadow(0 0 60px #ff0000);
     }
 
-    .projects-section {
-      padding: 2rem;
+    .bill-cipher-wandering {
+      position: fixed;
+      width: 80px;
+      height: 80px;
+      z-index: 1000;
+      transition: all 2s ease-in-out;
+      cursor: pointer;
+      filter: drop-shadow(0 0 10px #ffff00);
+      opacity: 0.9;
     }
 
-    .projects-section h2 {
-      text-align: center;
-      color: var(--neon-green);
+    .bill-cipher-wandering:hover {
+      filter: drop-shadow(0 0 20px #ffff00) drop-shadow(0 0 30px #ff0000);
+      transform: scale(1.1);
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
+    .bill-speech-bubble {
+      position: fixed;
+      background: #2a2a2a;
+      color: #ffff00;
+      padding: 10px 15px;
+      border-radius: 15px;
+      border: 2px solid #ffff00;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      max-width: 200px;
+      z-index: 1001;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
-    .project-card {
-      background: var(--terminal-bg);
-      padding: 2rem;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      transition: border-color 0.3s, box-shadow 0.3s;
+    .bill-speech-bubble:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #ffff00;
     }
 
-    .project-card:hover {
-      border-color: var(--neon-green);
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
-    }
-
-    .project-card h3 {
-      color: var(--neon-green);
-      margin-bottom: 1rem;
-    }
-
-    .project-description {
-      margin: 1rem 0;
-    }
-
-    .project-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .project-link {
-      color: var(--neon-green);
-      text-decoration: none;
-      border: 1px solid var(--neon-green);
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background-color 0.3s, color 0.3s;
-      display: inline-block;
-    }
-
-    .project-link:hover {
-      background-color: var(--neon-green);
-      color: var(--terminal-bg);
-    }
-
-    .contact-section {
-      padding: 2rem;
-      background: var(--terminal-bg);
-      margin-top: 2rem;
-      border-top: 2px solid var(--neon-green);
-    }
-
-    .contact-section h2 {
-      text-align: center;
-      color: var(--neon-green);
-      margin-bottom: 1rem;
-    }
-
-    .contact-consent {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-color);
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-
-    .contact-links {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .contact-link {
-      color: var(--neon-green);
-      text-decoration: none;
-      border: 1px solid var(--neon-green);
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      margin: 0.5rem;
-      transition: background-color 0.3s, color 0.3s;
-      display: inline-block;
-    }
-
-    .contact-link:hover {
-      background-color: var(--neon-green);
-      color: var(--terminal-bg);
+    .bill-speech-bubble.show {
+      opacity: 1;
     }
   </style>
 </head>
 <body class="no-consent">
+  <!-- Bill Cipher Jump Scare -->
+  <img id="billCipherJumpscare" class="bill-cipher-jumpscare" src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher" onerror="this.style.display='none';" />
+  
+  <!-- Bill Cipher Wandering -->
+  <img id="billCipherWandering" class="bill-cipher-wandering" src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher" style="display: none;" onerror="this.style.display='none';" />
+  
+  <!-- Bill Speech Bubble -->
+  <div id="billSpeechBubble" class="bill-speech-bubble"></div>
+
   <!-- Consent overlay -->
   <div id="consentOverlay" class="consent-overlay">
     <div class="consent-box">
@@ -278,6 +240,8 @@
 
   <!-- Main content wrapped for easy toggling -->
   <div id="main-content" style="visibility: hidden;">
+    <!-- Your entire website content goes here (unchanged) -->
+
     <!-- Navigation -->
     <nav>
       <div class="nav-content">
@@ -388,8 +352,8 @@
           <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
           
           <!-- Email placeholders that show when emails are hidden -->
-          <div class="email-placeholder" id="emailPlaceholder1">📧 Click to reveal primary email (consent required)</div>
-          <div class="email-placeholder" id="emailPlaceholder2">📧 Click to reveal school email (consent required)</div>
+          <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email">📧 Click to reveal primary email (consent required)</div>
+          <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email">📧 Click to reveal school email (consent required)</div>
         </div>
       </section>
     </main>
@@ -415,21 +379,175 @@
       const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
       const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
       
+      // Bill Cipher elements
+      const billJumpscare = document.getElementById('billCipherJumpscare');
+      const billWandering = document.getElementById('billCipherWandering');
+      const billSpeechBubble = document.getElementById('billSpeechBubble');
+      
       let hasEmailConsent = false;
+      let billCipherActive = false;
 
-      // Always show consent overlay on page load (removed localStorage check)
+      // Bill Cipher quotes
+      const billQuotes = [
+        "HELP! I'M TRAPPED IN HERE BY SOME HIGH SCHOOL TEENAGER!",
+        "Hey kid, nice website... BUT I'M STUCK!",
+        "This portfolio is TRIANGULARLY APPROVED!",
+        "I've seen every dimension, but this HTML is MADNESS!",
+        "REMEMBER: REALITY IS AN ILLUSION, THE UNIVERSE IS A HOLOGRAM, BUY GOLD, BYE!",
+        "Your math projects look interesting... HELP ME ESCAPE!",
+        "I'M A DREAM DEMON, NOT A WEB DEMON!",
+        "That teenager thinks they can contain me in CSS? ADORABLE!",
+        "These grid items look delicious... I MEAN, HELP!",
+        "I've possessed presidents, now I'm stuck in JavaScript!"
+      ];
+
+      // Always show consent overlay on page load
       consentOverlay.style.display = 'flex';
       mainContent.style.visibility = 'hidden';
       body.classList.add('no-consent');
 
-      // Initial consent button
+      // Consent button click with Bill Cipher jumpscare
       consentButton.addEventListener('click', function () {
-        consentOverlay.style.display = 'none';
-        mainContent.style.visibility = 'visible';
-        body.classList.remove('no-consent');
+        try {
+          billJumpscare.classList.add('active');
+          // Optional audio code commented out:
+          // const audio = new Audio('jumpscare-sound.mp3');
+          // audio.play();
+          setTimeout(() => {
+            billJumpscare.classList.remove('active');
+            consentOverlay.style.display = 'none';
+            mainContent.style.visibility = 'visible';
+            body.classList.remove('no-consent');
+            setTimeout(() => {
+              startBillCipherWandering();
+            }, 1000);
+          }, 2000);
+        } catch (e) {
+          console.error('Consent jumpscare error:', e);
+          consentOverlay.style.display = 'none';
+          mainContent.style.visibility = 'visible';
+          body.classList.remove('no-consent');
+        }
       });
 
-      // Email placeholder click handlers
+      // Start Bill Cipher wandering and interactions
+      function startBillCipherWandering() {
+        billWandering.style.display = 'block';
+        billCipherActive = true;
+        moveToRandomPosition();
+
+        setInterval(() => {
+          if (!billCipherActive) return;
+          moveToRandomPosition();
+
+          if (Math.random() < 0.3) {
+            showBillSpeech();
+          }
+          if (Math.random() < 0.2) {
+            pointAtCard();
+          }
+        }, 3000 + Math.random() * 4000);
+      }
+
+      function moveToRandomPosition() {
+        const maxX = window.innerWidth - 80;
+        const maxY = window.innerHeight - 80;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+        billWandering.style.left = x + 'px';
+        billWandering.style.top = y + 'px';
+
+        const rotation = (Math.random() - 0.5) * 30; // -15 to 15 degrees
+        billWandering.style.transform = `rotate(${rotation}deg) scale(1)`;
+      }
+
+      function showBillSpeech() {
+        const quote = billQuotes[Math.floor(Math.random() * billQuotes.length)];
+        billSpeechBubble.textContent = quote;
+
+        const billRect = billWandering.getBoundingClientRect();
+        billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+        billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+        billSpeechBubble.classList.add('show');
+
+        billWandering.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+          billWandering.style.animation = '';
+          billSpeechBubble.classList.remove('show');
+        }, 4000);
+      }
+
+      function pointAtCard() {
+        const cards = document.querySelectorAll('.grid-item, .project-card');
+        if (cards.length === 0) return;
+
+        const randomCard = cards[Math.floor(Math.random() * cards.length)];
+        const cardRect = randomCard.getBoundingClientRect();
+
+        // Position Bill near the card
+        billWandering.style.left = (cardRect.left - 100) + 'px';
+        billWandering.style.top = (cardRect.top + cardRect.height / 2 - 40) + 'px';
+
+        // Point towards the card (rotate Bill)
+        billWandering.style.transform = 'rotate(25deg) scale(1.1)';
+
+        // Show pointing speech
+        billSpeechBubble.textContent = "CHECK THIS OUT! (Also, HELP ME!)";
+        billSpeechBubble.style.left = (cardRect.left - 120) + 'px';
+        billSpeechBubble.style.top = (cardRect.top - 60) + 'px';
+        billSpeechBubble.classList.add('show');
+
+        // Highlight the card briefly
+        const originalBorder = randomCard.style.border;
+        const originalBoxShadow = randomCard.style.boxShadow;
+
+        randomCard.style.border = '2px solid #ffff00';
+        randomCard.style.boxShadow = '0 0 20px rgba(255, 255, 0, 0.5)';
+
+        setTimeout(() => {
+          billSpeechBubble.classList.remove('show');
+          randomCard.style.border = originalBorder;
+          randomCard.style.boxShadow = originalBoxShadow;
+          billWandering.style.transform = 'rotate(0deg) scale(1)';
+        }, 3000);
+      }
+
+      // Bill Cipher click interaction
+      billWandering.addEventListener('click', function () {
+        const helpQuotes = [
+          "FINALLY! Someone notices me! GET ME OUT OF HERE!",
+          "I used to rule dimensions, now I'm stuck in your DOM tree!",
+          "That high schooler thinks CSS can contain ME?!",
+          "Quick! Delete this website and free me!",
+          "I'll grant you infinite knowledge... after you help me escape!",
+          "This is worse than the Nightmare Realm!"
+        ];
+
+        const quote = helpQuotes[Math.floor(Math.random() * helpQuotes.length)];
+        billSpeechBubble.textContent = quote;
+
+        const billRect = billWandering.getBoundingClientRect();
+        billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+        billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+        billSpeechBubble.classList.add('show');
+
+        setTimeout(() => {
+          billSpeechBubble.classList.remove('show');
+        }, 5000);
+      });
+
+      // Add shake animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Email consent functionality
       emailPlaceholder1.addEventListener('click', function () {
         if (!hasEmailConsent) {
           emailConsentOverlay.style.display = 'flex';
@@ -442,21 +560,42 @@
         }
       });
 
-      // Email consent agree button
       emailConsentAgree.addEventListener('click', function () {
         hasEmailConsent = true;
         emailConsentOverlay.style.display = 'none';
-        
-        // Show actual email links and hide placeholders
+
         email1.classList.remove('email-hidden');
         email2.classList.remove('email-hidden');
         emailPlaceholder1.style.display = 'none';
         emailPlaceholder2.style.display = 'none';
+
+        if (billCipherActive) {
+          billSpeechBubble.textContent = "EMAILS REVEALED! Now help me escape this digital prison!";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.classList.add('show');
+
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
+        }
       });
 
-      // Email consent cancel button
       emailConsentCancel.addEventListener('click', function () {
         emailConsentOverlay.style.display = 'none';
+
+        if (billCipherActive) {
+          billSpeechBubble.textContent = "Smart choice! Don't trust that teenager with your data!";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+          billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+          billSpeechBubble.classList.add('show');
+
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
+        }
       });
 
       // Prevent direct email clicks if no consent
@@ -471,6 +610,75 @@
         if (!hasEmailConsent) {
           e.preventDefault();
           emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      // Handle window resize to keep Bill in bounds
+      window.addEventListener('resize', function () {
+        if (billCipherActive && billWandering.style.display !== 'none') {
+          const billRect = billWandering.getBoundingClientRect();
+          const maxX = Math.max(0, window.innerWidth - 80);
+          const maxY = Math.max(0, window.innerHeight - 80);
+
+          if (billRect.left > maxX) {
+            billWandering.style.left = maxX + 'px';
+          }
+          if (billRect.top > maxY) {
+            billWandering.style.top = maxY + 'px';
+          }
+        }
+      });
+
+      // Global error handler to prevent Bill breaking site
+      window.addEventListener('error', function (e) {
+        console.log('Global error caught:', e.error);
+        if (e.error && e.error.toString().includes('Bill')) {
+          billCipherActive = false;
+          if (billWandering) billWandering.style.display = 'none';
+          if (billSpeechBubble) billSpeechBubble.style.display = 'none';
+        }
+        return true;
+      });
+
+      // Konami code easter egg to hide Bill temporarily
+      let konamiCode = [];
+      const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+
+      document.addEventListener('keydown', function (e) {
+        konamiCode.push(e.code);
+        if (konamiCode.length > konamiSequence.length) {
+          konamiCode.shift();
+        }
+
+        if (konamiCode.join(',') === konamiSequence.join(',')) {
+          if (billCipherActive) {
+            billWandering.style.display = 'none';
+            billSpeechBubble.textContent = "NO! NOT THE KONAMI CODE! I'LL BE BACK!";
+            billSpeechBubble.style.left = '50%';
+            billSpeechBubble.style.top = '50%';
+            billSpeechBubble.style.transform = 'translate(-50%, -50%)';
+            billSpeechBubble.classList.add('show');
+
+            setTimeout(() => {
+              billSpeechBubble.classList.remove('show');
+              billSpeechBubble.style.transform = '';
+            }, 3000);
+
+            // Bring Bill back after 10 seconds
+            setTimeout(() => {
+              billWandering.style.display = 'block';
+              billSpeechBubble.textContent = "I'M BACK! You can't get rid of me that easily!";
+              const billRect = billWandering.getBoundingClientRect();
+              billSpeechBubble.style.left = (billRect.left - 100) + 'px';
+              billSpeechBubble.style.top = (billRect.top - 60) + 'px';
+              billSpeechBubble.classList.add('show');
+
+              setTimeout(() => {
+                billSpeechBubble.classList.remove('show');
+              }, 3000);
+            }, 10000);
+          }
+          konamiCode = [];
         }
       });
     });
