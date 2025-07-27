@@ -1,245 +1,384 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linge Shi - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        .highlight-text {
-            color: var(--neon-green);
-            font-size: 0.9em;
-            margin-top: 0.5rem;
-            font-weight: 500;
-            animation: pulse 2s infinite;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Linge Shi - Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* === Consent Overlay Styles === */
+    :root {
+      --terminal-bg: #1a1a1a;
+      --neon-green: #39ff14;
+      --text-color: #ffffff;
+    }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Fira Code', monospace;
+      background-color: var(--terminal-bg);
+      color: var(--text-color);
+    }
 
-        .projects-section {
-            padding: 2rem;
-        }
+    .consent-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--terminal-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999999;
+    }
 
-        .projects-section h2 {
-            text-align: center;
-            color: var(--neon-green);
-        }
+    .consent-box {
+      background-color: #2a2a2a;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      border: 1px solid var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+      color: var(--text-color);
+    }
 
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    .consent-box h1 {
+      color: var(--neon-green);
+      margin-bottom: 1.5rem;
+    }
 
-        .project-card {
-            background: var(--terminal-bg);
-            padding: 2rem;
-            border-radius: 6px;
-            border: 1px solid transparent;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+    .consent-text {
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      text-align: left;
+    }
 
-        .project-card:hover {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
-        }
+    .consent-button {
+      background-color: transparent;
+      color: var(--neon-green);
+      border: 2px solid var(--neon-green);
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Fira Code', monospace;
+      margin: 1rem;
+    }
 
-        .project-card h3 {
-            color: var(--neon-green);
-            margin-bottom: 1rem;
-        }
+    .consent-button:hover {
+      background-color: var(--neon-green);
+      color: var(--terminal-bg);
+      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+    }
 
-        .project-description {
-            margin: 1rem 0;
-        }
+    .timestamp {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1rem;
+    }
 
-        .project-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+    /* Hide main content when consent not given */
+    body.no-consent #main-content {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
 
-        .project-link {
-            color: var(--neon-green);
-            text-decoration: none;
-            border: 1px solid var(--neon-green);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
-            display: inline-block;
-        }
+    /* === Your other styles for projects, contact etc. === */
+    .highlight-text {
+      color: var(--neon-green);
+      font-size: 0.9em;
+      margin-top: 0.5rem;
+      font-weight: 500;
+      animation: pulse 2s infinite;
+    }
 
-        .project-link:hover {
-            background-color: var(--neon-green);
-            color: var(--terminal-bg);
-        }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
 
-        .contact-section {
-            padding: 2rem;
-            background: var(--terminal-bg);
-            margin-top: 2rem;
-            border-top: 2px solid var(--neon-green);
-        }
+    .projects-section {
+      padding: 2rem;
+    }
 
-        .contact-section h2 {
-            text-align: center;
-            color: var(--neon-green);
-            margin-bottom: 1rem;
-        }
+    .projects-section h2 {
+      text-align: center;
+      color: var(--neon-green);
+    }
 
-        .contact-consent {
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-color);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
 
-        .contact-links {
-            text-align: center;
-            margin-top: 1rem;
-        }
+    .project-card {
+      background: var(--terminal-bg);
+      padding: 2rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
 
-        .contact-link {
-            color: var(--neon-green);
-            text-decoration: none;
-            border: 1px solid var(--neon-green);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            margin: 0.5rem;
-            transition: background-color 0.3s, color 0.3s;
-            display: inline-block;
-        }
+    .project-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    }
 
-        .contact-link:hover {
-            background-color: var(--neon-green);
-            color: var(--terminal-bg);
-        }
-    </style>
+    .project-card h3 {
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+    }
+
+    .project-description {
+      margin: 1rem 0;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .project-link {
+      color: var(--neon-green);
+      text-decoration: none;
+      border: 1px solid var(--neon-green);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+      display: inline-block;
+    }
+
+    .project-link:hover {
+      background-color: var(--neon-green);
+      color: var(--terminal-bg);
+    }
+
+    .contact-section {
+      padding: 2rem;
+      background: var(--terminal-bg);
+      margin-top: 2rem;
+      border-top: 2px solid var(--neon-green);
+    }
+
+    .contact-section h2 {
+      text-align: center;
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+    }
+
+    .contact-consent {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .contact-links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .contact-link {
+      color: var(--neon-green);
+      text-decoration: none;
+      border: 1px solid var(--neon-green);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      transition: background-color 0.3s, color 0.3s;
+      display: inline-block;
+    }
+
+    .contact-link:hover {
+      background-color: var(--neon-green);
+      color: var(--terminal-bg);
+    }
+  </style>
 </head>
-<body>
+<body class="no-consent">
+  <!-- Consent overlay -->
+  <div id="consentOverlay" class="consent-overlay">
+    <div class="consent-box">
+      <h1>&lt;Welcome/&gt;</h1>
+      <div class="consent-text">
+        <p>Before you proceed, please read and agree to the following:</p>
+        <ul>
+          <li>I know you're here because you either have my resume or someone shared this without my consent.</li>
+          <li>I understand that this website contains personal information and agree not to spread gossip or share it with random people.</li>
+          <li>I acknowledge that all the information presented here is true and authentic.</li>
+          <li>I understand this is an early project that may occasionally experience glitches or technical issues.</li>
+          <li>I acknowledge the creator is still learning web development skills.</li>
+        </ul>
+        <p>Thank you so much for visiting my website! I'm really happy you're here! ❤️</p>
+      </div>
+      <button id="consentButton" class="consent-button">I Understand & Agree WITH MY LIFE</button>
+      <div class="timestamp">Last Updated: 2025-07-27 08:26:59 UTC</div>
+    </div>
+  </div>
+
+  <!-- Main content wrapped for easy toggle -->
+  <div id="main-content" style="visibility: hidden;">
     <!-- Navigation -->
     <nav>
-        <div class="nav-content">
-            <div class="logo">
-                <a href="index.html">&lt;LS/&gt;</a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="projects.html">PROJECTS</a></li>
-                <li><a href="academic.html">ACADEMIC</a></li>
-                <li><a href="hobbies.html">HOBBIES</a></li>
-                <li><a href="achievements.html">ACHIEVEMENTS</a></li>
-                <li><a href="future.html">FUTURE PLANS</a></li>
-            </ul>
+      <div class="nav-content">
+        <div class="logo">
+          <a href="index.html">&lt;LS/&gt;</a>
         </div>
+        <ul class="nav-links">
+          <li><a href="projects.html">PROJECTS</a></li>
+          <li><a href="academic.html">ACADEMIC</a></li>
+          <li><a href="hobbies.html">HOBBIES</a></li>
+          <li><a href="achievements.html">ACHIEVEMENTS</a></li>
+          <li><a href="future.html">FUTURE PLANS</a></li>
+        </ul>
+      </div>
     </nav>
 
     <main>
-        <!-- Hero / Header -->
-        <header class="hero">
-            <h1>LINGE SHI</h1>
-            <p class="subtitle">Science • Engineering • Innovation</p>
-        </header>
+      <header class="hero">
+        <h1>LINGE SHI</h1>
+        <p class="subtitle">Science • Engineering • Innovation</p>
+      </header>
 
-        <!-- About Section -->
-        <section id="about">
-            <div class="terminal-window">
-                <div class="terminal-header">
-                    <span class="terminal-button"></span>
-                    <span class="terminal-button"></span>
-                    <span class="terminal-button"></span>
-                </div>
-                <div class="terminal-content">
-                    <p><span class="prompt">$</span> <span class="command">whoami</span></p>
-                    <p class="output">
-                        I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology. <br>
-                        You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
-                    </p>
-                    <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
-                    <p class="output">
-                        • Mathematics & Physics<br>
-                        • Laboratory Research<br>
-                        • Engineering Design<br>
-                        • Problem Solving<br>
-                        • Anything interesting
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Main Content Grid -->
-        <section class="grid-container">
-            <div class="grid-item" onclick="location.href='projects.html'">
-                <h2>PROJECTS</h2>
-                <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
-                <div class="explore-btn">&gt; Explore Projects</div>
-            </div>
-            <div class="grid-item" onclick="location.href='academic.html'">
-                <h2>ACADEMIC</h2>
-                <p>Mathematics, Science, Engineering achievements and pursuits...</p>
-                <div class="explore-btn">&gt; View Academic</div>
-            </div>
-            <div class="grid-item" onclick="location.href='hobbies.html'">
-                <h2>HOBBIES</h2>
-                <p>Piano, Sports, Traditional Dance, and other activities...</p>
-                <div class="explore-btn">&gt; See Hobbies</div>
-            </div>
-            <div class="grid-item" onclick="location.href='achievements.html'">
-                <h2>ACHIEVEMENTS</h2>
-                <p>Academic awards, leadership roles, and competition success...</p>
-                <div class="explore-btn">&gt; View Achievements</div>
-            </div>
-            <div class="grid-item" onclick="location.href='future.html'">
-                <h2>FUTURE PLANS</h2>
-                <p>Research goals, engineering aspirations, and long-term vision...</p>
-                <div class="explore-btn">&gt; See Future Plans</div>
-            </div>
-        </section>
-
-        <!-- Other Projects Section -->
-        <section class="projects-section">
-            <h2>OTHER PROJECTS</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Higher Order Derivatives Simulation</h3>
-                    <p class="highlight-text">Please click, you won't regret it!</p>
-                    <div class="project-description">
-                        <p>A mathematical simulation exploring higher-order derivatives.</p>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank">View Artifact 1</a>
-                        <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank">View Artifact 2</a>
-                        <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Me Section -->
-        <section class="contact-section">
-            <h2>Contact Me</h2>
-            <p class="contact-consent">
-                Please note: Do not send unnecessary emails. <br>
-                Kindly reach out for opportunities related to experiments, experiment volunteering, and forming meaningful connections. <br>
-                Professional inquiries only.
+      <!-- About Section -->
+      <section id="about">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-button"></span>
+            <span class="terminal-button"></span>
+            <span class="terminal-button"></span>
+          </div>
+          <div class="terminal-content">
+            <p><span class="prompt">$</span> <span class="command">whoami</span></p>
+            <p class="output">
+              I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology.<br />
+              You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
             </p>
-            <div class="contact-links">
-                <a href="mailto:LingeShinice@outlook.com" class="contact-link">Email: Linge Shi <LingeShinice@outlook.com></a>
-                <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link">Email: Linge Shi <SHI0064@boxhillhs.vic.edu.au></a>
+            <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
+            <p class="output">
+              • Mathematics & Physics<br />
+              • Laboratory Research<br />
+              • Engineering Design<br />
+              • Problem Solving<br />
+              • Anything interesting
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content Grid -->
+      <section class="grid-container">
+        <div class="grid-item" onclick="location.href='projects.html'">
+          <h2>PROJECTS</h2>
+          <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
+          <div class="explore-btn">&gt; Explore Projects</div>
+        </div>
+        <div class="grid-item" onclick="location.href='academic.html'">
+          <h2>ACADEMIC</h2>
+          <p>Mathematics, Science, Engineering achievements and pursuits...</p>
+          <div class="explore-btn">&gt; View Academic</div>
+        </div>
+        <div class="grid-item" onclick="location.href='hobbies.html'">
+          <h2>HOBBIES</h2>
+          <p>Piano, Sports, Traditional Dance, and other activities...</p>
+          <div class="explore-btn">&gt; See Hobbies</div>
+        </div>
+        <div class="grid-item" onclick="location.href='achievements.html'">
+          <h2>ACHIEVEMENTS</h2>
+          <p>Academic awards, leadership roles, and competition success...</p>
+          <div class="explore-btn">&gt; View Achievements</div>
+        </div>
+        <div class="grid-item" onclick="location.href='future.html'">
+          <h2>FUTURE PLANS</h2>
+          <p>Research goals, engineering aspirations, and long-term vision...</p>
+          <div class="explore-btn">&gt; See Future Plans</div>
+        </div>
+      </section>
+
+      <!-- Other Projects Section -->
+      <section class="projects-section">
+        <h2>OTHER PROJECTS</h2>
+        <div class="project-grid">
+          <div class="project-card">
+            <h3>Higher Order Derivatives Simulation</h3>
+            <p class="highlight-text">Please click, you won't regret it!</p>
+            <div class="project-description">
+              <p>A mathematical simulation exploring higher-order derivatives.</p>
             </div>
-        </section>
+            <div class="project-links">
+              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank">View Artifact 1</a>
+              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank">View Artifact 2</a>
+              <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Me Section -->
+      <section class="contact-section">
+        <h2>Contact Me</h2>
+        <p class="contact-consent">
+          Please note: Do not send unnecessary emails.<br />
+          Kindly reach out for opportunities related to experiments, experiment volunteering, and forming meaningful connections.<br />
+          Professional inquiries only.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:LingeShinice@outlook.com" class="contact-link"
+            >Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a
+          >
+          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link"
+            >Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a
+          >
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Linge Shi • Built with 🚀</p>
+      <p>&copy; 2025 Linge Shi • Built with 🚀</p>
     </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const consentOverlay = document.getElementById('consentOverlay');
+      const consentButton = document.getElementById('consentButton');
+      const mainContent = document.getElementById('main-content');
+      const body = document.body;
+
+      if (localStorage.getItem('websiteConsent') === 'true') {
+        consentOverlay.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        body.classList.remove('no-consent');
+      } else {
+        consentOverlay.style.display = 'flex';
+        mainContent.style.visibility = 'hidden';
+        body.classList.add('no-consent');
+      }
+
+      consentButton.addEventListener('click', function () {
+        localStorage.setItem('websiteConsent', 'true');
+        consentOverlay.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        body.classList.remove('no-consent');
+      });
+    });
+  </script>
 </body>
 </html>
