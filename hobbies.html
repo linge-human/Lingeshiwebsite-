@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies - Linge Shi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .hobby-card {
+            background: var(--terminal-bg);
+            padding: 2rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            border: 1px solid transparent;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .hobby-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .hobby-card h3 {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        .hobby-image {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border-radius: 4px;
+            border: 1px solid var(--neon-green);
+        }
+
+        .achievements-list {
+            list-style: none;
+        }
+
+        .achievements-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .achievements-list li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">&lt;LS/&gt;</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="projects.html">PROJECTS</a></li>
+                <li><a href="academic.html">ACADEMIC</a></li>
+                <li><a href="hobbies.html" style="color: var(--neon-green);">HOBBIES</a></li>
+                <li><a href="achievements.html">ACHIEVEMENTS</a></li>
+                <li><a href="future.html">FUTURE PLANS</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <header class="hero">
+            <h1>HOBBIES</h1>
+            <p class="subtitle">Balancing academics with creative pursuits</p>
+        </header>
+
+        <div class="hobby-card">
+            <h3>Music</h3>
+            <p>Self-taught pianist with a passion for classical music</p>
+            <ul class="achievements-list">
+                <li>5 years of piano experience</li>
+                <li>Performed Beethoven's Moonlight Sonata (3rd Movement)</li>
+                <li>Recently started learning guitar</li>
+                <li>Exploring diverse musical styles</li>
+            </ul>
+        </div>
+
+        <div class="hobby-card">
+            <h3>Traditional Dance</h3>
+            <img src="placeholder-dance.jpg" alt="Traditional Dance Performance" class="hobby-image">
+            <ul class="achievements-list">
+                <li>5 years of traditional dance training</li>
+                <li>Multiple stage performances</li>
+                <li>Cultural expression through movement</li>
+                <li>Performance arts experience</li>
+            </ul>
+        </div>
+
+        <div class="hobby-card">
+            <h3>Sports</h3>
+            <ul class="achievements-list">
+                <li>5 years on school basketball team</li>
+                <li>Martial arts training</li>
+                <li>Self-taught badminton player</li>
+                <li>Swimming</li>
+            </ul>
+            <p>Sports help me maintain focus, build discipline, and balance my academic pursuits.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Linge Shi • Built with 🚀</p>
+    </footer>
+</body>
+</html>
