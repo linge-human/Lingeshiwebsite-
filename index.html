@@ -66,6 +66,8 @@
       max-width: 900px;
       margin: 2rem auto;
       padding: 0 1rem;
+      position: relative;
+      z-index: 100; /* Ensure main content is above the fish */
     }
 
     .hero {
@@ -250,17 +252,17 @@
       position: fixed;
       width: 80px;
       height: 80px;
-      z-index: 1000;
-      cursor: grab;
+      z-index: 10; /* Behind main content */
+      cursor: default; /* No grabbing */
       filter: drop-shadow(0 0 10px #ffff00);
-      opacity: 0.9;
+      opacity: 0.9; /* Full opaque */
       transform-origin: center;
-      display: none; /* initially hidden */
+      display: none; /* Initially hidden */
       top: 50px;
       left: 0; /* start from left */
       transition: none; /* will be managed by JS */
       user-select: none;
-      pointer-events: none;
+      pointer-events: none; /* Ignore mouse events, background */
       will-change: transform, left, top;
     }
 
@@ -565,64 +567,50 @@
         startFishSwimming();
       });
 
-      // Variables for wandering swimming fish
-      let position = { x: 100, y: 150 };
-      let velocity = { x: 2, y: 1.2 };
-      let direction = 1; // 1 = swim right, -1 = swim left
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
 
-      // Parameters for wandering behavior
-      const maxSpeed = 3;
-      const minSpeed = 1;
-      const changeInterval = 3000; // ms, how often velocity changes direction/speed smoothly
-      let lastChangeTime = 0;
-
-      // For random prompt messages timing
-      let lastPromptTime = 0;
-      const promptInterval = 12000; // ms, every 12 seconds show prompt
-      let cardPromptIndex = 0;
-
+      // Get a random velocity vector within range for slow wandering
       function getRandomVelocity() {
-        // return random small velocity vector within maxSpeed range
+        const minSpeed = 0.2; // slow minimum speed pixels/frame
+        const maxSpeed = 0.5; // slow maximum speed pixels/frame
         const angle = Math.random() * Math.PI * 2;
         const speed = minSpeed + Math.random() * (maxSpeed - minSpeed);
         return { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed };
       }
 
-      function clamp(value, min, max) {
-        return Math.min(Math.max(value, min), max);
-      }
+      // Variables for fish position, velocity, direction
+      let position = { x: 100, y: 150 };
+      let velocity = { x: 0, y: 0 };
+      let direction = 1; // 1 = right, -1 = left
 
-      // Animate fish swimming randomly in the viewport
+      // Animate fish swimming slowly and wandering in background
       function animateFish(timestamp) {
         if (!billCipherActive) {
           billWandering.style.display = 'none';
           return; // stop animation if inactive
         }
 
-        if (!lastChangeTime) lastChangeTime = timestamp;
-        if (!lastPromptTime) lastPromptTime = timestamp;
+        if (!animateFish.lastChangeTime) animateFish.lastChangeTime = timestamp;
+        const changeInterval = 7000; // change velocity every 7 seconds smoothly
 
-        // Smooth velocity changes every changeInterval ms
-        if (timestamp - lastChangeTime > changeInterval) {
-          const newVel = getRandomVelocity();
-          // Smooth velocity transition over next frames:
-          // We'll just assign new velocity directly to keep it simple
-          velocity = newVel;
-          lastChangeTime = timestamp;
+        if (timestamp - animateFish.lastChangeTime > changeInterval) {
+          velocity = getRandomVelocity();
+          animateFish.lastChangeTime = timestamp;
         }
 
         // Update position by velocity
         position.x += velocity.x;
         position.y += velocity.y;
 
-        // Get viewport bounds, leave margin to avoid clipping
+        // Clamp and bounce within viewport boundaries with margin
         const margin = 20;
         const maxX = window.innerWidth - billWandering.offsetWidth - margin;
         const maxY = window.innerHeight - billWandering.offsetHeight - margin;
         const minX = margin;
         const minY = margin;
 
-        // Bounce from edges by reversing velocity component if needed
         if (position.x > maxX) {
           position.x = maxX;
           velocity.x = -Math.abs(velocity.x);
@@ -639,133 +627,29 @@
           velocity.y = Math.abs(velocity.y);
         }
 
-        // Update direction for flipping the image
+        // Flip fish direction based on horizontal velocity
         direction = velocity.x >= 0 ? 1 : -1;
+        billWandering.classList.toggle('swim-right', direction === 1);
+        billWandering.classList.toggle('swim-left', direction === -1);
 
+        // Update style position
         billWandering.style.left = position.x + 'px';
         billWandering.style.top = position.y + 'px';
-
-        if (direction === 1) {
-          billWandering.classList.add('swim-right');
-          billWandering.classList.remove('swim-left');
-        } else {
-          billWandering.classList.add('swim-left');
-          billWandering.classList.remove('swim-right');
-        }
-
-        // Periodically show prompts pointing at cards (approx every promptInterval ms)
-        if (timestamp - lastPromptTime > promptInterval) {
-          showPromptNearRandomCard();
-          lastPromptTime = timestamp;
-        }
 
         requestAnimationFrame(animateFish);
-      }
-
-      // Show speech bubble with message near fish
-      function showSpeechBubble(text) {
-        billSpeechBubble.textContent = text;
-
-        const billRect = billWandering.getBoundingClientRect();
-
-        // Position bubble above and a bit left or right depending on direction
-        let bubbleX = billRect.left + (direction === 1 ? 20 : -20);
-        // Clamp bubble inside viewport horizontally
-        bubbleX = clamp(bubbleX, 10, window.innerWidth - billSpeechBubble.offsetWidth - 10);
-
-        let bubbleY = billRect.top - billSpeechBubble.offsetHeight - 15;
-        if (bubbleY < 10) bubbleY = billRect.bottom + 10; // place below if not enough space on top
-
-        billSpeechBubble.style.left = bubbleX + 'px';
-        billSpeechBubble.style.top = bubbleY + 'px';
-        billSpeechBubble.classList.add('show');
-
-        // Hide bubble after 4.5 seconds
-        clearTimeout(billSpeechBubble.hideTimeout);
-        billSpeechBubble.hideTimeout = setTimeout(() => {
-          billSpeechBubble.classList.remove('show');
-        }, 4500);
-      }
-
-      // Pick a random card and make fish swim near it, then show prompt telling user to click on cards
-      function showPromptNearRandomCard() {
-        const cards = Array.from(document.querySelectorAll('.grid-item, .project-card, .academic-card'));
-        if (cards.length === 0) return;
-
-        // Random card
-        const randomCard = cards[Math.floor(Math.random() * cards.length)];
-
-        const cardRect = randomCard.getBoundingClientRect();
-
-        // Position fish near but not overlapping the card
-        // We'll position fish to the left or right randomly
-        const side = Math.random() < 0.5 ? 'left' : 'right';
-
-        // Compute target position near card
-        let targetX, targetY;
-        if (side === 'left') {
-          targetX = cardRect.left - billWandering.offsetWidth - 15;
-          direction = -1;
-        } else {
-          targetX = cardRect.right + 15;
-          direction = 1;
-        }
-        targetY = cardRect.top + cardRect.height / 2 - billWandering.offsetHeight / 2;
-
-        // Clamp target to visible area
-        const margin = 10;
-        targetX = clamp(targetX, margin, window.innerWidth - billWandering.offsetWidth - margin);
-        targetY = clamp(targetY, margin, window.innerHeight - billWandering.offsetHeight - margin);
-
-        // Move fish instantly near the card
-        position.x = targetX;
-        position.y = targetY;
-
-        billWandering.style.left = position.x + 'px';
-        billWandering.style.top = position.y + 'px';
-
-        if (direction === 1) {
-          billWandering.classList.add('swim-right');
-          billWandering.classList.remove('swim-left');
-        } else {
-          billWandering.classList.add('swim-left');
-          billWandering.classList.remove('swim-right');
-        }
-
-        // Highlight the card to draw attention
-        const originalBorder = randomCard.style.border;
-        const originalBoxShadow = randomCard.style.boxShadow;
-
-        randomCard.style.border = '2px solid #ffff00';
-        randomCard.style.boxShadow = '0 0 25px rgba(255, 255, 0, 0.7)';
-
-        // Show speech bubble with a custom prompt
-        showSpeechBubble("Hey! Click on the cards to explore!");
-
-        // Remove highlight after 4 seconds
-        setTimeout(() => {
-          randomCard.style.border = originalBorder;
-          randomCard.style.boxShadow = originalBoxShadow;
-        }, 4000);
       }
 
       function startFishSwimming() {
         billWandering.style.display = 'block';
         billCipherActive = true;
 
-        // Initialize position in viewport center horizontally left side
+        // Initialize position near left-center vertically
         position = { x: 100, y: window.innerHeight / 2 };
         velocity = getRandomVelocity();
 
-        // Set initial direction for flipping
         direction = velocity.x >= 0 ? 1 : -1;
-        if (direction === 1) {
-          billWandering.classList.add('swim-right');
-          billWandering.classList.remove('swim-left');
-        } else {
-          billWandering.classList.add('swim-left');
-          billWandering.classList.remove('swim-right');
-        }
+        billWandering.classList.toggle('swim-right', direction === 1);
+        billWandering.classList.toggle('swim-left', direction === -1);
 
         requestAnimationFrame(animateFish);
       }
@@ -793,7 +677,15 @@
         emailPlaceholder2.style.display = 'none';
 
         if (billCipherActive) {
-          showSpeechBubble("Emails revealed! Thanks for being responsible.");
+          billSpeechBubble.textContent = "Emails revealed! Thanks for being responsible.";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = billRect.left - 100 + 'px';
+          billSpeechBubble.style.top = billRect.top - 60 + 'px';
+          billSpeechBubble.classList.add('show');
+
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
         }
       });
 
@@ -801,7 +693,15 @@
         emailConsentOverlay.style.display = 'none';
 
         if (billCipherActive) {
-          showSpeechBubble("Smart choice! Respect is important.");
+          billSpeechBubble.textContent = "Smart choice! Respect is important.";
+          const billRect = billWandering.getBoundingClientRect();
+          billSpeechBubble.style.left = billRect.left - 100 + 'px';
+          billSpeechBubble.style.top = billRect.top - 60 + 'px';
+          billSpeechBubble.classList.add('show');
+
+          setTimeout(() => {
+            billSpeechBubble.classList.remove('show');
+          }, 3000);
         }
       });
 
