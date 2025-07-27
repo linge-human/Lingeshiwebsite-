@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Linge Shi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terminal-bg: #1a1a1a;
+            --neon-green: #39ff14;
+            --text-color: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Fira Code', monospace;
+            background-color: var(--terminal-bg);
+            color: var(--text-color);
+        }
+
+        .consent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--terminal-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .consent-box {
+            background-color: #2a2a2a;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .consent-box h1 {
+            color: var(--neon-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .consent-text {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .consent-button {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Fira Code', monospace;
+            margin: 1rem;
+        }
+
+        .consent-button:hover {
+            background-color: var(--neon-green);
+            color: var(--terminal-bg);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+        }
+
+        .timestamp {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="consentOverlay" class="consent-overlay">
+        <div class="consent-box">
+            <h1>&lt;Welcome/&gt;</h1>
+            <div class="consent-text">
+                <p>Before you proceed, please read and agree to the following:</p>
+                <ul>
+                    <li>I know your here because you either have my resume or some asshole has shared this to you without my consent.</li>
+                    <li>I understand that this website contains personal information and agree not to spread gossip or share it with random people.</li>
+                    <li>I acknowledge that all the information presented here is true and authentic.</li>
+                    <li>I understand this is an early project that may occasionally experience glitches or technical issues.</li>
+                    <li>I acknowledge that the creator is a primary coder still learning image upload techniques and other web development skills.</li>
+                </ul>
+                <p>Thank you so much for visiting my website! I'm really happy you're here! ❤️</p>
+            </div>
+            <button id="consentButton" class="consent-button">I Understand & Agree</button>
+            <div class="timestamp">Last Updated: 2025-07-27 08:26:59 UTC</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if consent was already given
+            if (!localStorage.getItem('websiteConsent')) {
+                document.getElementById('consentOverlay').classList.remove('hidden');
+            } else {
+                window.location.href = 'index.html';
+            }
+
+            document.getElementById('consentButton').addEventListener
