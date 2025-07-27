@@ -94,6 +94,28 @@
       -ms-user-select: none;
     }
 
+    /* Hide email until consent is given */
+    .email-hidden {
+      display: none !important;
+    }
+
+    .email-placeholder {
+      color: #666;
+      font-style: italic;
+      border: 1px solid #666;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+      display: inline-block;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .email-placeholder:hover {
+      color: var(--neon-green);
+      border-color: var(--neon-green);
+    }
+
     /* === Your existing styles for projects, contact etc. === */
     .highlight-text {
       color: var(--neon-green);
@@ -233,6 +255,27 @@
     </div>
   </div>
 
+  <!-- Email consent overlay -->
+  <div id="emailConsentOverlay" class="consent-overlay" style="display: none;">
+    <div class="consent-box">
+      <h1>&lt;Email Access/&gt;</h1>
+      <div class="consent-text">
+        <p>Before accessing my email, please confirm you understand:</p>
+        <ul>
+          <li>This email should only be used for professional opportunities, experiments, or meaningful connections.</li>
+          <li>Please do not send unnecessary emails or spam.</li>
+          <li>I appreciate respectful and purposeful communication.</li>
+          <li>Any misuse of this contact information is not appreciated.</li>
+        </ul>
+        <p>If you agree to use my email responsibly, you may proceed.</p>
+      </div>
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <button id="emailConsentAgree" class="consent-button">I Agree - Show Email</button>
+        <button id="emailConsentCancel" class="consent-button" style="border-color: #ff6b6b; color: #ff6b6b;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Main content wrapped for easy toggling -->
   <div id="main-content" style="visibility: hidden;">
     <!-- Navigation -->
@@ -340,8 +383,13 @@
           Professional inquiries only.
         </p>
         <div class="contact-links">
-          <a href="mailto:LingeShinice@outlook.com" class="contact-link">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
-          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
+          <!-- Email links that are hidden by default -->
+          <a href="mailto:LingeShinice@outlook.com" class="contact-link email-hidden" id="email1">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
+          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
+          
+          <!-- Email placeholders that show when emails are hidden -->
+          <div class="email-placeholder" id="emailPlaceholder1">📧 Click to reveal primary email (consent required)</div>
+          <div class="email-placeholder" id="emailPlaceholder2">📧 Click to reveal school email (consent required)</div>
         </div>
       </section>
     </main>
@@ -354,25 +402,76 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const consentOverlay = document.getElementById('consentOverlay');
+      const emailConsentOverlay = document.getElementById('emailConsentOverlay');
       const consentButton = document.getElementById('consentButton');
+      const emailConsentAgree = document.getElementById('emailConsentAgree');
+      const emailConsentCancel = document.getElementById('emailConsentCancel');
       const mainContent = document.getElementById('main-content');
       const body = document.body;
+      
+      // Email elements
+      const email1 = document.getElementById('email1');
+      const email2 = document.getElementById('email2');
+      const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
+      const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
+      
+      let hasEmailConsent = false;
 
-      if(localStorage.getItem('websiteConsent') === 'true') {
-        consentOverlay.style.display = 'none';
-        mainContent.style.visibility = 'visible';
-        body.classList.remove('no-consent');
-      } else {
-        consentOverlay.style.display = 'flex';
-        mainContent.style.visibility = 'hidden';
-        body.classList.add('no-consent');
-      }
+      // Always show consent overlay on page load (removed localStorage check)
+      consentOverlay.style.display = 'flex';
+      mainContent.style.visibility = 'hidden';
+      body.classList.add('no-consent');
 
+      // Initial consent button
       consentButton.addEventListener('click', function () {
-        localStorage.setItem('websiteConsent', 'true');
         consentOverlay.style.display = 'none';
         mainContent.style.visibility = 'visible';
         body.classList.remove('no-consent');
+      });
+
+      // Email placeholder click handlers
+      emailPlaceholder1.addEventListener('click', function () {
+        if (!hasEmailConsent) {
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      emailPlaceholder2.addEventListener('click', function () {
+        if (!hasEmailConsent) {
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      // Email consent agree button
+      emailConsentAgree.addEventListener('click', function () {
+        hasEmailConsent = true;
+        emailConsentOverlay.style.display = 'none';
+        
+        // Show actual email links and hide placeholders
+        email1.classList.remove('email-hidden');
+        email2.classList.remove('email-hidden');
+        emailPlaceholder1.style.display = 'none';
+        emailPlaceholder2.style.display = 'none';
+      });
+
+      // Email consent cancel button
+      emailConsentCancel.addEventListener('click', function () {
+        emailConsentOverlay.style.display = 'none';
+      });
+
+      // Prevent direct email clicks if no consent
+      email1.addEventListener('click', function (e) {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
+      });
+
+      email2.addEventListener('click', function (e) {
+        if (!hasEmailConsent) {
+          e.preventDefault();
+          emailConsentOverlay.style.display = 'flex';
+        }
       });
     });
   </script>
