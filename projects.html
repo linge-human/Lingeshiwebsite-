@@ -330,9 +330,10 @@
             scene = new THREE.Scene();
             scene.background = new THREE.Color(0x000000);
 
-            // Camera setup
+            // Camera setup - positioned to center the model
             camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            camera.position.set(5, 5, 5);
+            camera.position.set(4, 3, 4);
+            camera.lookAt(0, 0, 0);
 
             // Renderer setup
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -387,25 +388,58 @@
         }
 
         function loadSTLModel() {
-            // Create a placeholder geometry while loading
-            const geometry = new THREE.BoxGeometry(2, 1, 0.5);
+            // Create a placeholder geometry while loading (robot arm shape)
+            const geometry = new THREE.BoxGeometry(3, 0.5, 0.3);
             const material = new THREE.MeshPhongMaterial({
                 color: 0x39ff14,
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.9
             });
             
-            robotArm = new THREE.Mesh(geometry, material);
-            robotArm.position.set(0, 0.5, 0);
-            robotArm.castShadow = true;
-            robotArm.receiveShadow = true;
+            // Create robot arm with multiple segments
+            robotArm = new THREE.Group();
+            
+            // Base
+            const baseGeometry = new THREE.CylinderGeometry(0.5, 0.8, 0.5, 8);
+            const baseMesh = new THREE.Mesh(baseGeometry, material);
+            baseMesh.position.set(0, -0.25, 0);
+            robotArm.add(baseMesh);
+            
+            // First arm segment
+            const arm1Geometry = new THREE.BoxGeometry(2, 0.3, 0.3);
+            const arm1Mesh = new THREE.Mesh(arm1Geometry, material);
+            arm1Mesh.position.set(0, 0.5, 0);
+            robotArm.add(arm1Mesh);
+            
+            // Second arm segment
+            const arm2Geometry = new THREE.BoxGeometry(1.5, 0.25, 0.25);
+            const arm2Mesh = new THREE.Mesh(arm2Geometry, material);
+            arm2Mesh.position.set(1.2, 1.2, 0);
+            arm2Mesh.rotation.z = Math.PI / 4;
+            robotArm.add(arm2Mesh);
+            
+            // End effector
+            const gripperGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
+            const gripperMesh = new THREE.Mesh(gripperGeometry, material);
+            gripperMesh.position.set(2, 1.8, 0);
+            robotArm.add(gripperMesh);
+            
+            // Add wireframe overlays to all parts
+            [baseMesh, arm1Mesh, arm2Mesh, gripperMesh].forEach(mesh => {
+                const wireframeGeometry = new THREE.EdgesGeometry(mesh.geometry);
+                const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
+                const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                mesh.add(wireframe);
+                
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+            });
+            
+            // Center the robot arm in the display
+            robotArm.position.set(0, 0, 0);
+            
+            // Add the group to scene
             scene.add(robotArm);
-
-            // Add wireframe overlay
-            const wireframeGeometry = new THREE.EdgesGeometry(geometry);
-            const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff });
-            const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
-            robotArm.add(wireframe);
 
             // Hide loading text
             document.getElementById('loadingText').style.display = 'none';
@@ -413,7 +447,15 @@
             // In a real implementation, you would use STLLoader here:
             // const loader = new THREE.STLLoader();
             // loader.load('https://github.com/linge-human/Lingeshiwebsite-/raw/main/robot%20arm%20i%20built.glb.stl',
-            //     function (geometry) { ... });
+            //     function (geometry) { 
+            //         geometry.center(); // This centers the loaded geometry
+            //         geometry.computeBoundingBox();
+            //         const box = geometry.boundingBox;
+            //         const size = box.getSize(new THREE.Vector3());
+            //         const maxDim = Math.max(size.x, size.y, size.z);
+            //         geometry.scale(2/maxDim, 2/maxDim, 2/maxDim); // Scale to fit
+            //         // ... rest of loading code
+            //     });
         }
 
         function setupControls() {
