@@ -4,58 +4,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Projects - Linge Shi</title>
-    <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
             --terminal-bg: #1a1a1a;
             --neon-green: #39ff14;
+            --neon-blue: #00ffff;
             --text-color: #ffffff;
-            --matrix-blue: #00ffff;
+            --darker-bg: #222;
         }
 
-        body {
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
+        body, html {
             margin: 0;
+            padding: 0;
             font-family: 'Fira Code', monospace;
             background-color: var(--terminal-bg);
             color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
         }
 
         nav {
             padding: 1rem 2rem;
-            background: #111;
+            background: var(--terminal-bg);
             border-bottom: 1px solid var(--neon-green);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             gap: 1.5rem;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
 
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.3s;
         }
 
         .nav-links a[href="projects.html"] {
             color: var(--neon-green);
         }
 
+        .nav-links a:hover, .nav-links a:focus {
+            color: var(--neon-green);
+            outline: none;
+        }
+
         main {
             max-width: 900px;
             margin: 2rem auto;
             padding: 0 1rem;
+            position: relative;
+            z-index: 100;
         }
 
         .hero {
@@ -64,15 +84,175 @@
         }
 
         .hero h1 {
-            margin: 0 0 0.5rem 0;
             color: var(--neon-green);
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
         }
 
         .hero .subtitle {
-            margin: 0;
+            color: #ccc;
             font-weight: 400;
             font-size: 1.2rem;
-            color: #ccc;
+            margin: 0;
+        }
+
+        .consent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--terminal-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .consent-box {
+            background-color: #2a2a2a;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+            color: var(--text-color);
+        }
+
+        .consent-box h2 {
+            color: var(--neon-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .consent-text {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .consent-button {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Fira Code', monospace;
+            margin: 0.5rem;
+        }
+
+        .consent-button:hover, .consent-button:focus {
+            background-color: var(--neon-green);
+            color: var(--terminal-bg);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
+            outline: none;
+        }
+
+        .timestamp {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        body.no-consent main {
+            filter: blur(3px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .email-hidden {
+            display: none !important;
+        }
+
+        .email-placeholder {
+            color: #666;
+            font-style: italic;
+            border: 1px solid #666;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 0.5rem;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .email-placeholder:hover, .email-placeholder:focus {
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            outline: none;
+        }
+
+        #billCipherWandering {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            top: 50%;
+            z-index: 10000;
+            filter: drop-shadow(0 0 10px #ffff00);
+            opacity: 0.9;
+            transform-origin: center;
+            display: none;
+            user-select: none;
+            pointer-events: none;
+            will-change: transform, left, top;
+            animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
+            100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px #ffff00) brightness(1); }
+            to { filter: drop-shadow(0 0 15px #ffff00) brightness(1.2); }
+        }
+
+        #billCipherWandering.swim-right {
+            transform: scaleX(1);
+        }
+
+        #billCipherWandering.swim-left {
+            transform: scaleX(-1);
+        }
+
+        #billSpeechBubble {
+            position: fixed;
+            background: #2a2a2a;
+            color: #ffff00;
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #ffff00;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            max-width: 200px;
+            z-index: 10001;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            word-wrap: break-word;
+        }
+
+        #billSpeechBubble:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #ffff00;
+        }
+
+        #billSpeechBubble.show {
+            opacity: 1;
         }
 
         .project-card {
@@ -84,9 +264,10 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .project-card:hover {
+        .project-card:hover, .project-card:focus-within {
             border-color: var(--neon-green);
             box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+            outline: none;
         }
 
         .project-card h3 {
@@ -137,9 +318,10 @@
             transition: all 0.3s;
         }
 
-        .control-button:hover {
+        .control-button:hover, .control-button:focus {
             background: var(--neon-green);
             color: var(--terminal-bg);
+            outline: none;
         }
 
         .model-info {
@@ -150,13 +332,6 @@
             color: var(--neon-green);
             font-size: 12px;
             text-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .project-image {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
-            border-radius: 4px;
         }
 
         .paper-link-button, .download-button {
@@ -172,8 +347,8 @@
         }
 
         .download-button {
-            color: var(--matrix-blue);
-            border-color: var(--matrix-blue);
+            color: var(--neon-blue);
+            border-color: var(--neon-blue);
         }
 
         .paper-link-button:hover {
@@ -182,7 +357,7 @@
         }
 
         .download-button:hover {
-            background-color: var(--matrix-blue);
+            background-color: var(--neon-blue);
             color: var(--terminal-bg);
         }
 
@@ -196,19 +371,90 @@
             text-align: center;
         }
 
-        @media (max-width: 768px) {
-            .project-with-3d {
-                grid-template-columns: 1fr;
-            }
-            
-            .model-viewer {
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto;
-            }
+        .chat-section {
+            margin: 3rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: var(--darker-bg);
+            border: 1px solid var(--neon-green);
         }
 
-        /* Matrix-style text effects for specific elements */
+        .chat-section h2 {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .chat-container {
+            background: var(--terminal-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 1rem;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .chat-message {
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-message.user {
+            color: var(--neon-green);
+        }
+
+        .chat-message.bot {
+            color: var(--neon-blue);
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            background: var(--terminal-bg);
+            border: 1px solid var(--neon-green);
+            color: var(--text-color);
+            padding: 0.5rem;
+            font-family: 'Fira Code', monospace;
+            border-radius: 4px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+
+        .chat-submit {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 0.5rem 1rem;
+            font-family: 'Fira Code', monospace;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-submit:hover, .chat-submit:focus {
+            background: var(--neon-green);
+            color: var(--terminal-bg);
+            outline: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
         @keyframes matrix-glow {
             0%, 100% { text-shadow: 0 0 5px var(--neon-green); }
             50% { text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
@@ -217,465 +463,685 @@
         .matrix-text {
             animation: matrix-glow 2s ease-in-out infinite;
         }
+
+        @media (max-width: 768px) {
+            .project-with-3d {
+                grid-template-columns: 1fr;
+            }
+
+            .model-viewer {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
-<body>
-    <nav>
-        <div class="nav-content">
-            <div class="logo">
-                <a href="index.html" style="color: var(--neon-green); font-weight: 700; font-size: 1.5rem;">
-                    &lt;LS/&gt;
-                </a>
+<body class="no-consent">
+    <div id="consentOverlay" class="consent-overlay">
+        <div class="consent-box">
+            <h2>&lt;Welcome/&gt;</h2>
+            <div class="consent-text">
+                <p>Before you proceed, please read and agree to the following:</p>
+                <ul>
+                    <li>I know you're here because you either have my resume or someone shared this without my consent.</li>
+                    <li>I understand that this website contains personal information and agree not to spread gossip or share it with random people.</li>
+                    <li>I acknowledge that all the information presented here is true and authentic.</li>
+                    <li>I understand this is an early project that may occasionally experience glitches or technical issues.</li>
+                    <li>I acknowledge the creator is still learning web development skills.</li>
+                </ul>
+                <p>Thank you so much for visiting my website! I'm really happy you're here! ❤️</p>
             </div>
-            <ul class="nav-links">
-                <li><a href="projects.html" style="color: var(--neon-green);">PROJECTS</a></li>
-                <li><a href="academic.html">ACADEMIC</a></li>
-                <li><a href="hobbies.html">HOBBIES</a></li>
-                <li><a href="achievements.html">ACHIEVEMENTS</a></li>
-                <li><a href="future.html">FUTURE PLANS</a></li>
-            </ul>
+            <button id="consentButton" class="consent-button">I Understand &amp; Agree</button>
+            <div class="timestamp">Last Updated: 2025-07-27 08:26:59 UTC</div>
         </div>
-    </nav>
+    </div>
 
-    <main>
-        <header class="hero">
-            <h1>PROJECTS</h1>
-            <p class="subtitle">A collection of my academic and engineering and science endeavors</p>
-        </header>
-
-        <div class="project-card">
-            <h3>Math and Stats Research Challenge</h3>
-            <p>I started wondering off into the abyss of maths, encountering multiple difficulties, e.g. how to use EXCEL, but i maganed to overcome it by developing an app to analyze the data, so here's the link https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427.</p>
-            <p>It was with no doubt one fo the most challenging projects apart from the robot hand and the theoretical physics experiment.(and yes, i do vibe code, its simple and i do know how to code, its just more efficient.</p>
-        </div>
-
-        <div class="project-card">
-            <h3>Monash Scholars Program</h3>
-            <p>One of my proudest achievements. Being selected and welcomed into the Monash University community has been a defining moment in my academic journey. It has expanded my exposure to research pathways, future university options, and high-achieving peers from across Victoria.</p>
-        </div>
-
-        <div class="project-card">
-            <h3>Science Talent Search</h3>
-            <p>This project explores Richard Feynman's quantum theories through a hands-on laser interference experiment. I aimed to model the behavior of light as quantum interference, using semi-permeable structures and Moiré patterns to simulate photon path superposition.i also developed an app for photon diffraction patten analyzation, so here's the link https://claude.ai/public/artifacts/f41cb096-a8dc-4bcd-a48a-3fa8aad1e1b9.</p>
-            <p>i can almost say i can't live without Claude, GPT, Perplaxity, Copilot, Grok, Sora... (i do try to limit my asks and make the water used to cool down the mega computers worth it)</p>
-            <p>BTW, here's also a link to the paper if your interested <3 </p>
-            <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" 
-               class="paper-link-button" target="_blank" rel="noopener noreferrer">
-               The Actual Paper
-            </a>
-        </div>
-
-        <div class="project-card">
-            <h3>Robot Arm Engineering Project</h3>
-            <div class="project-with-3d">
-                <div class="project-text">
-                    <p>Systems engineering opened me to a brand new world. This project marked my entry into systems engineering and applied automation. Within the first three weeks of the course, I independently learned CAD modelling using Sharp3D and designed a functional robotic arm.</p>
-                    <p>The robotic arm features multiple degrees of freedom and demonstrates precision control systems. This project combined mechanical design, electronics integration, and programming to create a fully functional automation system.</p>
-                    <p>Interactive 3D model on the right - use your mouse to rotate, zoom, and explore the design!</p>
-                    <a href="https://github.com/linge-human/Lingeshiwebsite-/blob/main/robot%20arm%20i%20built.glb.stl" 
-                       class="download-button" target="_blank" rel="noopener noreferrer">
-                       Download STL Model
-                    </a>
-                    <a href="https://github.com/linge-human/Lingeshiwebsite-" 
-                       class="paper-link-button" target="_blank" rel="noopener noreferrer">
-                       View on GitHub
-                    </a>
-                </div>
-                <div class="model-viewer" id="robotArmViewer">
-                    <div class="model-controls">
-                        <button class="control-button" onclick="resetCamera()">RESET</button>
-                        <button class="control-button" onclick="toggleWireframe()">WIREFRAME</button>
-                        <button class="control-button" onclick="toggleRotation()">AUTO-ROTATE</button>
-                    </div>
-                    <div class="model-info">
-                        <div>Mouse: Rotate | Wheel: Zoom</div>
-                        <div class="matrix-text">ROBOT_ARM.STL</div>
-                    </div>
-                    <div class="loading-text" id="loadingText">
-                        <div class="matrix-text">LOADING 3D MODEL...</div>
-                        <div>Fetching from GitHub...</div>
-                    </div>
-                </div>
+    <div id="emailConsentOverlay" class="consent-overlay" style="display: none;">
+        <div class="consent-box">
+            <h2>&lt;Email Access/&gt;</h2>
+            <div class="consent-text">
+                <p>Before accessing my email, please confirm you understand:</p>
+                <ul>
+                    <li>This email should only be used for professional opportunities, experiments, or meaningful connections.</li>
+                    <li>Please do not send unnecessary emails or spam.</li>
+                    <li>I appreciate respectful and purposeful communication.</li>
+                    <li>Any misuse of this contact information is not appreciated.</li>
+                </ul>
+                <p>If you agree to use my email responsibly, you may proceed.</p>
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button id="emailConsentAgree" class="consent-button">I Agree - Show Email</button>
+                <button id="emailConsentCancel" class="consent-button" style="border-color: #ff6b6b; color: #ff6b6b;">Cancel</button>
             </div>
         </div>
+    </div>
 
-        <div class="project-card">
-            <h3>Advanced Solar Car Challenge</h3>
-            <p>The Advanced Solar Car Challenge introduced me to sustainable engineering through hands-on design, prototyping, and racing of solar-powered vehicles. I was the youngest member in the small team.</p>
-        </div>
+    <div id="main-content" style="visibility: hidden;">
+        <main>
+            <nav>
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html" style="color: var(--neon-green); font-weight: 700; font-size: 1.5rem;">
+                            &lt;LS/&gt;
+                        </a>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="projects.html">PROJECTS</a></li>
+                        <li><a href="academic.html">ACADEMIC</a></li>
+                        <li><a href="hobbies.html">HOBBIES</a></li>
+                        <li><a href="achievements.html">ACHIEVEMENTS</a></li>
+                        <li><a href="future.html">FUTURE PLANS</a></li>
+                    </ul>
+                </div>
+            </nav>
 
-        <div class="project-card">
-            <h3>Model UN</h3>
-            <p>As France's delegate in Model United Nations, I researched national policies and successfully negotiated the amendment and passage of a resolution on global issues. This experience developed my skills in diplomacy, public speaking, and strategic negotiation.</p>
-        </div>
-    </main>
+            <header class="hero">
+                <h1>PROJECTS</h1>
+                <p class="subtitle">A collection of my academic and engineering endeavors</p>
+            </header>
 
-    <footer>
-        <p style="text-align:center; padding:1rem 0;">&copy; 2025 Linge Shi • Built with 🚀</p>
-    </footer>
+            <div class="project-card">
+                <h3>Math and Stats Research Challenge</h3>
+                <p>I ventured into the abyss of mathematics, tackling challenges like mastering Excel. I overcame these by developing an app to analyze data. Check it out here: <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="paper-link-button" target="_blank" rel="noopener noreferrer">Data Analysis App</a>.</p>
+                <p>This was one of my most challenging projects, alongside the robot arm and theoretical physics experiment. (Yes, I vibe with coding—it’s simple and efficient!)</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Monash Scholars Program</h3>
+                <p>Being selected for the Monash University Scholars Program was a defining moment. It expanded my exposure to research pathways, university options, and high-achieving peers across Victoria.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Science Talent Search</h3>
+                <p>This project explored Richard Feynman’s quantum theories through a laser interference experiment, modeling light behavior with semi-permeable structures and Moiré patterns to simulate photon path superposition. I developed an app for photon diffraction pattern analysis: <a href="https://claude.ai/public/artifacts/f41cb096-a8dc-4bcd-a48a-3fa8aad1e1b9" class="paper-link-button" target="_blank" rel="noopener noreferrer">Photon Diffraction App</a>.</p>
+                <p>I rely on tools like Claude, GPT, Perplexity, Copilot, Grok, and Sora, but I ensure my requests are efficient to minimize resource use.</p>
+                <p>Here’s the research paper: <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" class="paper-link-button" target="_blank" rel="noopener noreferrer">The Actual Paper</a></p>
+            </div>
+
+            <div class="project-card">
+                <h3>Robot Arm Engineering Project</h3>
+                <div class="project-with-3d">
+                    <div class="project-text">
+                        <p>Systems engineering opened a new world for me. Within three weeks, I independently learned CAD modeling using Shapr3D and designed a functional robotic arm with multiple degrees of freedom, showcasing precision control systems.</p>
+                        <p>This project combined mechanical design, electronics integration, and programming to create a fully functional automation system.</p>
+                        <p>Explore the interactive 3D model on the right (rotate with mouse, zoom with wheel).</p>
+                        <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl" class="download-button" target="_blank" rel="noopener noreferrer">Download STL Model</a>
+                        <a href="https://github.com/linge-human/Lingeshiwebsite-" class="paper-link-button" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                    </div>
+                    <div class="model-viewer" id="robotArmViewer">
+                        <div class="model-controls">
+                            <button class="control-button" onclick="resetCamera()">RESET</button>
+                            <button class="control-button" onclick="toggleWireframe()">WIREFRAME</button>
+                            <button class="control-button" onclick="toggleRotation()">AUTO-ROTATE</button>
+                        </div>
+                        <div class="model-info">
+                            <div>Mouse: Rotate | Wheel: Zoom</div>
+                            <div class="matrix-text">ROBOT_ARM.STL</div>
+                        </div>
+                        <div class="loading-text" id="loadingText">
+                            <div class="matrix-text">LOADING 3D MODEL...</div>
+                            <div>Fetching from GitHub...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Advanced Solar Car Challenge</h3>
+                <p>The Advanced Solar Car Challenge introduced me to sustainable engineering through designing, prototyping, and racing solar-powered vehicles. I was the youngest member of the team.</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Model UN</h3>
+                <p>As France’s delegate in Model United Nations, I researched national policies and negotiated the amendment and passage of a resolution on global issues, honing my diplomacy, public speaking, and strategic negotiation skills.</p>
+            </div>
+
+            <section class="chat-section" aria-label="Chat section">
+                <h2>Ask About My Projects</h2>
+                <div class="chat-container" id="chatContainer"></div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Ask about my robot arm, quantum experiments, or other projects..." aria-label="Chat input" />
+                    <button class="chat-submit" id="chatSubmit">Send</button>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2025 Linge Shi • Built with 🚀</p>
+                <p>Contact: <span id="emailPlaceholder1" class="email-placeholder" role="button" tabindex="0">Click to reveal email</span>
+                   <a id="email1" class="email-hidden" href="mailto:linge.shi@example.com">linge.shi@example.com</a></p>
+            </footer>
+        </main>
+    </div>
+
+    <img id="billCipherWandering" src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher, your AI assistant" draggable="false" />
+
+    <div id="billSpeechBubble" class="bill-speech-bubble"></div>
 
     <script>
-        // Three.js setup
-        let scene, camera, renderer, controls, robotArm;
-        let isWireframe = false;
-        let autoRotate = false;
-        
-        // Initialize the 3D viewer
-        function init3DViewer() {
-            const container = document.getElementById('robotArmViewer');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
+        document.addEventListener('DOMContentLoaded', () => {
+            const consentOverlay = document.getElementById('consentOverlay');
+            const emailConsentOverlay = document.getElementById('emailConsentOverlay');
+            const consentButton = document.getElementById('consentButton');
+            const emailConsentAgree = document.getElementById('emailConsentAgree');
+            const emailConsentCancel = document.getElementById('emailConsentCancel');
+            const mainContent = document.getElementById('main-content');
+            const body = document.body;
+            const billWandering = document.getElementById('billCipherWandering');
+            const billSpeechBubble = document.getElementById('billSpeechBubble');
+            const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
+            const email1 = document.getElementById('email1');
+            const chatContainer = document.getElementById('chatContainer');
+            const chatInput = document.getElementById('chatInput');
+            const chatSubmit = document.getElementById('chatSubmit');
 
-            // Scene setup
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x000000);
+            let hasEmailConsent = false;
+            let billCipherActive = false;
+            let currentX = window.innerWidth / 4;
+            let currentY = window.innerHeight / 2;
+            let targetX = currentX;
+            let targetY = currentY;
+            let velocityX = 0;
+            let velocityY = 0;
+            let exploringTarget = null;
 
-            // Camera setup - positioned to center the model
-            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            camera.position.set(4, 3, 4);
-            camera.lookAt(0, 0, 0);
+            const sectionMessages = {
+                'project-card': 'Check out this cool project!',
+                'chat-section': 'Got questions about Linge’s projects? Ask away!'
+            };
 
-            // Renderer setup
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(width, height);
-            renderer.setClearColor(0x000000, 1);
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            container.appendChild(renderer.domElement);
+            const chatResponses = {
+                'robot arm': 'The Robot Arm Engineering Project is a highlight! Linge designed a functional robotic arm with multiple degrees of freedom using Shapr3D, integrating mechanical design, electronics, and programming. Explore the 3D model on this page!',
+                'quantum': 'The Science Talent Search project dives into quantum theories via a laser interference experiment, modeling photon path superposition with Moiré patterns. Linge also built an app for diffraction pattern analysis—check the project card for links!',
+                'monash': 'Being selected for the Monash Scholars Program was a big win for Linge! It connected them with research pathways and high-achieving peers across Victoria.',
+                'solar car': 'The Advanced Solar Car Challenge had Linge designing and racing solar-powered vehicles as the youngest team member, showcasing sustainable engineering skills.',
+                'model un': 'As France’s delegate in Model UN, Linge negotiated a resolution on global issues, sharpening their diplomacy and public speaking skills.'
+            };
 
-            // Matrix-style grid background
-            createMatrixGrid();
+            function clamp(value, min, max) {
+                return Math.min(Math.max(value, min), max);
+            }
 
-            // Lighting setup
-            const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
-            scene.add(ambientLight);
+            function showBillMessage(message, duration = 3000) {
+                const billRect = billWandering.getBoundingClientRect();
+                billSpeechBubble.textContent = message;
+                billSpeechBubble.style.left = `${billRect.left + billRect.width + 10}px`;
+                billSpeechBubble.style.top = `${billRect.top - 20}px`;
+                billSpeechBubble.classList.add('show');
+                setTimeout(() => billSpeechBubble.classList.remove('show'), duration);
+            }
 
-            const directionalLight = new THREE.DirectionalLight(0x39ff14, 1);
-            directionalLight.position.set(10, 10, 5);
-            directionalLight.castShadow = true;
-            scene.add(directionalLight);
+            function getRandomSideTarget() {
+                const padding = 90;
+                const sideWidth = window.innerWidth * 0.2;
+                const isLeftSide = Math.random() < 0.5;
+                return {
+                    x: isLeftSide
+                        ? padding + Math.random() * sideWidth
+                        : window.innerWidth - padding - sideWidth + Math.random() * sideWidth,
+                    y: padding + Math.random() * (window.innerHeight - 2 * padding)
+                };
+            }
 
-            const pointLight = new THREE.PointLight(0x00ffff, 0.5);
-            pointLight.position.set(-10, 10, -10);
-            scene.add(pointLight);
+            function animateBill() {
+                if (!billCipherActive) {
+                    billWandering.style.display = 'none';
+                    return;
+                }
 
-            // Simple orbit controls (manual implementation)
-            setupControls();
-
-            // Load the STL model
-            loadSTLModel();
-
-            // Start render loop
-            animate();
-        }
-
-        function createMatrixGrid() {
-            const gridSize = 20;
-            const divisions = 20;
-            
-            // Main grid
-            const gridHelper = new THREE.GridHelper(gridSize, divisions, 0x333333, 0x333333);
-            scene.add(gridHelper);
-            
-            // Vertical grid
-            const verticalGrid1 = new THREE.GridHelper(gridSize, divisions, 0x333333, 0x333333);
-            verticalGrid1.rotation.z = Math.PI / 2;
-            scene.add(verticalGrid1);
-            
-            const verticalGrid2 = new THREE.GridHelper(gridSize, divisions, 0x333333, 0x333333);
-            verticalGrid2.rotation.x = Math.PI / 2;
-            scene.add(verticalGrid2);
-        }
-
-        // Add STL Loader implementation since CDN might not have it
-        THREE.STLLoader = function () {
-            this.manager = THREE.DefaultLoadingManager;
-        };
-
-        THREE.STLLoader.prototype = {
-            constructor: THREE.STLLoader,
-            
-            load: function(url, onLoad, onProgress, onError) {
-                const scope = this;
-                const loader = new THREE.FileLoader(scope.manager);
-                loader.setResponseType('arraybuffer');
-                
-                loader.load(url, function(buffer) {
-                    try {
-                        const geometry = scope.parse(buffer);
-                        onLoad(geometry);
-                    } catch (e) {
-                        if (onError) onError(e);
-                    }
-                }, onProgress, onError);
-            },
-            
-            parse: function(data) {
-                const reader = new DataView(data);
-                const faces = reader.getUint32(80, true);
-                
-                const geometry = new THREE.BufferGeometry();
-                const vertices = [];
-                const normals = [];
-                
-                for (let face = 0; face < faces; face++) {
-                    const start = 84 + face * 50;
-                    
-                    const normalX = reader.getFloat32(start, true);
-                    const normalY = reader.getFloat32(start + 4, true);
-                    const normalZ = reader.getFloat32(start + 8, true);
-                    
-                    for (let i = 1; i <= 3; i++) {
-                        const vertexstart = start + i * 12;
-                        vertices.push(reader.getFloat32(vertexstart, true));
-                        vertices.push(reader.getFloat32(vertexstart + 4, true));
-                        vertices.push(reader.getFloat32(vertexstart + 8, true));
-                        
-                        normals.push(normalX, normalY, normalZ);
+                if (exploringTarget) {
+                    targetX = exploringTarget.x;
+                    targetY = exploringTarget.y;
+                } else {
+                    if (Math.hypot(currentX - targetX, currentY - targetY) < 50) {
+                        const newTarget = getRandomSideTarget();
+                        targetX = newTarget.x;
+                        targetY = newTarget.y;
                     }
                 }
-                
-                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-                geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
-                
-                return geometry;
+
+                const dx = targetX - currentX;
+                const dy = targetY - currentY;
+                velocityX = velocityX * 0.9 + dx * 0.01;
+                velocityY = velocityY * 0.9 + dy * 0.01;
+
+                currentX += velocityX;
+                currentY += velocityY;
+
+                currentX = clamp(currentX, 40, window.innerWidth - 40);
+                currentY = clamp(currentY, 40, window.innerHeight - 40);
+
+                billWandering.style.left = `${currentX}px`;
+                billWandering.style.top = `${currentY}px`;
+                billWandering.style.transform = velocityX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+
+                requestAnimationFrame(animateBill);
             }
-        };
 
-        function loadSTLModel() {
-            const loadingText = document.getElementById('loadingText');
-            loadingText.innerHTML = `
-                <div class="matrix-text">LOADING STL MODEL...</div>
-                <div>Fetching from GitHub Repository...</div>
-                <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
-            `;
+            function startBill() {
+                billWandering.style.display = 'block';
+                billCipherActive = true;
+                currentX = window.innerWidth / 4;
+                currentY = window.innerHeight / 2;
+                targetX = currentX;
+                targetY = currentY;
+                billWandering.classList.add('swim-right');
+                requestAnimationFrame(animateBill);
+                showBillMessage('Welcome to Linge’s project showcase!');
+            }
 
-            // Use STLLoader to load the actual model
-            const loader = new THREE.STLLoader();
-            
-            // Load from GitHub raw URL (corrected URL for STL files)
-            const stlUrl = 'https://github.com/linge-human/Lingeshiwebsite-/raw/main/robot%20arm%20i%20built.glb.stl';
-            
-            loader.load(
-                stlUrl,
-                function (geometry) {
-                    // Successfully loaded STL
-                    console.log('STL loaded successfully');
-                    
-                    // Center the geometry
-                    geometry.center();
-                    geometry.computeBoundingBox();
-                    
-                    // Scale the model to fit nicely in the viewer
-                    const box = geometry.boundingBox;
-                    const size = box.getSize(new THREE.Vector3());
-                    const maxDim = Math.max(size.x, size.y, size.z);
-                    const scaleFactor = 3 / maxDim; // Scale to fit in a 3-unit space
-                    geometry.scale(scaleFactor, scaleFactor, scaleFactor);
-                    
-                    // Create material with neon green color and transparency
-                    const material = new THREE.MeshPhongMaterial({
-                        color: 0x39ff14,
-                        transparent: true,
-                        opacity: 0.9,
-                        shininess: 100
-                    });
-                    
-                    // Create the mesh
-                    robotArm = new THREE.Mesh(geometry, material);
-                    robotArm.position.set(0, 0, 0);
-                    robotArm.castShadow = true;
-                    robotArm.receiveShadow = true;
-                    
-                    // Add wireframe overlay for Matrix effect
-                    const wireframeGeometry = new THREE.EdgesGeometry(geometry);
-                    const wireframeMaterial = new THREE.LineBasicMaterial({ 
-                        color: 0x00ffff, 
-                        linewidth: 2 
-                    });
-                    const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
-                    robotArm.add(wireframe);
-                    
-                    // Add to scene
-                    scene.add(robotArm);
-                    
-                    // Hide loading text
-                    loadingText.style.display = 'none';
-                    
-                    console.log('Robot arm added to scene');
-                },
-                function (progress) {
-                    // Loading progress
-                    if (progress.total > 0) {
-                        const percent = Math.round((progress.loaded / progress.total) * 100);
-                        loadingText.innerHTML = `
-                            <div class="matrix-text">LOADING STL MODEL...</div>
-                            <div>Progress: ${percent}%</div>
-                            <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
-                        `;
+            function addChatMessage(text, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', isUser ? 'user' : 'bot');
+                messageDiv.textContent = isUser ? `> ${text}` : text;
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            function handleChatInput() {
+                const input = chatInput.value.trim().toLowerCase();
+                if (!input) return;
+
+                addChatMessage(input, true);
+                chatInput.value = '';
+
+                let response = 'I’m not sure how to answer that! Try asking about the robot arm, quantum experiments, Monash Scholars, solar car, or Model UN. For other questions, please email me professionally!';
+                for (const [key, value] of Object.entries(chatResponses)) {
+                    if (input.includes(key)) {
+                        response = value;
+                        break;
                     }
+                }
+
+                setTimeout(() => {
+                    addChatMessage(response);
+                    showBillMessage('Got a question? I’m watching!');
+                }, 500);
+            }
+
+            consentButton.addEventListener('click', () => {
+                consentOverlay.style.display = 'none';
+                mainContent.style.visibility = 'visible';
+                body.classList.remove('no-consent');
+                startBill();
+            });
+
+            emailPlaceholder1.addEventListener('click', () => {
+                if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
+            });
+
+            emailPlaceholder1.addEventListener('keydown', (e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && !hasEmailConsent) {
+                    e.preventDefault();
+                    emailConsentOverlay.style.display = 'flex';
+                }
+            });
+
+            emailConsentAgree.addEventListener('click', () => {
+                hasEmailConsent = true;
+                emailConsentOverlay.style.display = 'none';
+                email1.classList.remove('email-hidden');
+                emailPlaceholder1.style.display = 'none';
+                showBillMessage('Email revealed! Be responsible!');
+            });
+
+            emailConsentCancel.addEventListener('click', () => {
+                emailConsentOverlay.style.display = 'none';
+                showBillMessage('Good call! Respect is key.');
+            });
+
+            email1.addEventListener('click', (e) => {
+                if (!hasEmailConsent) {
+                    e.preventDefault();
+                    emailConsentOverlay.style.display = 'flex';
+                }
+            });
+
+            document.querySelectorAll('.project-card, .chat-section').forEach(elem => {
+                elem.addEventListener('mouseenter', () => {
+                    const sectionClass = elem.className.split(' ')[0];
+                    const message = sectionMessages[sectionClass] || 'What’s this project gem?';
+                    const rect = elem.getBoundingClientRect();
+                    const isLeft = rect.left < window.innerWidth / 2;
+                    exploringTarget = {
+                        x: isLeft ? rect.right + 40 : rect.left - 40,
+                        y: rect.top + rect.height / 2
+                    };
+                    showBillMessage(message, 2000);
+                });
+                elem.addEventListener('mouseleave', () => {
+                    exploringTarget = null;
+                });
+            });
+
+            chatSubmit.addEventListener('click', handleChatInput);
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') handleChatInput();
+            });
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (!billCipherActive) return;
+                    currentX = clamp(currentX, 40, window.innerWidth - 40);
+                    currentY = clamp(currentY, 40, window.innerHeight - 40);
+                    billWandering.style.left = `${currentX}px`;
+                    billWandering.style.top = `${currentY}px`;
+                }, 100);
+            });
+
+            // Three.js setup
+            let scene, camera, renderer, robotArm;
+            let isWireframe = false;
+            let autoRotate = false;
+
+            function init3DViewer() {
+                const container = document.getElementById('robotArmViewer');
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x000000);
+
+                camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+                camera.position.set(4, 3, 4);
+                camera.lookAt(0, 0, 0);
+
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(width, height);
+                renderer.setClearColor(0x000000, 1);
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                container.appendChild(renderer.domElement);
+
+                createMatrixGrid();
+
+                const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+                scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(0x39ff14, 1);
+                directionalLight.position.set(10, 10, 5);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+
+                const pointLight = new THREE.PointLight(0x00ffff, 0.5);
+                pointLight.position.set(-10, 10, -10);
+                scene.add(pointLight);
+
+                setupControls();
+                loadSTLModel();
+                animate();
+            }
+
+            function createMatrixGrid() {
+                const gridSize = 20;
+                const divisions = 20;
+
+                const gridHelper = new THREE.GridHelper(gridSize, divisions, 0x333333, 0x333333);
+                scene.add(gridHelper);
+
+                const verticalGrid1 = new THREE.GridHelper(gridSize, divisions, 0x333333, 0x333333);
+                verticalGrid1.rotation.z = Math.PI / 2;
+                scene.add(verticalGrid1);
+
+                const verticalGrid2 = new THREE.GridHelper(gridSize, divisions, 0x333333, 0x333333);
+                verticalGrid2.rotation.x = Math.PI / 2;
+                scene.add(verticalGrid2);
+            }
+
+            THREE.STLLoader = function () {
+                this.manager = THREE.DefaultLoadingManager;
+            };
+
+            THREE.STLLoader.prototype = {
+                constructor: THREE.STLLoader,
+                load: function(url, onLoad, onProgress, onError) {
+                    const scope = this;
+                    const loader = new THREE.FileLoader(scope.manager);
+                    loader.setResponseType('arraybuffer');
+                    loader.load(url, function(buffer) {
+                        try {
+                            const geometry = scope.parse(buffer);
+                            onLoad(geometry);
+                        } catch (e) {
+                            if (onError) onError(e);
+                        }
+                    }, onProgress, onError);
                 },
-                function (error) {
-                    // Error loading STL - fallback to placeholder
-                    console.error('Error loading STL:', error);
-                    loadingText.innerHTML = `
-                        <div style="color: #ff6b6b;">⚠️ STL LOAD FAILED</div>
-                        <div>Loading placeholder model...</div>
-                    `;
-                    
-                    // Create fallback placeholder robot arm
-                    setTimeout(() => {
-                        createPlaceholderRobotArm();
+                parse: function(data) {
+                    const reader = new DataView(data);
+                    const faces = reader.getUint32(80, true);
+                    const geometry = new THREE.BufferGeometry();
+                    const vertices = [];
+                    const normals = [];
+
+                    for (let face = 0; face < faces; face++) {
+                        const start = 84 + face * 50;
+                        const normalX = reader.getFloat32(start, true);
+                        const normalY = reader.getFloat32(start + 4, true);
+                        const normalZ = reader.getFloat32(start + 8, true);
+
+                        for (let i = 1; i <= 3; i++) {
+                            const vertexstart = start + i * 12;
+                            vertices.push(reader.getFloat32(vertexstart, true));
+                            vertices.push(reader.getFloat32(vertexstart + 4, true));
+                            vertices.push(reader.getFloat32(vertexstart + 8, true));
+                            normals.push(normalX, normalY, normalZ);
+                        }
+                    }
+
+                    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+                    geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+                    return geometry;
+                }
+            };
+
+            function loadSTLModel() {
+                const loadingText = document.getElementById('loadingText');
+                loadingText.innerHTML = `
+                    <div class="matrix-text">LOADING 3D MODEL...</div>
+                    <div>Fetching from GitHub...</div>
+                    <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
+                `;
+
+                const loader = new THREE.STLLoader();
+                const stlUrl = 'https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl';
+
+                loader.load(
+                    stlUrl,
+                    function (geometry) {
+                        console.log('STL loaded successfully');
+                        geometry.center();
+                        geometry.computeBoundingBox();
+
+                        const box = geometry.boundingBox;
+                        const size = box.getSize(new THREE.Vector3());
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const scaleFactor = 3 / maxDim;
+                        geometry.scale(scaleFactor, scaleFactor, scaleFactor);
+
+                        const material = new THREE.MeshPhongMaterial({
+                            color: 0x39ff14,
+                            transparent: true,
+                            opacity: 0.9,
+                            shininess: 100
+                        });
+
+                        robotArm = new THREE.Mesh(geometry, material);
+                        robotArm.position.set(0, 0, 0);
+                        robotArm.castShadow = true;
+                        robotArm.receiveShadow = true;
+
+                        const wireframeGeometry = new THREE.EdgesGeometry(geometry);
+                        const wireframeMaterial = new THREE.LineBasicMaterial({
+                            color: 0x00ffff,
+                            linewidth: 2
+                        });
+                        const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                        robotArm.add(wireframe);
+
+                        scene.add(robotArm);
                         loadingText.style.display = 'none';
-                    }, 1000);
+                        console.log('Robot arm added to scene');
+                    },
+                    function (progress) {
+                        if (progress.total > 0) {
+                            const percent = Math.round((progress.loaded / progress.total) * 100);
+                            loadingText.innerHTML = `
+                                <div class="matrix-text">LOADING STL MODEL...</div>
+                                <div>Progress: ${percent}%</div>
+                                <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
+                            `;
+                        }
+                    },
+                    function (error) {
+                        console.error('Error loading STL:', error);
+                        loadingText.innerHTML = `
+                            <div style="color: #ff6b6b;">⚠️ STL LOAD FAILED</div>
+                            <div>Loading placeholder model...</div>
+                        `;
+                        setTimeout(() => {
+                            createPlaceholderRobotArm();
+                            loadingText.style.display = 'none';
+                        }, 1000);
+                    }
+                );
+            }
+
+            function createPlaceholderRobotArm() {
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0x39ff14,
+                    transparent: true,
+                    opacity: 0.9
+                });
+
+                robotArm = new THREE.Group();
+
+                const baseGeometry = new THREE.CylinderGeometry(0.5, 0.8, 0.5, 8);
+                const baseMesh = new THREE.Mesh(baseGeometry, material);
+                baseMesh.position.set(0, -0.25, 0);
+                robotArm.add(baseMesh);
+
+                const arm1Geometry = new THREE.BoxGeometry(2, 0.3, 0.3);
+                const arm1Mesh = new THREE.Mesh(arm1Geometry, material);
+                arm1Mesh.position.set(0, 0.5, 0);
+                robotArm.add(arm1Mesh);
+
+                const arm2Geometry = new THREE.BoxGeometry(1.5, 0.25, 0.25);
+                const arm2Mesh = new THREE.Mesh(arm2Geometry, material);
+                arm2Mesh.position.set(1.2, 1.2, 0);
+                arm2Mesh.rotation.z = Math.PI / 4;
+                robotArm.add(arm2Mesh);
+
+                const gripperGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
+                const gripperMesh = new THREE.Mesh(gripperGeometry, material);
+                gripperMesh.position.set(2, 1.8, 0);
+                robotArm.add(gripperMesh);
+
+                [baseMesh, arm1Mesh, arm2Mesh, gripperMesh].forEach(mesh => {
+                    const wireframeGeometry = new THREE.EdgesGeometry(mesh.geometry);
+                    const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
+                    const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                    mesh.add(wireframe);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                });
+
+                robotArm.position.set(0, 0, 0);
+                scene.add(robotArm);
+            }
+
+            function setupControls() {
+                let isMouseDown = false;
+                let mouseX = 0, mouseY = 0;
+                let targetRotationX = 0, targetRotationY = 0;
+                let rotationX = 0, rotationY = 0;
+
+                const container = renderer.domElement;
+
+                container.addEventListener('mousedown', (event) => {
+                    isMouseDown = true;
+                    mouseX = event.clientX;
+                    mouseY = event.clientY;
+                });
+
+                container.addEventListener('mousemove', (event) => {
+                    if (!isMouseDown) return;
+
+                    const deltaX = event.clientX - mouseX;
+                    const deltaY = event.clientY - mouseY;
+
+                    targetRotationY += deltaX * 0.01;
+                    targetRotationX += deltaY * 0.01;
+
+                    mouseX = event.clientX;
+                    mouseY = event.clientY;
+                });
+
+                container.addEventListener('mouseup', () => {
+                    isMouseDown = false;
+                });
+
+                container.addEventListener('wheel', (event) => {
+                    const scale = event.deltaY > 0 ? 1.1 : 0.9;
+                    camera.position.multiplyScalar(scale);
+                    event.preventDefault();
+                });
+
+                function updateControls() {
+                    rotationX += (targetRotationX - rotationX) * 0.1;
+                    rotationY += (targetRotationY - rotationY) * 0.1;
+
+                    if (robotArm) {
+                        robotArm.rotation.x = rotationX;
+                        robotArm.rotation.y = rotationY;
+                    }
+
+                    if (autoRotate && robotArm) {
+                        robotArm.rotation.y += 0.01;
+                    }
+
+                    requestAnimationFrame(updateControls);
                 }
-            );
-        }
+                updateControls();
+            }
 
-        function createPlaceholderRobotArm() {
-            // Fallback placeholder in case STL doesn't load
-            const material = new THREE.MeshPhongMaterial({
-                color: 0x39ff14,
-                transparent: true,
-                opacity: 0.9
-            });
-            
-            robotArm = new THREE.Group();
-            
-            // Base
-            const baseGeometry = new THREE.CylinderGeometry(0.5, 0.8, 0.5, 8);
-            const baseMesh = new THREE.Mesh(baseGeometry, material);
-            baseMesh.position.set(0, -0.25, 0);
-            robotArm.add(baseMesh);
-            
-            // First arm segment
-            const arm1Geometry = new THREE.BoxGeometry(2, 0.3, 0.3);
-            const arm1Mesh = new THREE.Mesh(arm1Geometry, material);
-            arm1Mesh.position.set(0, 0.5, 0);
-            robotArm.add(arm1Mesh);
-            
-            // Second arm segment
-            const arm2Geometry = new THREE.BoxGeometry(1.5, 0.25, 0.25);
-            const arm2Mesh = new THREE.Mesh(arm2Geometry, material);
-            arm2Mesh.position.set(1.2, 1.2, 0);
-            arm2Mesh.rotation.z = Math.PI / 4;
-            robotArm.add(arm2Mesh);
-            
-            // End effector
-            const gripperGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
-            const gripperMesh = new THREE.Mesh(gripperGeometry, material);
-            gripperMesh.position.set(2, 1.8, 0);
-            robotArm.add(gripperMesh);
-            
-            // Add wireframe overlays
-            [baseMesh, arm1Mesh, arm2Mesh, gripperMesh].forEach(mesh => {
-                const wireframeGeometry = new THREE.EdgesGeometry(mesh.geometry);
-                const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
-                const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
-                mesh.add(wireframe);
-                
-                mesh.castShadow = true;
-                mesh.receiveShadow = true;
-            });
-            
-            robotArm.position.set(0, 0, 0);
-            scene.add(robotArm);
-        }
+            function animate() {
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
 
-        function setupControls() {
-            let isMouseDown = false;
-            let mouseX = 0, mouseY = 0;
-            let targetRotationX = 0, targetRotationY = 0;
-            let rotationX = 0, rotationY = 0;
-
-            const container = renderer.domElement;
-
-            container.addEventListener('mousedown', (event) => {
-                isMouseDown = true;
-                mouseX = event.clientX;
-                mouseY = event.clientY;
-            });
-
-            container.addEventListener('mousemove', (event) => {
-                if (!isMouseDown) return;
-
-                const deltaX = event.clientX - mouseX;
-                const deltaY = event.clientY - mouseY;
-
-                targetRotationY += deltaX * 0.01;
-                targetRotationX += deltaY * 0.01;
-
-                mouseX = event.clientX;
-                mouseY = event.clientY;
-            });
-
-            container.addEventListener('mouseup', () => {
-                isMouseDown = false;
-            });
-
-            container.addEventListener('wheel', (event) => {
-                const scale = event.deltaY > 0 ? 1.1 : 0.9;
-                camera.position.multiplyScalar(scale);
-                event.preventDefault();
-            });
-
-            // Smooth rotation animation
-            function updateControls() {
-                rotationX += (targetRotationX - rotationX) * 0.1;
-                rotationY += (targetRotationY - rotationY) * 0.1;
-
+            function resetCamera() {
+                camera.position.set(4, 3, 4);
+                camera.lookAt(0, 0, 0);
                 if (robotArm) {
-                    robotArm.rotation.x = rotationX;
-                    robotArm.rotation.y = rotationY;
+                    robotArm.rotation.set(0, 0, 0);
                 }
+            }
 
-                if (autoRotate && robotArm) {
-                    robotArm.rotation.y += 0.01;
+            function toggleWireframe() {
+                isWireframe = !isWireframe;
+                if (robotArm) {
+                    robotArm.material.wireframe = isWireframe;
                 }
-
-                requestAnimationFrame(updateControls);
             }
-            updateControls();
-        }
 
-        function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
-
-        // Control functions
-        function resetCamera() {
-            camera.position.set(4, 3, 4);
-            camera.lookAt(0, 0, 0);
-            if (robotArm) {
-                robotArm.rotation.set(0, 0, 0);
+            function toggleRotation() {
+                autoRotate = !autoRotate;
             }
-        }
 
-        function toggleWireframe() {
-            isWireframe = !isWireframe;
-            if (robotArm) {
-                robotArm.material.wireframe = isWireframe;
-            }
-        }
+            window.addEventListener('resize', () => {
+                const container = document.getElementById('robotArmViewer');
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            });
 
-        function toggleRotation() {
-            autoRotate = !autoRotate;
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            const container = document.getElementById('robotArmViewer');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
+            window.addEventListener('load', init3DViewer);
         });
-
-        // Initialize when page loads
-        window.addEventListener('load', init3DViewer);
     </script>
 </body>
 </html>
