@@ -208,7 +208,7 @@
             }
         }
 
-        /* Matrix-style scrolling animation */
+        /* Matrix-style text effects for specific elements */
         @keyframes matrix-glow {
             0%, 100% { text-shadow: 0 0 5px var(--neon-green); }
             50% { text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
@@ -239,7 +239,7 @@
 
     <main>
         <header class="hero">
-            <h1 class="matrix-text">PROJECTS</h1>
+            <h1>PROJECTS</h1>
             <p class="subtitle">A collection of my academic and engineering and science endeavors</p>
         </header>
 
@@ -387,16 +387,159 @@
             scene.add(verticalGrid2);
         }
 
+        // Add STL Loader implementation since CDN might not have it
+        THREE.STLLoader = function () {
+            this.manager = THREE.DefaultLoadingManager;
+        };
+
+        THREE.STLLoader.prototype = {
+            constructor: THREE.STLLoader,
+            
+            load: function(url, onLoad, onProgress, onError) {
+                const scope = this;
+                const loader = new THREE.FileLoader(scope.manager);
+                loader.setResponseType('arraybuffer');
+                
+                loader.load(url, function(buffer) {
+                    try {
+                        const geometry = scope.parse(buffer);
+                        onLoad(geometry);
+                    } catch (e) {
+                        if (onError) onError(e);
+                    }
+                }, onProgress, onError);
+            },
+            
+            parse: function(data) {
+                const reader = new DataView(data);
+                const faces = reader.getUint32(80, true);
+                
+                const geometry = new THREE.BufferGeometry();
+                const vertices = [];
+                const normals = [];
+                
+                for (let face = 0; face < faces; face++) {
+                    const start = 84 + face * 50;
+                    
+                    const normalX = reader.getFloat32(start, true);
+                    const normalY = reader.getFloat32(start + 4, true);
+                    const normalZ = reader.getFloat32(start + 8, true);
+                    
+                    for (let i = 1; i <= 3; i++) {
+                        const vertexstart = start + i * 12;
+                        vertices.push(reader.getFloat32(vertexstart, true));
+                        vertices.push(reader.getFloat32(vertexstart + 4, true));
+                        vertices.push(reader.getFloat32(vertexstart + 8, true));
+                        
+                        normals.push(normalX, normalY, normalZ);
+                    }
+                }
+                
+                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+                geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+                
+                return geometry;
+            }
+        };
+
         function loadSTLModel() {
-            // Create a placeholder geometry while loading (robot arm shape)
-            const geometry = new THREE.BoxGeometry(3, 0.5, 0.3);
+            const loadingText = document.getElementById('loadingText');
+            loadingText.innerHTML = `
+                <div class="matrix-text">LOADING STL MODEL...</div>
+                <div>Fetching from GitHub Repository...</div>
+                <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
+            `;
+
+            // Use STLLoader to load the actual model
+            const loader = new THREE.STLLoader();
+            
+            // Load from GitHub raw URL (corrected URL for STL files)
+            const stlUrl = 'https://github.com/linge-human/Lingeshiwebsite-/raw/main/robot%20arm%20i%20built.glb.stl';
+            
+            loader.load(
+                stlUrl,
+                function (geometry) {
+                    // Successfully loaded STL
+                    console.log('STL loaded successfully');
+                    
+                    // Center the geometry
+                    geometry.center();
+                    geometry.computeBoundingBox();
+                    
+                    // Scale the model to fit nicely in the viewer
+                    const box = geometry.boundingBox;
+                    const size = box.getSize(new THREE.Vector3());
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const scaleFactor = 3 / maxDim; // Scale to fit in a 3-unit space
+                    geometry.scale(scaleFactor, scaleFactor, scaleFactor);
+                    
+                    // Create material with neon green color and transparency
+                    const material = new THREE.MeshPhongMaterial({
+                        color: 0x39ff14,
+                        transparent: true,
+                        opacity: 0.9,
+                        shininess: 100
+                    });
+                    
+                    // Create the mesh
+                    robotArm = new THREE.Mesh(geometry, material);
+                    robotArm.position.set(0, 0, 0);
+                    robotArm.castShadow = true;
+                    robotArm.receiveShadow = true;
+                    
+                    // Add wireframe overlay for Matrix effect
+                    const wireframeGeometry = new THREE.EdgesGeometry(geometry);
+                    const wireframeMaterial = new THREE.LineBasicMaterial({ 
+                        color: 0x00ffff, 
+                        linewidth: 2 
+                    });
+                    const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                    robotArm.add(wireframe);
+                    
+                    // Add to scene
+                    scene.add(robotArm);
+                    
+                    // Hide loading text
+                    loadingText.style.display = 'none';
+                    
+                    console.log('Robot arm added to scene');
+                },
+                function (progress) {
+                    // Loading progress
+                    if (progress.total > 0) {
+                        const percent = Math.round((progress.loaded / progress.total) * 100);
+                        loadingText.innerHTML = `
+                            <div class="matrix-text">LOADING STL MODEL...</div>
+                            <div>Progress: ${percent}%</div>
+                            <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
+                        `;
+                    }
+                },
+                function (error) {
+                    // Error loading STL - fallback to placeholder
+                    console.error('Error loading STL:', error);
+                    loadingText.innerHTML = `
+                        <div style="color: #ff6b6b;">⚠️ STL LOAD FAILED</div>
+                        <div>Loading placeholder model...</div>
+                    `;
+                    
+                    // Create fallback placeholder robot arm
+                    setTimeout(() => {
+                        createPlaceholderRobotArm();
+                        loadingText.style.display = 'none';
+                    }, 1000);
+                }
+            );
+        }
+
+        function createPlaceholderRobotArm() {
+            // Fallback placeholder in case STL doesn't load
             const material = new THREE.MeshPhongMaterial({
                 color: 0x39ff14,
                 transparent: true,
                 opacity: 0.9
             });
             
-            // Create robot arm with multiple segments
             robotArm = new THREE.Group();
             
             // Base
@@ -424,7 +567,7 @@
             gripperMesh.position.set(2, 1.8, 0);
             robotArm.add(gripperMesh);
             
-            // Add wireframe overlays to all parts
+            // Add wireframe overlays
             [baseMesh, arm1Mesh, arm2Mesh, gripperMesh].forEach(mesh => {
                 const wireframeGeometry = new THREE.EdgesGeometry(mesh.geometry);
                 const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
@@ -435,27 +578,8 @@
                 mesh.receiveShadow = true;
             });
             
-            // Center the robot arm in the display
             robotArm.position.set(0, 0, 0);
-            
-            // Add the group to scene
             scene.add(robotArm);
-
-            // Hide loading text
-            document.getElementById('loadingText').style.display = 'none';
-
-            // In a real implementation, you would use STLLoader here:
-            // const loader = new THREE.STLLoader();
-            // loader.load('https://github.com/linge-human/Lingeshiwebsite-/raw/main/robot%20arm%20i%20built.glb.stl',
-            //     function (geometry) { 
-            //         geometry.center(); // This centers the loaded geometry
-            //         geometry.computeBoundingBox();
-            //         const box = geometry.boundingBox;
-            //         const size = box.getSize(new THREE.Vector3());
-            //         const maxDim = Math.max(size.x, size.y, size.z);
-            //         geometry.scale(2/maxDim, 2/maxDim, 2/maxDim); // Scale to fit
-            //         // ... rest of loading code
-            //     });
         }
 
         function setupControls() {
@@ -521,7 +645,8 @@
 
         // Control functions
         function resetCamera() {
-            camera.position.set(5, 5, 5);
+            camera.position.set(4, 3, 4);
+            camera.lookAt(0, 0, 0);
             if (robotArm) {
                 robotArm.rotation.set(0, 0, 0);
             }
