@@ -544,7 +544,7 @@
             <div class="project-card">
                 <h3>Math and Stats Research Challenge</h3>
                 <p>I ventured into the abyss of mathematics, tackling challenges like mastering Excel. I overcame these by developing an app to analyze data. Check it out here: <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="paper-link-button" target="_blank" rel="noopener noreferrer">Data Analysis App</a>.</p>
-                <p>This was one of my most challenging projects, alongside the robot arm and theoretical physics experiment. (Yes, I vibe with coding—it's simple and efficient!)</p>
+                <p>This was one of my most challenging projects, alongside the robot arm and theoretical physics experiment. (Yes, I vibe with coding—it’s simple and efficient!)</p>
             </div>
 
             <div class="project-card">
@@ -554,9 +554,9 @@
 
             <div class="project-card">
                 <h3>Science Talent Search</h3>
-                <p>This project explored Richard Feynman's quantum theories through a laser interference experiment, modeling light behavior with semi-permeable structures and Moiré patterns to simulate photon path superposition. I developed an app for photon diffraction pattern analysis: <a href="https://claude.ai/public/artifacts/f41cb096-a8dc-4bcd-a48a-3fa8aad1e1b9" class="paper-link-button" target="_blank" rel="noopener noreferrer">Photon Diffraction App</a>.</p>
+                <p>This project explored Richard Feynman’s quantum theories through a laser interference experiment, modeling light behavior with semi-permeable structures and Moiré patterns to simulate photon path superposition. I developed an app for photon diffraction pattern analysis: <a href="https://claude.ai/public/artifacts/f41cb096-a8dc-4bcd-a48a-3fa8aad1e1b9" class="paper-link-button" target="_blank" rel="noopener noreferrer">Photon Diffraction App</a>.</p>
                 <p>I rely on tools like Claude, GPT, Perplexity, Copilot, Grok, and Sora, but I ensure my requests are efficient to minimize resource use.</p>
-                <p>Here's the research paper: <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" class="paper-link-button" target="_blank" rel="noopener noreferrer">The Actual Paper</a></p>
+                <p>Here’s the research paper: <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" class="paper-link-button" target="_blank" rel="noopener noreferrer">The Actual Paper</a></p>
             </div>
 
             <div class="project-card">
@@ -594,7 +594,7 @@
 
             <div class="project-card">
                 <h3>Model UN</h3>
-                <p>As France's delegate in Model United Nations, I researched national policies and negotiated the amendment and passage of a resolution on global issues, honing my diplomacy, public speaking, and strategic negotiation skills.</p>
+                <p>As France’s delegate in Model United Nations, I researched national policies and negotiated the amendment and passage of a resolution on global issues, honing my diplomacy, public speaking, and strategic negotiation skills.</p>
             </div>
 
             <section class="chat-section" aria-label="Chat section">
@@ -614,7 +614,7 @@
         </main>
     </div>
 
-    <img id="billCipherWandering" src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher, your AI assistant" draggable="false" />
+    <img id="billCipherWandering" src="https://raw.githubusercontent.com/Lingeshiwebsite-/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher, your AI assistant" draggable="false" />
 
     <div id="billSpeechBubble" class="bill-speech-bubble"></div>
 
@@ -647,7 +647,7 @@
 
             const sectionMessages = {
                 'project-card': 'Check out this cool project!',
-                'chat-section': 'Got questions about Linge's projects? Ask away!'
+                'chat-section': 'Got questions about Linge’s projects? Ask away!'
             };
 
             const chatResponses = {
@@ -655,7 +655,7 @@
                 'quantum': 'The Science Talent Search project dives into quantum theories via a laser interference experiment, modeling photon path superposition with Moiré patterns. Linge also built an app for diffraction pattern analysis—check the project card for links!',
                 'monash': 'Being selected for the Monash Scholars Program was a big win for Linge! It connected them with research pathways and high-achieving peers across Victoria.',
                 'solar car': 'The Advanced Solar Car Challenge had Linge designing and racing solar-powered vehicles as the youngest team member, showcasing sustainable engineering skills.',
-                'model un': 'As France's delegate in Model UN, Linge negotiated a resolution on global issues, sharpening their diplomacy and public speaking skills.'
+                'model un': 'As France’s delegate in Model UN, Linge negotiated a resolution on global issues, sharpening their diplomacy and public speaking skills.'
             };
 
             function clamp(value, min, max) {
@@ -727,7 +727,7 @@
                 targetY = currentY;
                 billWandering.classList.add('swim-right');
                 requestAnimationFrame(animateBill);
-                showBillMessage('Welcome to Linge's project showcase!');
+                showBillMessage('Welcome to Linge’s project showcase!');
             }
 
             function addChatMessage(text, isUser = false) {
@@ -745,7 +745,7 @@
                 addChatMessage(input, true);
                 chatInput.value = '';
 
-                let response = 'I'm not sure how to answer that! Try asking about the robot arm, quantum experiments, Monash Scholars, solar car, or Model UN. For other questions, please email me professionally!';
+                let response = 'I’m not sure how to answer that! Try asking about the robot arm, quantum experiments, Monash Scholars, solar car, or Model UN. For other questions, please email me professionally!';
                 for (const [key, value] of Object.entries(chatResponses)) {
                     if (input.includes(key)) {
                         response = value;
@@ -755,7 +755,7 @@
 
                 setTimeout(() => {
                     addChatMessage(response);
-                    showBillMessage('Got a question? I'm watching!');
+                    showBillMessage('Got a question? I’m watching!');
                 }, 500);
             }
 
@@ -800,7 +800,7 @@
             document.querySelectorAll('.project-card, .chat-section').forEach(elem => {
                 elem.addEventListener('mouseenter', () => {
                     const sectionClass = elem.className.split(' ')[0];
-                    const message = sectionMessages[sectionClass] || 'What's this project gem?';
+                    const message = sectionMessages[sectionClass] || 'What’s this project gem?';
                     const rect = elem.getBoundingClientRect();
                     const isLeft = rect.left < window.innerWidth / 2;
                     exploringTarget = {
@@ -890,154 +890,103 @@
                 scene.add(verticalGrid2);
             }
 
-            // Custom STL Loader with better error handling
-            class CustomSTLLoader {
-                constructor() {
-                    this.manager = THREE.LoadingManager ? THREE.LoadingManager : { itemStart: () => {}, itemEnd: () => {}, itemError: () => {} };
-                }
+            THREE.STLLoader = function () {
+                this.manager = THREE.DefaultLoadingManager;
+            };
 
-                load(url, onLoad, onProgress, onError) {
-                    const loader = new THREE.FileLoader(this.manager);
+            THREE.STLLoader.prototype = {
+                constructor: THREE.STLLoader,
+                load: function(url, onLoad, onProgress, onError) {
+                    const scope = this;
+                    const loader = new THREE.FileLoader(scope.manager);
                     loader.setResponseType('arraybuffer');
-                    
-                    loader.load(
-                        url,
-                        (buffer) => {
-                            try {
-                                const geometry = this.parse(buffer);
-                                if (onLoad) onLoad(geometry);
-                            } catch (e) {
-                                console.error('STL parsing error:', e);
-                                if (onError) onError(e);
-                            }
-                        },
-                        onProgress,
-                        (error) => {
-                            console.error('STL loading error:', error);
-                            if (onError) onError(error);
+                    loader.load(url, function(buffer) {
+                        try {
+                            const geometry = scope.parse(buffer);
+                            onLoad(geometry);
+                        } catch (e) {
+                            if (onError) onError(e);
                         }
-                    );
-                }
-
-                parse(data) {
-                    if (!data || data.byteLength < 84) {
-                        throw new Error('Invalid STL file: too small');
-                    }
-
+                    }, onProgress, onError);
+                },
+                parse: function(data) {
                     const reader = new DataView(data);
                     const faces = reader.getUint32(80, true);
-                    
-                    if (faces === 0) {
-                        throw new Error('Invalid STL file: no faces');
-                    }
-
-                    const expectedSize = 84 + faces * 50;
-                    if (data.byteLength < expectedSize) {
-                        throw new Error('Invalid STL file: size mismatch');
-                    }
-
                     const geometry = new THREE.BufferGeometry();
                     const vertices = [];
                     const normals = [];
 
                     for (let face = 0; face < faces; face++) {
                         const start = 84 + face * 50;
-                        
-                        // Read normal vector
                         const normalX = reader.getFloat32(start, true);
                         const normalY = reader.getFloat32(start + 4, true);
                         const normalZ = reader.getFloat32(start + 8, true);
 
-                        // Read three vertices
                         for (let i = 1; i <= 3; i++) {
-                            const vertexStart = start + i * 12;
-                            vertices.push(reader.getFloat32(vertexStart, true));
-                            vertices.push(reader.getFloat32(vertexStart + 4, true));
-                            vertices.push(reader.getFloat32(vertexStart + 8, true));
+                            const vertexstart = start + i * 12;
+                            vertices.push(reader.getFloat32(vertexstart, true));
+                            vertices.push(reader.getFloat32(vertexstart + 4, true));
+                            vertices.push(reader.getFloat32(vertexstart + 8, true));
                             normals.push(normalX, normalY, normalZ);
                         }
                     }
 
                     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
                     geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
-                    
                     return geometry;
                 }
-            }
+            };
 
             function loadSTLModel() {
                 const loadingText = document.getElementById('loadingText');
-                if (!loadingText) return;
-                
                 loadingText.innerHTML = `
                     <div class="matrix-text">LOADING 3D MODEL...</div>
                     <div>Fetching from GitHub...</div>
                     <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
                 `;
 
-                const loader = new CustomSTLLoader();
+                const loader = new THREE.STLLoader();
                 const stlUrl = 'https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl';
-
-                // Add timeout for loading
-                const timeoutId = setTimeout(() => {
-                    console.warn('STL loading timeout, using placeholder');
-                    loadingText.innerHTML = `
-                        <div style="color: #ff6b6b;">⚠️ LOADING TIMEOUT</div>
-                        <div>Using placeholder model...</div>
-                    `;
-                    setTimeout(() => {
-                        createPlaceholderRobotArm();
-                        loadingText.style.display = 'none';
-                    }, 1000);
-                }, 15000); // 15 second timeout
 
                 loader.load(
                     stlUrl,
                     function (geometry) {
-                        clearTimeout(timeoutId);
                         console.log('STL loaded successfully');
-                        
-                        try {
-                            geometry.center();
-                            geometry.computeBoundingBox();
+                        geometry.center();
+                        geometry.computeBoundingBox();
 
-                            const box = geometry.boundingBox;
-                            const size = box.getSize(new THREE.Vector3());
-                            const maxDim = Math.max(size.x, size.y, size.z);
-                            const scaleFactor = 3 / maxDim;
-                            geometry.scale(scaleFactor, scaleFactor, scaleFactor);
+                        const box = geometry.boundingBox;
+                        const size = box.getSize(new THREE.Vector3());
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const scaleFactor = 3 / maxDim;
+                        geometry.scale(scaleFactor, scaleFactor, scaleFactor);
 
-                            const material = new THREE.MeshPhongMaterial({
-                                color: 0x39ff14,
-                                transparent: true,
-                                opacity: 0.9,
-                                shininess: 100
-                            });
+                        const material = new THREE.MeshPhongMaterial({
+                            color: 0x39ff14,
+                            transparent: true,
+                            opacity: 0.9,
+                            shininess: 100
+                        });
 
-                            robotArm = new THREE.Mesh(geometry, material);
-                            robotArm.position.set(0, 0, 0);
-                            robotArm.castShadow = true;
-                            robotArm.receiveShadow = true;
+                        robotArm = new THREE.Mesh(geometry, material);
+                        robotArm.position.set(0, 0, 0);
+                        robotArm.castShadow = true;
+                        robotArm.receiveShadow = true;
 
-                            const wireframeGeometry = new THREE.EdgesGeometry(geometry);
-                            const wireframeMaterial = new THREE.LineBasicMaterial({
-                                color: 0x00ffff,
-                                linewidth: 2
-                            });
-                            const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
-                            robotArm.add(wireframe);
+                        const wireframeGeometry = new THREE.EdgesGeometry(geometry);
+                        const wireframeMaterial = new THREE.LineBasicMaterial({
+                            color: 0x00ffff,
+                            linewidth: 2
+                        });
+                        const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                        robotArm.add(wireframe);
 
-                            scene.add(robotArm);
-                            loadingText.style.display = 'none';
-                            console.log('Robot arm added to scene');
-                        } catch (error) {
-                            console.error('Error processing STL geometry:', error);
-                            createPlaceholderRobotArm();
-                            loadingText.style.display = 'none';
-                        }
+                        scene.add(robotArm);
+                        loadingText.style.display = 'none';
+                        console.log('Robot arm added to scene');
                     },
                     function (progress) {
-                        if (progress && progress.total > 0) {
+                        if (progress.total > 0) {
                             const percent = Math.round((progress.loaded / progress.total) * 100);
                             loadingText.innerHTML = `
                                 <div class="matrix-text">LOADING STL MODEL...</div>
@@ -1047,7 +996,6 @@
                         }
                     },
                     function (error) {
-                        clearTimeout(timeoutId);
                         console.error('Error loading STL:', error);
                         loadingText.innerHTML = `
                             <div style="color: #ff6b6b;">⚠️ STL LOAD FAILED</div>
