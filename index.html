@@ -593,21 +593,121 @@
         </div>
       </section>
 
-      <section class="contact-section" aria-label="Contact me section">
-        <h2>Contact Me</h2>
-        <p class="contact-consent">
-          Please note: Do not send unnecessary emails.<br />
-          Kindly reach out for opportunities related to experiments, experiment volunteering, and forming meaningful connections.<br />
-          Professional inquiries only.
+    <section class="contact-section" aria-label="Contact me section">
+  <h2>Contact Me</h2>
+  <p class="contact-consent">
+    Please note: Do not send unnecessary emails.<br />
+    Kindly reach out for opportunities related to experiments, volunteering, collaborations, and making meaningful connections.<br />
+    Professional and positive inquiries only.
+  </p>
+  <div class="contact-links">
+    <!-- Email Reveal Button -->
+    <div class="email-placeholder" id="revealEmailBtn" tabindex="0" role="button" aria-label="Reveal contact emails (purpose required)">📧 Click to reveal email (choose your purpose)</div>
+    <!-- Modal Dialog for Purpose Selection -->
+    <div id="emailModal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-content">
+        <h3 id="modalTitle">Before you get my email...</h3>
+        <p>
+          I do a lot! Please let me know what you're reaching out for (select all that apply):<br>
+          <small>(This helps me prioritize and keep my inbox meaningful!)</small>
         </p>
-        <div class="contact-links">
-          <a href="mailto:LingeShinice@outlook.com" class="contact-link email-hidden" id="email1" aria-hidden="true">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
-          <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link email-hidden" id="email2" aria-hidden="true">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
-          <div class="email-placeholder" id="emailPlaceholder1" tabindex="0" role="button" aria-label="Reveal primary email (consent required)">📧 Click to reveal primary email</div>
-          <div class="email-placeholder" id="emailPlaceholder2" tabindex="0" role="button" aria-label="Reveal school email (consent required)">📧 Click to reveal school email</div>
-        </div>
-      </section>
-    </main>
+        <form id="purposeForm">
+          <label><input type="checkbox" name="purpose" value="university"> University/Research Outreach</label><br>
+          <label><input type="checkbox" name="purpose" value="work"> Work Experience Opportunities</label><br>
+          <label><input type="checkbox" name="purpose" value="volunteering"> Volunteering Opportunities</label><br>
+          <label><input type="checkbox" name="purpose" value="connection"> Making Connections</label><br>
+          <label><input type="checkbox" name="purpose" value="collaboration"> Project Collaboration</label><br>
+          <label><input type="checkbox" name="purpose" value="other"> Other (please specify below)</label>
+          <input type="text" name="otherText" id="otherText" style="display:none; margin-left:20px;" placeholder="Type your purpose...">
+          <hr>
+          <p>
+            Please confirm you are reaching out for a good purpose:<br>
+            <label><input type="checkbox" id="consentCheckbox" required> Yes, I am contacting for a genuine and positive reason.</label>
+          </p>
+          <div style="display: flex; gap: 12px;">
+            <button type="submit" id="revealBtn" disabled>Reveal Email</button>
+            <button type="button" id="cancelBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Revealed Emails (hidden by default) -->
+    <div id="emailDisplay" style="display:none; margin-top:1em;">
+      <div>
+        <a href="mailto:LingeShinice@outlook.com" class="contact-link">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
+      </div>
+      <div>
+        <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
+      </div>
+      <p style="font-size: 0.92em; color: #666; margin-top: 0.8em;">
+        Thank you for choosing a purpose! I look forward to your meaningful message.<br>
+        (If you just want to connect or collaborate, be sure to mention it!)
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Modal CSS (you can move this to your CSS file) -->
+<style>
+.modal {
+  position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center;
+}
+.modal-content {
+  background: #fff; border-radius: 8px; padding: 2em 1.5em; max-width: 380px; width: 100%;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+}
+@media (max-width: 500px) {
+  .modal-content { max-width: 97vw; padding: 1.2em 0.5em; }
+}
+</style>
+
+<!-- Modal/Reveal JS (put before </body> or in your JS file) -->
+<script>
+  // Elements
+  const revealBtn = document.getElementById("revealEmailBtn");
+  const modal = document.getElementById("emailModal");
+  const form = document.getElementById("purposeForm");
+  const consent = document.getElementById("consentCheckbox");
+  const submitBtn = document.getElementById("revealBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
+  const emailDisplay = document.getElementById("emailDisplay");
+  const otherCheckbox = form.querySelector('input[value="other"]');
+  const otherText = document.getElementById("otherText");
+
+  // Show modal
+  revealBtn.onclick = () => { modal.style.display = "flex"; }
+  revealBtn.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { modal.style.display = "flex"; } }
+
+  // Cancel modal
+  cancelBtn.onclick = () => { modal.style.display = "none"; form.reset(); submitBtn.disabled = true; otherText.style.display = "none"; }
+
+  // Enable submit if consent checked
+  form.addEventListener("input", () => {
+    submitBtn.disabled = !consent.checked;
+    otherText.style.display = otherCheckbox.checked ? "inline-block" : "none";
+  });
+
+  // Submit: show email, hide modal
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    modal.style.display = "none";
+    emailDisplay.style.display = "block";
+    revealBtn.style.display = "none";
+    // (Optional) You can log the purposes, or send to analytics here
+    return false;
+  };
+
+  // Accessibility: close on Escape
+  window.addEventListener("keydown", function(e) {
+    if (modal.style.display === "flex" && e.key === "Escape") {
+      modal.style.display = "none";
+      form.reset();
+      submitBtn.disabled = true;
+      otherText.style.display = "none";
+    }
+  });
+</script>
 
     <footer>
       <p>&copy; 2025 Linge Shi • Built with 🚀</p>
