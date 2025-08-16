@@ -749,3 +749,239 @@
                     for (let face = 0; face < faces; face++) {
                         const start = 84 + face * 50;
                         const normalX = reader.getFloat32(start, true);
+                        const normalY = reader.getFloat32(start + 4, true);
+                        const normalZ = reader.getFloat32(start + 8, true);
+
+                        for (let i = 1; i <= 3; i++) {
+                            const vertexstart = start + i * 12;
+                            vertices.push(reader.getFloat32(vertexstart, true));
+                            vertices.push(reader.getFloat32(vertexstart + 4, true));
+                            vertices.push(reader.getFloat32(vertexstart + 8, true));
+                            normals.push(normalX, normalY, normalZ);
+                        }
+                    }
+
+                    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+                    geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+                    return geometry;
+                }
+            };
+
+            function loadSTLModel() {
+                const loadingText = document.getElementById('loadingText');
+                loadingText.innerHTML = `
+                    <div class="matrix-text">LOADING 3D MODEL...</div>
+                    <div>Fetching from GitHub...</div>
+                    <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
+                `;
+
+                const loader = new THREE.STLLoader();
+                const stlUrl = 'https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl';
+
+                loader.load(
+                    stlUrl,
+                    function (geometry) {
+                        console.log('STL loaded successfully');
+                        geometry.center();
+                        geometry.computeBoundingBox();
+
+                        const box = geometry.boundingBox;
+                        const size = box.getSize(new THREE.Vector3());
+                        const maxDim = Math.max(size.x, size.y, size.z);
+                        const scaleFactor = 3 / maxDim;
+                        geometry.scale(scaleFactor, scaleFactor, scaleFactor);
+
+                        const material = new THREE.MeshPhongMaterial({
+                            color: 0x39ff14,
+                            transparent: true,
+                            opacity: 0.9,
+                            shininess: 100
+                        });
+
+                        robotArm = new THREE.Mesh(geometry, material);
+                        robotArm.position.set(0, 0, 0);
+                        robotArm.castShadow = true;
+                        robotArm.receiveShadow = true;
+
+                        const wireframeGeometry = new THREE.EdgesGeometry(geometry);
+                        const wireframeMaterial = new THREE.LineBasicMaterial({
+                            color: 0x00ffff,
+                            linewidth: 2
+                        });
+                        const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                        robotArm.add(wireframe);
+
+                        scene.add(robotArm);
+                        loadingText.style.display = 'none';
+                        console.log('Robot arm added to scene');
+                    },
+                    function (progress) {
+                        if (progress.total > 0) {
+                            const percent = Math.round((progress.loaded / progress.total) * 100);
+                            loadingText.innerHTML = `
+                                <div class="matrix-text">LOADING STL MODEL...</div>
+                                <div>Progress: ${percent}%</div>
+                                <div style="margin-top: 10px;">🤖 ROBOT_ARM.STL</div>
+                            `;
+                        }
+                    },
+                    function (error) {
+                        console.error('Error loading STL:', error);
+                        loadingText.innerHTML = `
+                            <div style="color: #ff6b6b;">⚠️ STL LOAD FAILED</div>
+                            <div>Loading placeholder model...</div>
+                        `;
+                        setTimeout(() => {
+                            createPlaceholderRobotArm();
+                            loadingText.style.display = 'none';
+                        }, 1000);
+                    }
+                );
+            }
+
+            function createPlaceholderRobotArm() {
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0x39ff14,
+                    transparent: true,
+                    opacity: 0.9
+                });
+
+                robotArm = new THREE.Group();
+
+                const baseGeometry = new THREE.CylinderGeometry(0.5, 0.8, 0.5, 8);
+                const baseMesh = new THREE.Mesh(baseGeometry, material);
+                baseMesh.position.set(0, -0.25, 0);
+                robotArm.add(baseMesh);
+
+                const arm1Geometry = new THREE.BoxGeometry(2, 0.3, 0.3);
+                const arm1Mesh = new THREE.Mesh(arm1Geometry, material);
+                arm1Mesh.position.set(0, 0.5, 0);
+                robotArm.add(arm1Mesh);
+
+                const arm2Geometry = new THREE.BoxGeometry(1.5, 0.25, 0.25);
+                const arm2Mesh = new THREE.Mesh(arm2Geometry, material);
+                arm2Mesh.position.set(1.2, 1.2, 0);
+                arm2Mesh.rotation.z = Math.PI / 4;
+                robotArm.add(arm2Mesh);
+
+                const gripperGeometry = new THREE.BoxGeometry(0.3, 0.5, 0.2);
+                const gripperMesh = new THREE.Mesh(gripperGeometry, material);
+                gripperMesh.position.set(2, 1.8, 0);
+                robotArm.add(gripperMesh);
+
+                [baseMesh, arm1Mesh, arm2Mesh, gripperMesh].forEach(mesh => {
+                    const wireframeGeometry = new THREE.EdgesGeometry(mesh.geometry);
+                    const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, linewidth: 2 });
+                    const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+                    mesh.add(wireframe);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                });
+
+                robotArm.position.set(0, 0, 0);
+                scene.add(robotArm);
+            }
+
+            function setupControls() {
+                let isMouseDown = false;
+                let mouseX = 0, mouseY = 0;
+                let targetRotationX = 0, targetRotationY = 0;
+                let rotationX = 0, rotationY = 0;
+
+                const container = renderer.domElement;
+
+                container.addEventListener('mousedown', (event) => {
+                    isMouseDown = true;
+                    mouseX = event.clientX;
+                    mouseY = event.clientY;
+                });
+
+                container.addEventListener('mousemove', (event) => {
+                    if (!isMouseDown) return;
+
+                    const deltaX = event.clientX - mouseX;
+                    const deltaY = event.clientY - mouseY;
+
+                    targetRotationY += deltaX * 0.01;
+                    targetRotationX += deltaY * 0.01;
+
+                    mouseX = event.clientX;
+                    mouseY = event.clientY;
+                });
+
+                container.addEventListener('mouseup', () => {
+                    isMouseDown = false;
+                });
+
+                container.addEventListener('wheel', (event) => {
+                    const scale = event.deltaY > 0 ? 1.1 : 0.9;
+                    camera.position.multiplyScalar(scale);
+                    event.preventDefault();
+                });
+
+                function updateControls() {
+                    rotationX += (targetRotationX - rotationX) * 0.1;
+                    rotationY += (targetRotationY - rotationY) * 0.1;
+
+                    if (robotArm) {
+                        robotArm.rotation.x = rotationX;
+                        robotArm.rotation.y = rotationY;
+                    }
+
+                    if (autoRotate && robotArm) {
+                        robotArm.rotation.y += 0.01;
+                    }
+
+                    requestAnimationFrame(updateControls);
+                }
+                updateControls();
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+
+            // Global functions for buttons
+            window.resetCamera = function() {
+                if (camera && robotArm) {
+                    camera.position.set(4, 3, 4);
+                    camera.lookAt(0, 0, 0);
+                    robotArm.rotation.set(0, 0, 0);
+                }
+            };
+
+            window.toggleWireframe = function() {
+                if (robotArm && robotArm.material) {
+                    isWireframe = !isWireframe;
+                    robotArm.material.wireframe = isWireframe;
+                }
+            };
+
+            window.toggleRotation = function() {
+                autoRotate = !autoRotate;
+            };
+
+            window.addEventListener('resize', () => {
+                if (renderer && camera) {
+                    const container = document.getElementById('robotArmViewer');
+                    if (container) {
+                        const width = container.clientWidth;
+                        const height = container.clientHeight;
+                        camera.aspect = width / height;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(width, height);
+                    }
+                }
+            });
+
+            // Initialize 3D viewer when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init3DViewer);
+            } else {
+                init3DViewer();
+            }
+        });
+    </script>
+</body>
+</html>
