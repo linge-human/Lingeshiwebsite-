@@ -185,6 +185,76 @@
             outline: none;
         }
 
+        #billCipherWandering {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            top: 50%;
+            z-index: 10000;
+            filter: drop-shadow(0 0 10px #ffff00);
+            opacity: 0.9;
+            transform-origin: center;
+            display: none;
+            user-select: none;
+            pointer-events: none;
+            will-change: transform, left, top;
+            animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
+            100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px #ffff00) brightness(1); }
+            to { filter: drop-shadow(0 0 15px #ffff00) brightness(1.2); }
+        }
+
+        #billCipherWandering.swim-right {
+            transform: scaleX(1);
+        }
+
+        #billCipherWandering.swim-left {
+            transform: scaleX(-1);
+        }
+
+        #billSpeechBubble {
+            position: fixed;
+            background: #2a2a2a;
+            color: #ffff00;
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 2px solid #ffff00;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            max-width: 200px;
+            z-index: 10001;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            word-wrap: break-word;
+        }
+
+        #billSpeechBubble:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #ffff00;
+        }
+
+        #billSpeechBubble.show {
+            opacity: 1;
+        }
+
         .project-card {
             background: var(--terminal-bg);
             padding: 2rem;
@@ -544,6 +614,10 @@
         </main>
     </div>
 
+    <img id="billCipherWandering" src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png" alt="Bill Cipher, your AI assistant" draggable="false" />
+
+    <div id="billSpeechBubble" class="bill-speech-bubble"></div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Global variables
@@ -554,6 +628,8 @@
             const emailConsentCancel = document.getElementById('emailConsentCancel');
             const mainContent = document.getElementById('main-content');
             const body = document.body;
+            const billWandering = document.getElementById('billCipherWandering');
+            const billSpeechBubble = document.getElementById('billSpeechBubble');
             const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
             const email1 = document.getElementById('email1');
             const chatContainer = document.getElementById('chatContainer');
@@ -562,6 +638,14 @@
 
             // State variables
             let hasEmailConsent = false;
+            let billCipherActive = false;
+            let currentX = window.innerWidth / 4;
+            let currentY = window.innerHeight / 2;
+            let targetX = currentX;
+            let targetY = currentY;
+            let velocityX = 0;
+            let velocityY = 0;
+            let exploringTarget = null;
 
             // Three.js variables
             let scene, camera, renderer, robotArm;
@@ -569,6 +653,11 @@
             let autoRotate = false;
 
             // Configuration objects
+            const sectionMessages = {
+                'project-card': 'Check out this cool project!',
+                'chat-section': 'Got questions about Linge's projects? Ask away!'
+            };
+
             const chatResponses = {
                 'robot arm': 'The Robot Arm Engineering Project is a highlight! Linge designed a functional robotic arm with multiple degrees of freedom using Shapr3D, integrating mechanical design, electronics, and programming. Explore the 3D model on this page!',
                 'quantum': 'The Science Talent Search project dives into quantum theories via a laser interference experiment, modeling photon path superposition with Moiré patterns. Linge also built an app for diffraction pattern analysis—check the project card for links!',
@@ -580,6 +669,75 @@
             // Utility functions
             function clamp(value, min, max) {
                 return Math.min(Math.max(value, min), max);
+            }
+
+            function showBillMessage(message, duration = 3000) {
+                const billRect = billWandering.getBoundingClientRect();
+                billSpeechBubble.textContent = message;
+                billSpeechBubble.style.left = `${billRect.left + billRect.width + 10}px`;
+                billSpeechBubble.style.top = `${billRect.top - 20}px`;
+                billSpeechBubble.classList.add('show');
+                setTimeout(() => billSpeechBubble.classList.remove('show'), duration);
+            }
+
+            function getRandomSideTarget() {
+                const padding = 90;
+                const sideWidth = window.innerWidth * 0.2;
+                const isLeftSide = Math.random() < 0.5;
+                return {
+                    x: isLeftSide
+                        ? padding + Math.random() * sideWidth
+                        : window.innerWidth - padding - sideWidth + Math.random() * sideWidth,
+                    y: padding + Math.random() * (window.innerHeight - 2 * padding)
+                };
+            }
+
+            // Bill Cipher animation
+            function animateBill() {
+                if (!billCipherActive) {
+                    billWandering.style.display = 'none';
+                    return;
+                }
+
+                if (exploringTarget) {
+                    targetX = exploringTarget.x;
+                    targetY = exploringTarget.y;
+                } else {
+                    if (Math.hypot(currentX - targetX, currentY - targetY) < 50) {
+                        const newTarget = getRandomSideTarget();
+                        targetX = newTarget.x;
+                        targetY = newTarget.y;
+                    }
+                }
+
+                const dx = targetX - currentX;
+                const dy = targetY - currentY;
+                velocityX = velocityX * 0.9 + dx * 0.01;
+                velocityY = velocityY * 0.9 + dy * 0.01;
+
+                currentX += velocityX;
+                currentY += velocityY;
+
+                currentX = clamp(currentX, 40, window.innerWidth - 40);
+                currentY = clamp(currentY, 40, window.innerHeight - 40);
+
+                billWandering.style.left = `${currentX}px`;
+                billWandering.style.top = `${currentY}px`;
+                billWandering.style.transform = velocityX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+
+                requestAnimationFrame(animateBill);
+            }
+
+            function startBill() {
+                billWandering.style.display = 'block';
+                billCipherActive = true;
+                currentX = window.innerWidth / 4;
+                currentY = window.innerHeight / 2;
+                targetX = currentX;
+                targetY = currentY;
+                billWandering.classList.add('swim-right');
+                requestAnimationFrame(animateBill);
+                showBillMessage('Welcome to Linge's project showcase!');
             }
 
             // Chat functionality
