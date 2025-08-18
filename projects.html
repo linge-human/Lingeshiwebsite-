@@ -15,11 +15,9 @@
             --text-color: #ffffff;
             --darker-bg: #222;
         }
-
         *, *:before, *:after {
             box-sizing: border-box;
         }
-
         body, html {
             margin: 0;
             padding: 0;
@@ -29,7 +27,6 @@
             height: 100%;
             overflow-x: hidden;
         }
-
         nav {
             padding: 1rem 2rem;
             background: var(--terminal-bg);
@@ -38,7 +35,6 @@
             top: 0;
             z-index: 1000;
         }
-
         .nav-content {
             display: flex;
             justify-content: space-between;
@@ -46,7 +42,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .nav-links {
             list-style: none;
             display: flex;
@@ -54,23 +49,19 @@
             margin: 0;
             padding: 0;
         }
-
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
         }
-
         .nav-links a[href="projects.html"] {
             color: var(--neon-green);
         }
-
         .nav-links a:hover, .nav-links a:focus {
             color: var(--neon-green);
             outline: none;
         }
-
         main {
             max-width: 900px;
             margin: 2rem auto;
@@ -78,25 +69,21 @@
             position: relative;
             z-index: 100;
         }
-
         .hero {
             text-align: center;
             margin-bottom: 2rem;
         }
-
         .hero h1 {
             color: var(--neon-green);
             margin: 0 0 0.5rem 0;
             font-size: 2rem;
         }
-
         .hero .subtitle {
             color: #ccc;
             font-weight: 400;
             font-size: 1.2rem;
             margin: 0;
         }
-
         .consent-overlay {
             position: fixed;
             top: 0;
@@ -109,7 +96,6 @@
             align-items: center;
             z-index: 9999;
         }
-
         .consent-box {
             background-color: #2a2a2a;
             padding: 2rem;
@@ -121,18 +107,15 @@
             box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
             color: var(--text-color);
         }
-
         .consent-box h2 {
             color: var(--neon-green);
             margin-bottom: 1.5rem;
         }
-
         .consent-text {
             margin-bottom: 2rem;
             line-height: 1.6;
             text-align: left;
         }
-
         .consent-button {
             background-color: transparent;
             color: var(--neon-green);
@@ -144,30 +127,25 @@
             font-family: 'Fira Code', monospace;
             margin: 0.5rem;
         }
-
         .consent-button:hover, .consent-button:focus {
             background-color: var(--neon-green);
             color: var(--terminal-bg);
             box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
             outline: none;
         }
-
         .timestamp {
             font-size: 0.8rem;
             color: #666;
             margin-top: 1rem;
         }
-
         body.no-consent main {
             filter: blur(3px);
             pointer-events: none;
             user-select: none;
         }
-
         .email-hidden {
             display: none !important;
         }
-
         .email-placeholder {
             color: #666;
             font-style: italic;
@@ -179,13 +157,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .email-placeholder:hover, .email-placeholder:focus {
             color: var(--neon-green);
             border-color: var(--neon-green);
             outline: none;
         }
-
         #billCipherWandering {
             position: fixed;
             width: 80px;
@@ -202,26 +178,21 @@
             will-change: transform, left, top;
             animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
         }
-
         @keyframes float {
             0% { transform: translateY(0) rotate(0deg) scale(1); }
             50% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
             100% { transform: translateY(0) rotate(0deg) scale(1); }
         }
-
         @keyframes glow {
             from { filter: drop-shadow(0 0 5px #ffff00) brightness(1); }
             to { filter: drop-shadow(0 0 15px #ffff00) brightness(1.2); }
         }
-
         #billCipherWandering.swim-right {
             transform: scaleX(1);
         }
-
         #billCipherWandering.swim-left {
             transform: scaleX(-1);
         }
-
         #billSpeechBubble {
             position: fixed;
             background: #2a2a2a;
@@ -239,7 +210,6 @@
             pointer-events: none;
             word-wrap: break-word;
         }
-
         #billSpeechBubble:after {
             content: '';
             position: absolute;
@@ -251,11 +221,9 @@
             border-right: 10px solid transparent;
             border-top: 10px solid #ffff00;
         }
-
         #billSpeechBubble.show {
             opacity: 1;
         }
-
         .project-card {
             background: var(--terminal-bg);
             padding: 2rem;
@@ -264,29 +232,24 @@
             border: 1px solid transparent;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-
         .project-card:hover, .project-card:focus-within {
             border-color: var(--neon-green);
             box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
             outline: none;
         }
-
         .project-card h3 {
             color: var(--neon-green);
             margin-bottom: 1rem;
         }
-
         .project-with-3d {
             display: grid;
             grid-template-columns: 1fr 400px;
             gap: 2rem;
             align-items: start;
         }
-
         .project-text {
             flex: 1;
         }
-
         .model-viewer {
             width: 400px;
             height: 300px;
@@ -296,7 +259,6 @@
             overflow: hidden;
             background: #000;
         }
-
         .model-controls {
             position: absolute;
             top: 10px;
@@ -306,7 +268,6 @@
             flex-direction: column;
             gap: 8px;
         }
-
         .control-button {
             background: rgba(57, 255, 20, 0.2);
             border: 1px solid var(--neon-green);
@@ -318,13 +279,11 @@
             font-size: 12px;
             transition: all 0.3s;
         }
-
         .control-button:hover, .control-button:focus {
             background: var(--neon-green);
             color: var(--terminal-bg);
             outline: none;
         }
-
         .model-info {
             position: absolute;
             bottom: 10px;
@@ -334,7 +293,6 @@
             font-size: 12px;
             text-shadow: 0 0 10px var(--neon-green);
         }
-
         .paper-link-button, .download-button {
             display: inline-block;
             margin: 0.5rem 1rem 0.5rem 0;
@@ -346,22 +304,18 @@
             font-weight: 600;
             transition: background-color 0.3s, color 0.3s;
         }
-
         .download-button {
             color: var(--neon-blue);
             border-color: var(--neon-blue);
         }
-
         .paper-link-button:hover {
             background-color: var(--neon-green);
             color: var(--terminal-bg);
         }
-
         .download-button:hover {
             background-color: var(--neon-blue);
             color: var(--terminal-bg);
         }
-
         .loading-text {
             position: absolute;
             top: 50%;
@@ -371,7 +325,6 @@
             font-size: 14px;
             text-align: center;
         }
-
         .chat-section {
             margin: 3rem 0;
             padding: 1.5rem;
@@ -379,14 +332,12 @@
             background: var(--darker-bg);
             border: 1px solid var(--neon-green);
         }
-
         .chat-section h2 {
             color: var(--neon-green);
             margin-bottom: 1rem;
             font-weight: 600;
             font-size: 1.5rem;
         }
-
         .chat-container {
             background: var(--terminal-bg);
             border: 1px solid var(--neon-green);
@@ -398,24 +349,19 @@
             font-size: 0.95rem;
             color: #ccc;
         }
-
         .chat-message {
             margin-bottom: 0.5rem;
         }
-
         .chat-message.user {
             color: var(--neon-green);
         }
-
         .chat-message.bot {
             color: var(--neon-blue);
         }
-
         .chat-input-container {
             display: flex;
             gap: 0.5rem;
         }
-
         .chat-input {
             flex-grow: 1;
             background: var(--terminal-bg);
@@ -425,13 +371,11 @@
             font-family: 'Fira Code', monospace;
             border-radius: 4px;
         }
-
         .chat-input:focus {
             outline: none;
             border-color: var(--neon-blue);
             box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
         }
-
         .chat-submit {
             background: transparent;
             border: 1px solid var(--neon-green);
@@ -442,34 +386,28 @@
             border-radius: 4px;
             transition: all 0.3s ease;
         }
-
         .chat-submit:hover, .chat-submit:focus {
             background: var(--neon-green);
             color: var(--terminal-bg);
             outline: none;
         }
-
         footer {
             text-align: center;
             padding: 1rem 0;
             color: #666;
             font-size: 0.8rem;
         }
-
         @keyframes matrix-glow {
             0%, 100% { text-shadow: 0 0 5px var(--neon-green); }
             50% { text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
         }
-
         .matrix-text {
             animation: matrix-glow 2s ease-in-out infinite;
         }
-
         @media (max-width: 768px) {
             .project-with-3d {
                 grid-template-columns: 1fr;
             }
-
             .model-viewer {
                 width: 100%;
                 max-width: 400px;
@@ -535,7 +473,6 @@
                 </ul>
             </div>
         </nav>
-
         <main>
             <header class="hero">
                 <h1>PROJECTS</h1>
@@ -544,42 +481,44 @@
 
             <div class="project-card">
                 <h3>Math and Stats Research Challenge</h3>
-                <p>I ventured into the abyss of mathematics, tackling challenges like mastering Excel. I overcame these by developing an app to analyze data. Check it out here: <a href="https://claude.ai/c/your-math-app-link" target="_blank" rel="noopener noreferrer">Math App Demo</a></p>
+                <p>I ventured into the abyss of mathematics, tackling challenges like mastering Excel. I overcame these by developing an app to analyze data. Check it out here: <a href="https://claude.ai/c/your-link" target="_blank" rel="noopener noreferrer">Claude App Demo</a>.</p>
                 <p>This was one of my most challenging projects, alongside the robot arm and theoretical physics experiment. (Yes, I vibe with coding—it's simple and efficient!)</p>
             </div>
 
             <div class="project-card">
                 <h3>Monash Scholars Program</h3>
-                <p>Being selected for the Monash University Scholars Program was a defining moment. It expanded my exposure to research pathways, university options, and high-achieving peers across Victoria. The experience opened many doors for my academic future.</p>
+                <p>Being selected for the Monash University Scholars Program was a defining moment. It expanded my exposure to research pathways, university options, and high-achieving peers across Victoria. I participated in workshops, lectures, and networking events that deepened my academic curiosity.</p>
             </div>
 
             <div class="project-card">
                 <h3>Science Talent Search</h3>
-                <p>This project explored Richard Feynman's quantum theories through a laser interference experiment, modeling light behavior with semi-permeable structures and Moiré patterns to simulate quantum superposition. I relied on tools like Claude, GPT, Perplexity, Copilot, Grok, and Sora, but I ensure my requests are efficient to minimize resource use.</p>
-                <p>Here's the research paper: <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" class="paper-link-button" target="_blank" rel="noopener noreferrer">View PDF</a></p>
-                <div style="margin:1.5rem 0 0 0;">
-                    <strong style="color:var(--neon-green)">Watch the experiment video:</strong><br/>
-                    <iframe width="360" height="203" src="https://www.youtube.com/embed/RUb3GC5BzmA" 
-                        title="Science Talent Search Quantum Pathways Experiment"
-                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen style="max-width:100%;border-radius:8px;border:2px solid var(--neon-green);margin-top:10px;"></iframe>
-                </div>
+                <p>This project explored Richard Feynman's quantum theories through a laser interference experiment, modeling light behavior with semi-permeable structures and Moiré patterns to simulate quantum path superposition.</p>
+                <p>I rely on tools like Claude, GPT, Perplexity, Copilot, Grok, and Sora, but I ensure my requests are efficient to minimize resource use.</p>
+                <p>
+                    Here's the research paper: 
+                    <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/Experimental%20design_LingeShi_Entrycode_exploring%20quantum%20pathways.pdf" class="paper-link-button" target="_blank" rel="noopener noreferrer">Download PDF</a>
+                </p>
+                <p>
+                    Watch the experiment video:<br>
+                    <iframe width="360" height="203" src="https://www.youtube.com/embed/RUb3GC5BzmA" title="Science Talent Search Experiment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin-top:1em;border-radius:8px;border:2px solid var(--neon-green);"></iframe>
+                </p>
             </div>
 
             <div class="project-card">
                 <h3>Robot Arm Engineering Project</h3>
                 <div class="project-with-3d">
                     <div class="project-text">
-                        <p>Systems engineering opened a new world for me. Within three weeks, I independently learned CAD modeling using Shapr3D and designed a functional robotic arm with multiple degrees of freedom. This project combined mechanical design, electronics integration, and programming to create a fully functional automation system.</p>
+                        <p>Systems engineering opened a new world for me. Within three weeks, I independently learned CAD modeling using Shapr3D and designed a functional robotic arm with multiple degrees of freedom. I 3D-printed and assembled the arm and developed control code to animate its movements.</p>
+                        <p>This project combined mechanical design, electronics integration, and programming to create a fully functional automation system.</p>
                         <p>Explore the interactive 3D model on the right (rotate with mouse, zoom with wheel).</p>
                         <a href="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl" class="download-button" target="_blank" rel="noopener noreferrer">Download STL</a>
                         <a href="https://github.com/linge-human/Lingeshiwebsite-" class="paper-link-button" target="_blank" rel="noopener noreferrer">View on GitHub</a>
                     </div>
                     <div class="model-viewer" id="robotArmViewer">
                         <div class="model-controls">
-                            <button class="control-button" type="button" id="resetCameraBtn">RESET</button>
-                            <button class="control-button" type="button" id="toggleWireframeBtn">WIREFRAME</button>
-                            <button class="control-button" type="button" id="toggleRotationBtn">AUTO-ROTATE</button>
+                            <button class="control-button" id="resetCameraBtn">RESET</button>
+                            <button class="control-button" id="toggleWireframeBtn">WIREFRAME</button>
+                            <button class="control-button" id="toggleRotationBtn">AUTO-ROTATE</button>
                         </div>
                         <div class="model-info">
                             <div>Mouse: Rotate | Wheel: Zoom</div>
@@ -589,19 +528,19 @@
                             <div class="matrix-text">LOADING 3D MODEL...</div>
                             <div>Fetching from GitHub...</div>
                         </div>
-                        <!-- Three.js canvas will be injected here -->
+                        <canvas id="threeCanvas" style="display:block;width:100%;height:100%;"></canvas>
                     </div>
                 </div>
             </div>
 
             <div class="project-card">
                 <h3>Advanced Solar Car Challenge</h3>
-                <p>The Advanced Solar Car Challenge introduced me to sustainable engineering through designing, prototyping, and racing solar-powered vehicles. I was the youngest member of the team and gained invaluable experience in teamwork and renewable energy systems.</p>
+                <p>The Advanced Solar Car Challenge introduced me to sustainable engineering through designing, prototyping, and racing solar-powered vehicles. I was the youngest member of the team.</p>
             </div>
 
             <div class="project-card">
                 <h3>Model UN</h3>
-                <p>As France's delegate in Model United Nations, I researched national policies and negotiated the amendment and passage of a resolution on global issues, honing my diplomacy, public speaking, and analytical skills.</p>
+                <p>As France's delegate in Model United Nations, I researched national policies and negotiated the amendment and passage of a resolution on global issues, honing my diplomacy, public speaking, and research skills.</p>
             </div>
 
             <section class="chat-section" aria-label="Chat section">
@@ -626,305 +565,295 @@
     <div id="billSpeechBubble" class="bill-speech-bubble"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Consent & overlays
-            const consentOverlay = document.getElementById('consentOverlay');
-            const emailConsentOverlay = document.getElementById('emailConsentOverlay');
-            const consentButton = document.getElementById('consentButton');
-            const emailConsentAgree = document.getElementById('emailConsentAgree');
-            const emailConsentCancel = document.getElementById('emailConsentCancel');
-            const mainContent = document.getElementById('main-content');
-            const body = document.body;
-            const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
-            const email1 = document.getElementById('email1');
+    // Consent overlays
+    document.addEventListener('DOMContentLoaded', () => {
+        const consentOverlay = document.getElementById('consentOverlay');
+        const emailConsentOverlay = document.getElementById('emailConsentOverlay');
+        const consentButton = document.getElementById('consentButton');
+        const emailConsentAgree = document.getElementById('emailConsentAgree');
+        const emailConsentCancel = document.getElementById('emailConsentCancel');
+        const mainContent = document.getElementById('main-content');
+        const body = document.body;
+        const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
+        const email1 = document.getElementById('email1');
 
-            let hasEmailConsent = false;
-
-            consentButton.addEventListener('click', () => {
-                consentOverlay.style.display = 'none';
-                mainContent.style.visibility = 'visible';
-                body.classList.remove('no-consent');
-            });
-
-            // Email reveal
-            emailPlaceholder1.addEventListener('click', () => {
-                if (hasEmailConsent) {
-                    emailPlaceholder1.style.display = 'none';
-                    email1.classList.remove('email-hidden');
-                } else {
-                    emailConsentOverlay.style.display = 'flex';
-                }
-            });
-            emailPlaceholder1.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') emailPlaceholder1.click();
-            });
-
-            emailConsentAgree.addEventListener('click', () => {
-                hasEmailConsent = true;
-                emailConsentOverlay.style.display = 'none';
-                emailPlaceholder1.style.display = 'none';
-                email1.classList.remove('email-hidden');
-            });
-            emailConsentCancel.addEventListener('click', () => {
-                emailConsentOverlay.style.display = 'none';
-            });
-
-            // --- Bill Cipher floating mascot logic ---
-            const billWandering = document.getElementById('billCipherWandering');
-            const billSpeechBubble = document.getElementById('billSpeechBubble');
-            let billCipherActive = false;
-            let currentX = window.innerWidth / 4;
-            let currentY = window.innerHeight / 2;
-            let targetX = currentX;
-            let targetY = currentY;
-            let velocityX = 0;
-            let velocityY = 0;
-            let exploringTarget = null;
-
-            function clamp(value, min, max) {
-                return Math.min(Math.max(value, min), max);
-            }
-
-            function showBillMessage(message, duration = 3000) {
-                const billRect = billWandering.getBoundingClientRect();
-                billSpeechBubble.textContent = message;
-                billSpeechBubble.style.left = `${billRect.left + billRect.width + 10}px`;
-                billSpeechBubble.style.top = `${billRect.top - 20}px`;
-                billSpeechBubble.classList.add('show');
-                setTimeout(() => billSpeechBubble.classList.remove('show'), duration);
-            }
-
-            function getRandomSideTarget() {
-                const padding = 90;
-                const sideWidth = window.innerWidth * 0.2;
-                const isLeftSide = Math.random() < 0.5;
-                return {
-                    x: isLeftSide
-                        ? padding + Math.random() * sideWidth
-                        : window.innerWidth - padding - sideWidth + Math.random() * sideWidth,
-                    y: padding + Math.random() * (window.innerHeight - 2 * padding)
-                };
-            }
-
-            function animateBill() {
-                if (!billCipherActive) {
-                    billWandering.style.display = 'none';
-                    return;
-                }
-
-                if (exploringTarget) {
-                    targetX = exploringTarget.x;
-                    targetY = exploringTarget.y;
-                } else {
-                    if (Math.hypot(currentX - targetX, currentY - targetY) < 50) {
-                        const newTarget = getRandomSideTarget();
-                        targetX = newTarget.x;
-                        targetY = newTarget.y;
-                    }
-                }
-
-                const dx = targetX - currentX;
-                const dy = targetY - currentY;
-                velocityX = velocityX * 0.9 + dx * 0.01;
-                velocityY = velocityY * 0.9 + dy * 0.01;
-
-                currentX += velocityX;
-                currentY += velocityY;
-
-                currentX = clamp(currentX, 40, window.innerWidth - 120);
-                currentY = clamp(currentY, 40, window.innerHeight - 120);
-
-                billWandering.style.left = `${currentX}px`;
-                billWandering.style.top = `${currentY}px`;
-                billWandering.style.transform = velocityX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
-                requestAnimationFrame(animateBill);
-            }
-
-            function startBill() {
-                billWandering.style.display = 'block';
-                billCipherActive = true;
-                currentX = window.innerWidth / 4;
-                currentY = window.innerHeight / 2;
-                targetX = currentX;
-                targetY = currentY;
-                billWandering.classList.add('swim-right');
-                requestAnimationFrame(animateBill);
-                showBillMessage('Welcome to Linge\'s project showcase!');
-            }
-
-            // Start Bill Cipher mascot after consent
-            consentButton.addEventListener('click', () => {
-                setTimeout(startBill, 800);
-            });
-
-            // --- Chat functionality ---
-            const chatContainer = document.getElementById('chatContainer');
-            const chatInput = document.getElementById('chatInput');
-            const chatSubmit = document.getElementById('chatSubmit');
-            const chatResponses = {
-                'robot arm': 'The Robot Arm Engineering Project is a highlight! Linge designed a functional robotic arm with multiple degrees of freedom using Shapr3D, integrating mechanical design, electronics, and programming.',
-                'quantum': 'The Science Talent Search project dives into quantum theories via a laser interference experiment, modeling photon path superposition with Moiré patterns.',
-                'monash': 'Being selected for the Monash Scholars Program was a big win for Linge! It connected them with research pathways and high-achieving peers across Victoria.',
-                'solar car': 'The Advanced Solar Car Challenge had Linge designing and racing solar-powered vehicles as the youngest team member, showcasing sustainable engineering skills.',
-                'model un': 'As France\'s delegate in Model UN, Linge negotiated a resolution on global issues, sharpening their diplomacy and public speaking skills.'
-            };
-
-            function addChatMessage(text, isUser = false) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('chat-message', isUser ? 'user' : 'bot');
-                messageDiv.textContent = text;
-                chatContainer.appendChild(messageDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
-
-            function botReply(userInput) {
-                const txt = userInput.toLowerCase();
-                let response = "Sorry, I don't know about that project yet!";
-                for (const key in chatResponses) {
-                    if (txt.includes(key)) {
-                        response = chatResponses[key];
-                        break;
-                    }
-                }
-                addChatMessage(response, false);
-                showBillMessage('Ask me about the robot arm, quantum, Monash, solar car, or Model UN!');
-            }
-
-            function handleChatSubmit() {
-                const input = chatInput.value.trim();
-                if (!input) return;
-                addChatMessage(input, true);
-                botReply(input);
-                chatInput.value = '';
-            }
-
-            chatSubmit.addEventListener('click', handleChatSubmit);
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') handleChatSubmit();
-            });
-
-            // --- Interactive 3D Model Display (Three.js for STL) ---
-            let scene, camera, renderer, controls, robotArmMesh;
-            let isWireframe = false;
-            let autoRotate = false;
-            let animationId = null;
-
-            function initThreeModel() {
-                const container = document.getElementById('robotArmViewer');
-                const loadingText = document.getElementById('loadingText');
-
-                // Remove any previous renderer
-                if (renderer) {
-                    renderer.dispose();
-                    container.querySelectorAll('canvas').forEach(c => c.remove());
-                }
-
-                // Scene and Camera
-                scene = new THREE.Scene();
-                scene.background = new THREE.Color(0x101010);
-                camera = new THREE.PerspectiveCamera(45, container.offsetWidth / container.offsetHeight, 0.1, 100);
-                camera.position.set(0, 0, 80);
-
-                // Renderer
-                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(container.offsetWidth, container.offsetHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                container.appendChild(renderer.domElement);
-
-                // Lighting
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-                scene.add(ambientLight);
-                const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
-                dirLight.position.set(10, 20, 20);
-                scene.add(dirLight);
-
-                // Controls - OrbitControls
-                if (window.THREE.OrbitControls) {
-                    controls = new THREE.OrbitControls(camera, renderer.domElement);
-                } else {
-                    // Load OrbitControls if not present
-                    const script = document.createElement('script');
-                    script.src = "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js";
-                    script.onload = () => {
-                        controls = new THREE.OrbitControls(camera, renderer.domElement);
-                        controls.enableDamping = true;
-                        controls.dampingFactor = 0.1;
-                    };
-                    document.body.appendChild(script);
-                }
-
-                // STL Loader
-                const loader = new THREE.STLLoader();
-                loader.load(
-                    "https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl",
-                    function (geometry) {
-                        const material = new THREE.MeshPhongMaterial({ color: 0x39ff14, specular: 0x222222, shininess: 40, flatShading: true, wireframe: isWireframe });
-                        robotArmMesh = new THREE.Mesh(geometry, material);
-
-                        // Center the model
-                        geometry.computeBoundingBox();
-                        const bbox = geometry.boundingBox;
-                        const center = new THREE.Vector3();
-                        bbox.getCenter(center);
-                        robotArmMesh.position.sub(center);
-
-                        scene.add(robotArmMesh);
-                        loadingText.style.display = 'none';
-                        animate();
-                    },
-                    function (xhr) {
-                        // Progress
-                        loadingText.innerHTML = '<div class="matrix-text">LOADING 3D MODEL...</div><div>Loading: ' + Math.round(xhr.loaded / xhr.total * 100) + '%</div>';
-                    },
-                    function (error) {
-                        loadingText.innerHTML = '<span style="color:#ff6b6b">Failed to load model.</span>';
-                    }
-                );
-            }
-
-            function animate() {
-                animationId = requestAnimationFrame(animate);
-                if (autoRotate && robotArmMesh) robotArmMesh.rotation.y += 0.01;
-                if (controls && controls.update) controls.update();
-                renderer.render(scene, camera);
-            }
-
-            // Model controls
-            function resetCamera() {
-                camera.position.set(0, 0, 80);
-                camera.lookAt(0, 0, 0);
-                if (controls && controls.reset) controls.reset();
-            }
-            function toggleWireframe() {
-                if (robotArmMesh) {
-                    isWireframe = !isWireframe;
-                    robotArmMesh.material.wireframe = isWireframe;
-                }
-            }
-            function toggleRotation() {
-                autoRotate = !autoRotate;
-            }
-
-            // Button event bindings
-            document.getElementById('resetCameraBtn').addEventListener('click', resetCamera);
-            document.getElementById('toggleWireframeBtn').addEventListener('click', toggleWireframe);
-            document.getElementById('toggleRotationBtn').addEventListener('click', toggleRotation);
-
-            // Responsive resize for Three.js
-            window.addEventListener('resize', function () {
-                const container = document.getElementById('robotArmViewer');
-                if (!container || !renderer || !camera) return;
-                camera.aspect = container.offsetWidth / container.offsetHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.offsetWidth, container.offsetHeight);
-            });
-
-            // Initialize model after consent
-            consentButton.addEventListener('click', () => {
-                setTimeout(initThreeModel, 700);
-            });
-
+        // Consent logic
+        consentButton.addEventListener('click', () => {
+            consentOverlay.style.display = 'none';
+            mainContent.style.visibility = 'visible';
+            body.classList.remove('no-consent');
         });
+        emailPlaceholder1.addEventListener('click', () => {
+            emailConsentOverlay.style.display = 'flex';
+        });
+        emailPlaceholder1.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                emailConsentOverlay.style.display = 'flex';
+            }
+        });
+        emailConsentAgree.addEventListener('click', () => {
+            emailConsentOverlay.style.display = 'none';
+            emailPlaceholder1.style.display = 'none';
+            email1.classList.remove('email-hidden');
+        });
+        emailConsentCancel.addEventListener('click', () => {
+            emailConsentOverlay.style.display = 'none';
+        });
+    });
+
+    // Bill Cipher wandering
+    document.addEventListener('DOMContentLoaded', () => {
+        const billWandering = document.getElementById('billCipherWandering');
+        const billSpeechBubble = document.getElementById('billSpeechBubble');
+        let billCipherActive = false;
+        let currentX = window.innerWidth / 4;
+        let currentY = window.innerHeight / 2;
+        let targetX = currentX;
+        let targetY = currentY;
+        let velocityX = 0, velocityY = 0;
+        let exploringTarget = null;
+
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
+        }
+
+        function showBillMessage(message, duration = 3000) {
+            const billRect = billWandering.getBoundingClientRect();
+            billSpeechBubble.textContent = message;
+            billSpeechBubble.style.left = `${billRect.left + billRect.width + 10}px`;
+            billSpeechBubble.style.top = `${billRect.top - 20}px`;
+            billSpeechBubble.classList.add('show');
+            setTimeout(() => billSpeechBubble.classList.remove('show'), duration);
+        }
+
+        function getRandomSideTarget() {
+            const padding = 90;
+            const sideWidth = window.innerWidth * 0.2;
+            const isLeftSide = Math.random() < 0.5;
+            return {
+                x: isLeftSide
+                    ? padding + Math.random() * sideWidth
+                    : window.innerWidth - padding - sideWidth + Math.random() * sideWidth,
+                y: padding + Math.random() * (window.innerHeight - 2 * padding)
+            };
+        }
+
+        function animateBill() {
+            if (!billCipherActive) {
+                billWandering.style.display = 'none';
+                return;
+            }
+            if (exploringTarget) {
+                targetX = exploringTarget.x;
+                targetY = exploringTarget.y;
+            } else {
+                if (Math.hypot(currentX - targetX, currentY - targetY) < 50) {
+                    const newTarget = getRandomSideTarget();
+                    targetX = newTarget.x;
+                    targetY = newTarget.y;
+                }
+            }
+            const dx = targetX - currentX;
+            const dy = targetY - currentY;
+            velocityX = velocityX * 0.9 + dx * 0.01;
+            velocityY = velocityY * 0.9 + dy * 0.01;
+            currentX += velocityX;
+            currentY += velocityY;
+            currentX = clamp(currentX, 40, window.innerWidth - 80);
+            currentY = clamp(currentY, 40, window.innerHeight - 80);
+            billWandering.style.left = `${currentX}px`;
+            billWandering.style.top = `${currentY}px`;
+            billWandering.style.transform = velocityX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+            requestAnimationFrame(animateBill);
+        }
+
+        function startBill() {
+            billWandering.style.display = 'block';
+            billCipherActive = true;
+            currentX = window.innerWidth / 4;
+            currentY = window.innerHeight / 2;
+            targetX = currentX;
+            targetY = currentY;
+            billWandering.classList.add('swim-right');
+            requestAnimationFrame(animateBill);
+            showBillMessage('Welcome to Linge\'s project showcase!');
+        }
+
+        // Start after consent
+        const consentButton = document.getElementById('consentButton');
+        consentButton.addEventListener('click', () => {
+            setTimeout(startBill, 1200);
+        });
+    });
+
+    // 3D Model Viewer (Robot Arm)
+    document.addEventListener('DOMContentLoaded', () => {
+        let scene, camera, renderer, controls, robotArm, animateId;
+        let isWireframe = false;
+        let autoRotate = false;
+
+        const modelViewer = document.getElementById('robotArmViewer');
+        const canvas = document.getElementById('threeCanvas');
+        const loadingText = document.getElementById('loadingText');
+        const resetCameraBtn = document.getElementById('resetCameraBtn');
+        const toggleWireframeBtn = document.getElementById('toggleWireframeBtn');
+        const toggleRotationBtn = document.getElementById('toggleRotationBtn');
+        let mouseDown = false, lastX = 0, lastY = 0, lastRotation = { x:0, y:0 };
+
+        function init3D() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000000);
+
+            camera = new THREE.PerspectiveCamera(45, 400/300, 0.1, 1000);
+            camera.position.set(0, 0, 100);
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
+            renderer.setClearColor(0x000000, 1);
+            renderer.setSize(400, 300);
+
+            const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambient);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+            dirLight.position.set(50, 50, 100);
+            scene.add(dirLight);
+        }
+
+        function loadSTL() {
+            const loader = new THREE.STLLoader();
+            loader.load(
+                'https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/robot%20arm%20i%20built.glb.stl',
+                function (geometry) {
+                    let material = new THREE.MeshPhongMaterial({
+                        color: 0x39ff14,
+                        specular: 0x222222,
+                        shininess: 40,
+                        wireframe: isWireframe
+                    });
+                    robotArm = new THREE.Mesh(geometry, material);
+                    robotArm.castShadow = true;
+                    robotArm.receiveShadow = true;
+                    robotArm.rotation.x = -Math.PI / 2;
+                    robotArm.position.set(0, 0, 0);
+                    scene.add(robotArm);
+                    loadingText.style.display = 'none';
+                    animate();
+                },
+                function (xhr) {
+                    // progress
+                },
+                function (error) {
+                    loadingText.innerHTML = '<span style="color:red;">Failed to load STL model.</span>';
+                }
+            );
+        }
+
+        function animate() {
+            animateId = requestAnimationFrame(animate);
+            if (autoRotate && robotArm) robotArm.rotation.z += 0.01;
+            renderer.render(scene, camera);
+        }
+
+        function onCanvasResize() {
+            const width = modelViewer.clientWidth;
+            const height = modelViewer.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        // Mouse controls
+        canvas.addEventListener('mousedown', e => {
+            mouseDown = true;
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+            if (robotArm) {
+                lastRotation.x = robotArm.rotation.x;
+                lastRotation.y = robotArm.rotation.z;
+            }
+        });
+        canvas.addEventListener('mousemove', e => {
+            if (mouseDown && robotArm) {
+                let dx = e.offsetX - lastX, dy = e.offsetY - lastY;
+                robotArm.rotation.x = lastRotation.x + dy * 0.01;
+                robotArm.rotation.z = lastRotation.y + dx * 0.01;
+            }
+        });
+        canvas.addEventListener('mouseup', () => { mouseDown = false; });
+        canvas.addEventListener('mouseleave', () => { mouseDown = false; });
+        canvas.addEventListener('wheel', e => {
+            camera.position.z += e.deltaY * 0.05;
+            camera.position.z = Math.max(camera.position.z, 20);
+            camera.position.z = Math.min(camera.position.z, 300);
+        });
+
+        // Controls
+        resetCameraBtn.addEventListener('click', () => {
+            if (robotArm) {
+                robotArm.rotation.x = -Math.PI / 2;
+                robotArm.rotation.z = 0;
+            }
+            camera.position.set(0, 0, 100);
+        });
+        toggleWireframeBtn.addEventListener('click', () => {
+            isWireframe = !isWireframe;
+            if (robotArm) robotArm.material.wireframe = isWireframe;
+        });
+        toggleRotationBtn.addEventListener('click', () => {
+            autoRotate = !autoRotate;
+            toggleRotationBtn.style.background = autoRotate ? 'var(--neon-green)' : 'rgba(57,255,20,0.2)';
+            toggleRotationBtn.style.color = autoRotate ? 'var(--terminal-bg)' : 'var(--neon-green)';
+        });
+
+        // Resize observer for responsiveness
+        new ResizeObserver(onCanvasResize).observe(modelViewer);
+
+        // Init after consent
+        const consentButton = document.getElementById('consentButton');
+        consentButton.addEventListener('click', () => {
+            setTimeout(() => {
+                init3D();
+                loadSTL();
+            }, 1000);
+        });
+    });
+
+    // Simple Chat
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatContainer = document.getElementById('chatContainer');
+        const chatInput = document.getElementById('chatInput');
+        const chatSubmit = document.getElementById('chatSubmit');
+        const chatResponses = {
+            'robot arm': 'The Robot Arm Engineering Project is a highlight! Linge designed a functional robotic arm with multiple degrees of freedom using Shapr3D, integrating mechanical design, electronics, and code.',
+            'quantum': 'The Science Talent Search project dives into quantum theories via a laser interference experiment, modeling photon path superposition with Moiré patterns. There\'s also a full research paper and experiment video!',
+            'monash': 'Being selected for the Monash Scholars Program was a big win for Linge! It connected them with research pathways and high-achieving peers across Victoria.',
+            'solar car': 'The Advanced Solar Car Challenge had Linge designing and racing solar-powered vehicles as the youngest team member, showcasing sustainable engineering skills.',
+            'model un': 'As France\'s delegate in Model UN, Linge negotiated a resolution on global issues, sharpening their diplomacy and public speaking skills.'
+        };
+        function addChatMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', isUser ? 'user' : 'bot');
+            messageDiv.textContent = text;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        function getChatResponse(query) {
+            const q = query.toLowerCase();
+            for (let key in chatResponses) {
+                if (q.includes(key)) return chatResponses[key];
+            }
+            return "Sorry, I don't have a response for that. Try asking about the robot arm, quantum experiment, solar car, or Model UN!";
+        }
+        chatSubmit.addEventListener('click', () => {
+            const val = chatInput.value.trim();
+            if (!val) return;
+            addChatMessage(val, true);
+            setTimeout(() => addChatMessage(getChatResponse(val), false), 500);
+            chatInput.value = '';
+        });
+        chatInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') chatSubmit.click();
+        });
+    });
     </script>
 </body>
 </html>
