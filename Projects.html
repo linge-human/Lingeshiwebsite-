@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects - Your Name</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-blue: rgba(0, 33, 177, 1);
+      --light-blue: rgba(0, 33, 177, 0.1);
+      --dark-grey: #2c3e50;
+      --light-grey: #f8f9fa;
+      --border-grey: #e9ecef;
+      --white: #ffffff;
+      --text-primary: #2c3e50;
+      --text-secondary: #6c757d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Serif', 'American Typewriter', serif;
+      background-color: var(--white);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    nav {
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border-grey);
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--primary-blue);
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary-blue);
+    }
+
+    .page-header {
+      max-width: 1200px;
+      margin: 3rem auto 2rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    .page-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--primary-blue);
+      margin: 1.5rem auto;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Project Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .project-card {
+      background-color: var(--white);
+      border: 1px solid var(--border-grey);
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: var(--primary-blue);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 250px;
+      background-color: var(--light-grey);
+      border-bottom: 1px solid var(--border-grey);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-category {
+      font-size: 0.8rem;
+      color: var(--primary-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--light-blue);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .project-link {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--primary-blue);
+    }
+
+    .project-link:hover {
+      background-color: var(--primary-blue);
+      color: var(--white);
+    }
+
+    /* Featured Project */
+    .featured-project {
+      background-color: var(--white);
+      border: 1px solid var(--border-grey);
+      margin-bottom: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .featured-image {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      background-color: var(--light-grey);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .featured-content {
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-content .project-category {
+      font-size: 0.85rem;
+      color: var(--primary-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+
+    .featured-content h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .featured-content p {
+      color: var(--text-primary);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin: 4rem 0 2rem;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      letter-spacing: 1px;
+    }
+
+    footer {
+      background-color: var(--light-grey);
+      color: var(--text-secondary);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-grey);
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-project {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-content {
+        padding: 2rem;
+      }
+
+      .featured-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="logo">YOUR NAME</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="vce.html">VCE</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Research & Projects</h1>
+    <div class="page-divider"></div>
+  </div>
+
+  <main>
+    <!-- Featured Project -->
+    <section class="featured-project">
+      <div class="featured-image">
+        [Featured Project Image]
+      </div>
+      <div class="featured-content">
+        <div class="project-category">Featured Project</div>
+        <h2>Project Title</h2>
+        <p>
+          [Detailed description of your featured/most important project. Explain the background, methodology, results, and significance of this work.]
+        </p>
+        <div class="project-links">
+          <a href="#" class="project-link">View Paper</a>
+          <a href="#" class="project-link">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Projects -->
+    <div class="section-header">
+      <h2>Current Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          [Project Image]
+        </div>
+        <div class="project-content">
+          <div class="project-category">Physics • Research</div>
+          <h3>Project Title</h3>
+          <p>
+            [Brief description of the project, your role, objectives, and current progress.]
+          </p>
+          <div class="project-meta">
+            <span>📅 2025</span>
+            <span>🔬 Ongoing</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          [Project Image]
+        </div>
+        <div class="project-content">
+          <div class="project-category">Engineering • Design</div>
+          <h3>Robot Arm Project</h3>
+          <p>
+            [Description of engineering project, design process, and technical details.]
+          </p>
+          <div class="project-meta">
+            <span>📅 2024-2025</span>
+            <span>⚙️ In Progress</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">CAD Files</a>
+            <a href="#" class="project-link">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          [Project Image]
+        </div>
+        <div class="project-content">
+          <div class="project-category">Mathematics • Analysis</div>
+          <h3>Statistics Challenge</h3>
+          <p>
+            [Description of mathematics or statistics project.]
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>📊 Complete</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">View Report</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Projects -->
+    <div class="section-header">
+      <h2>Completed Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          [Project Image]
+        </div>
+        <div class="project-content">
+          <div class="project-category">Science • Experiment</div>
+          <h3>Science Talent Search</h3>
+          <p>
+            [Description of completed science experiment, methodology, and findings.]
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>✅ Completed</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Full Report</a>
+            <a href="#" class="project-link">Results</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          [Project Image]
+        </div>
+        <div class="project-content">
+          <div class="project-category">Lab Work • Biology</div>
+          <h3>Deakin Laboratory Experience</h3>
+          <p>
+            [Description of laboratory work and techniques learned.]
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🔬 Completed</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          [Project Image]
+        </div>
+        <div class="project-content">
+          <div class="project-category">Competition • Academic</div>
+          <h3>Model United Nations</h3>
+          <p>
+            [Description of MUN participation, position represented, and outcomes.]
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🏆 Completed</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">Experience</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Your Name. All rights reserved.</p>
+  </footer>
+</body>
+</html>
