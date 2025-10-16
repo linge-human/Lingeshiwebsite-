@@ -3,918 +3,328 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Linge Shi - Portfolio</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <title>Your Name - Scientific Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --terminal-bg: #1a1a1a;
-      --neon-green: #39ff14;
-      --neon-blue: #00ffff;
-      --text-color: #ffffff;
-      --darker-bg: #222;
+      --primary-blue: rgba(0, 33, 177, 1);
+      --light-blue: rgba(0, 33, 177, 0.1);
+      --dark-grey: #2c3e50;
+      --light-grey: #f8f9fa;
+      --border-grey: #e9ecef;
+      --white: #ffffff;
+      --black: #1a1a1a;
+      --text-primary: #2c3e50;
+      --text-secondary: #6c757d;
     }
 
-    *, *:before, *:after {
+    * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Fira Code', monospace;
-      background-color: var(--terminal-bg);
-      color: var(--text-color);
-      overflow-x: hidden;
+    body {
+      font-family: 'IBM Plex Serif', 'American Typewriter', serif;
+      background-color: var(--white);
+      color: var(--text-primary);
+      line-height: 1.6;
     }
 
+    /* Navigation */
     nav {
-      padding: 1rem 2rem;
-      background: var(--terminal-bg);
-      border-bottom: 1px solid var(--neon-green);
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border-grey);
+      padding: 1.5rem 0;
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
     }
 
     .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--primary-blue);
+      text-decoration: none;
+      letter-spacing: 1px;
     }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
-      margin: 0;
-      padding: 0;
+      gap: 2.5rem;
     }
 
     .nav-links a {
-      color: var(--text-color);
+      color: var(--text-secondary);
       text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
-    .nav-links a[href='academic.html'] {
-      color: var(--neon-green);
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary-blue);
     }
 
-    .nav-links a:hover, .nav-links a:focus {
-      color: var(--neon-green);
-      outline: none;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      position: relative;
-      z-index: 100;
-    }
-
+    /* Hero Section */
     .hero {
+      max-width: 900px;
+      margin: 5rem auto 4rem;
+      padding: 0 2rem;
       text-align: center;
-      margin-bottom: 2rem;
     }
 
     .hero h1 {
-      color: var(--neon-green);
-      margin-bottom: 0.5rem;
-      font-size: 2.5rem;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
     }
 
     .hero .subtitle {
-      color: #ccc;
-      font-weight: 400;
-      font-size: 1.2rem;
-      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      letter-spacing: 0.5px;
     }
 
-    .consent-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--terminal-bg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--primary-blue);
+      margin: 2rem auto;
     }
 
-    .consent-box {
-      background-color: #2a2a2a;
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 2rem;
-      border-radius: 8px;
-      max-width: 600px;
-      width: 90%;
-      text-align: center;
-      border: 1px solid var(--neon-green);
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
-      color: var(--text-color);
     }
 
-    .consent-box h2 {
-      color: var(--neon-green);
+    /* About Section */
+    .about-section {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      padding: 2rem;
+    }
+
+    .about-section h2 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border-grey);
+      padding-bottom: 0.5rem;
+    }
+
+    .about-section p {
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Grid Sections */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .card {
+      background-color: var(--white);
+      border: 1px solid var(--border-grey);
+      padding: 2rem;
+    }
+
+    .card:hover {
+      border-color: var(--primary-blue);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
       margin-bottom: 1.5rem;
     }
 
-    .consent-text {
-      margin-bottom: 2rem;
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    .consent-button {
-      background-color: transparent;
-      color: var(--neon-green);
-      border: 2px solid var(--neon-green);
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Fira Code', monospace;
-      margin: 0.5rem;
-    }
-
-    .consent-button:hover, .consent-button:focus {
-      background-color: var(--neon-green);
-      color: var(--terminal-bg);
-      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
-      outline: none;
-    }
-
-    .timestamp {
-      font-size: 0.8rem;
-      color: #666;
-      margin-top: 1rem;
-    }
-
-    body.no-consent main {
-      filter: blur(3px);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .email-hidden {
-      display: none !important;
-    }
-
-    .email-placeholder {
-      color: #666;
-      font-style: italic;
-      border: 1px solid #666;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      margin: 0.5rem 0;
-      display: inline-block;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .email-placeholder:hover, .email-placeholder:focus {
-      color: var(--neon-green);
-      border-color: var(--neon-green);
-      outline: none;
-    }
-
-    #billCipherWandering {
-      position: fixed;
-      width: 120px;
-      height: 120px;
-      left: 50%;
-      top: 50%;
-      z-index: 10000;
-      filter: drop-shadow(0 0 10px #ffff00);
-      opacity: 0.9;
-      transform-origin: center;
-      display: none;
-      user-select: none;
-      pointer-events: none;
-      will-change: transform, left, top;
-      animation: float 6s ease-in-out infinite, glow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-10px) rotate(5deg) scale(1.05); }
-      100% { transform: translateY(0) rotate(0deg) scale(1); }
-    }
-
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 5px #ffff00) brightness(1); }
-      to { filter: drop-shadow(0 0 15px #ffff00) brightness(1.2); }
-    }
-
-    #billCipherWandering.swim-right {
-      transform: scaleX(1);
-    }
-
-    #billCipherWandering.swim-left {
-      transform: scaleX(-1);
-    }
-
-    #billSpeechBubble {
-      position: fixed;
-      background: #2a2a2a;
-      color: #ffff00;
-      padding: 10px 15px;
-      border-radius: 15px;
-      border: 2px solid #ffff00;
-      font-family: 'Fira Code', monospace;
-      font-size: 14px;
-      max-width: 250px;
-      z-index: 10001;
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    #billSpeechBubble:after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 20px;
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-top: 10px solid #ffff00;
-    }
-
-    #billSpeechBubble.show {
-      opacity: 1;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .grid-item {
-      background: var(--terminal-bg);
-      padding: 1.5rem;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-
-    .grid-item:hover, .grid-item:focus-within {
-      border-color: var(--neon-green);
-      box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
-      outline: none;
-    }
-
-    .explore-btn {
-      margin-top: 1rem;
-      color: var(--neon-green);
-      font-weight: 600;
-      font-family: 'Fira Code', monospace;
-      text-align: right;
-    }
-
-    .projects-section {
-      margin: 3rem 0;
-      padding: 1.5rem;
-      border-radius: 8px;
-      background: var(--darker-bg);
-      border: 1px solid var(--neon-green);
-    }
-
-    .projects-section h2 {
-      color: var(--neon-green);
-      margin-bottom: 1rem;
-      font-weight: 600;
-      font-size: 1.5rem;
-    }
-
-    .project-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      background: var(--terminal-bg);
-      padding: 1.5rem;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      width: 100%;
-      max-width: 540px;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .project-card:hover, .project-card:focus-within {
-      border-color: var(--neon-green);
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
-      outline: none;
-    }
-
-    .project-card h3 {
-      margin: 0 0 0.5rem;
-      color: var(--neon-green);
-    }
-
-    .highlight-text {
-      margin: 0 0 0.7rem;
-      color: var(--neon-green);
-      font-weight: 600;
-    }
-
-    .project-description {
-      flex-grow: 1;
-      color: #ccc;
-    }
-
-    .project-links {
-      margin-top: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .project-link {
+    .card-link {
+      color: var(--primary-blue);
       text-decoration: none;
-      color: var(--neon-blue);
-      font-family: 'Fira Code', monospace;
-      font-weight: 600;
-      transition: color 0.3s;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
     }
 
-    .project-link:hover, .project-link:focus {
-      color: var(--neon-green);
+    .card-link:hover {
       text-decoration: underline;
-      outline: none;
     }
 
+    /* Contact Section */
     .contact-section {
-      margin: 3rem 0;
-      padding: 1.5rem;
-      border-radius: 8px;
-      background: var(--darker-bg);
-      border: 1px solid var(--neon-green);
-      color: var(--text-color);
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 2rem;
+      text-align: center;
     }
 
     .contact-section h2 {
-      color: var(--neon-green);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text-primary);
       margin-bottom: 1rem;
-      font-weight: 600;
-      font-size: 1.5rem;
+      letter-spacing: 1px;
     }
 
-    .contact-consent {
-      margin-bottom: 1rem;
+    .contact-section p {
+      color: var(--text-secondary);
       font-size: 0.95rem;
-      line-height: 1.5;
-      color: #ccc;
+      margin-bottom: 2rem;
     }
 
     .contact-links {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .contact-link {
-      color: var(--neon-blue);
-      font-weight: 600;
-      font-family: 'Fira Code', monospace;
+      color: var(--primary-blue);
       text-decoration: none;
-      transition: color 0.3s;
+      font-weight: 400;
+      padding: 0.8rem 2rem;
+      border: 1px solid var(--primary-blue);
     }
 
-    .contact-link:hover, .contact-link:focus {
-      color: var(--neon-green);
-      text-decoration: underline;
-      outline: none;
+    .contact-link:hover {
+      background-color: var(--primary-blue);
+      color: var(--white);
     }
 
-    .terminal-window {
-      background: var(--darker-bg);
-      border: 1px solid var(--neon-green);
-      border-radius: 6px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .terminal-header {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .terminal-button {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .terminal-button:nth-child(1) { background: #ff5f56; }
-    .terminal-button:nth-child(2) { background: #ffbd2e; }
-    .terminal-button:nth-child(3) { background: #27c93f; }
-
-    .terminal-content {
-      color: #ccc;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .prompt, .command {
-      color: var(--neon-green);
-    }
-
+    /* Footer */
     footer {
+      background-color: var(--light-grey);
+      color: var(--text-secondary);
       text-align: center;
-      padding: 1rem 0;
-      color: #666;
-      font-size: 0.8rem;
+      padding: 2rem;
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-grey);
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body class="no-consent">
-  <div id="consentOverlay" class="consent-overlay">
-    <div class="consent-box">
-      <h2>&lt;Welcome/&gt;</h2>
-      <div class="consent-text">
-        <p>Before you proceed, please read and agree to the following:</p>
-        <ul>
-          <li>I know you're here because you either have my resume or someone shared this without my consent.</li>
-          <li>I understand that this website contains personal information and agree not to spread gossip or share it with random people.</li>
-          <li>I acknowledge that all the information presented here is true and authentic.</li>
-          <li>I understand this is an early project that may occasionally experience glitches or technical issues.</li>
-          <li>I acknowledge the creator is still learning web development skills.</li>
-        </ul>
-        <p>Thank you so much for visiting my website! I'm really happy you're here! ❤️</p>
-      </div>
-      <button id="consentButton" class="consent-button">I Understand &amp; Agree</button>
-      <div class="timestamp">Last Updated: 2025-07-27 08:26:59 UTC</div>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="logo">YOUR NAME</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="vce.html">VCE</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
     </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Your Name</h1>
+    <div class="hero-divider"></div>
+    <p class="subtitle">Research Scientist | Academic | Innovator</p>
   </div>
 
-  <div id="emailConsentOverlay" class="consent-overlay" style="display: none;">
-    <div class="consent-box">
-      <h2>&lt;Email Access/&gt;</h2>
-      <div class="consent-text">
-        <p>Before accessing my email, please confirm you understand:</p>
-        <ul>
-          <li>This email should only be used for professional opportunities, experiments, or meaningful connections.</li>
-          <li>Please do not send unnecessary emails or spam.</li>
-          <li>I appreciate respectful and purposeful communication.</li>
-          <li>Any misuse of this contact information is not appreciated.</li>
-        </ul>
-        <p>If you agree to use my email responsibly, you may proceed.</p>
-      </div>
-      <div style="display: flex; gap: 1rem; justify-content: center;">
-        <button id="emailConsentAgree" class="consent-button">I Agree - Show Email</button>
-        <button id="emailConsentCancel" class="consent-button" style="border-color: #ff6b6b; color: #ff6b6b;">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="main-content" style="visibility: hidden;">
-    <nav>
-      <div class="nav-content">
-        <div class="logo">
-          <a href="index.html">&lt;LS/&gt;</a>
-        </div>
-        <ul class="nav-links">
-          <li><a href="projects.html">PROJECTS</a></li>
-          <li><a href="academic.html">ACADEMIC</a></li>
-          <li><a href="hobbies.html">HOBBIES</a></li>
-          <li><a href="achievements.html">ACHIEVEMENTS</a></li>
-          <li><a href="future.html">FUTURE PLANS</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <main>
-      <header class="hero">
-        <h1>LINGE SHI</h1>
-        <p class="subtitle">Science • Engineering • Innovation</p>
-      </header>
-
-      <section id="about" class="terminal-window">
-        <div class="terminal-header">
-          <span class="terminal-button"></span>
-          <span class="terminal-button"></span>
-          <span class="terminal-button"></span>
-        </div>
-        <div class="terminal-content">
-          <p><span class="prompt">$</span> <span class="command">whoami</span></p>
-          <p class="output">
-            I'm a passionate student exploring the intersections of science, engineering, and problem-solving, currently based in Australia and striving for excellence in mathematics, science, and technology.<br />
-            You probably found this site through the link in my resume—I'm glad your curiosity brought you here! This website is always being improved, so look forward to regular updates. (LS, Sun 27 Jul)
-          </p>
-          <p><span class="prompt">$</span> <span class="command">cat skills.txt</span></p>
-          <p class="output">
-            • Mathematics &amp; Physics<br />
-            • Laboratory Research<br />
-            • Engineering Design<br />
-            • Problem Solving<br />
-            • Anything interesting
-          </p>
-        </div>
-      </section>
-
-      <section class="grid-container">
-        <div class="grid-item" onclick="location.href='projects.html'" tabindex="0" aria-label="Navigate to Projects">
-          <h2>PROJECTS</h2>
-          <p>Monash Scholars Program, Science Talent Search, Satellite Design, and more...</p>
-          <div class="explore-btn">&gt; Explore Projects</div>
-        </div>
-        <div class="grid-item" onclick="location.href='academic.html'" tabindex="0" aria-label="Navigate to Academic">
-          <h2>ACADEMIC</h2>
-          <p>Mathematics, Science, Engineering achievements and pursuits...</p>
-          <div class="explore-btn">&gt; View Academic</div>
-        </div>
-        <div class="grid-item" onclick="location.href='hobbies.html'" tabindex="0" aria-label="Navigate to Hobbies">
-          <h2>HOBBIES</h2>
-          <p>Piano, Sports, Traditional Dance, and other activities...</p>
-          <div class="explore-btn">&gt; See Hobbies</div>
-        </div>
-        <div class="grid-item" onclick="location.href='achievements.html'" tabindex="0" aria-label="Navigate to Achievements">
-          <h2>ACHIEVEMENTS</h2>
-          <p>Academic awards, leadership roles, and competition success...</p>
-          <div class="explore-btn">&gt; View Achievements</div>
-        </div>
-        <div class="grid-item" onclick="location.href='future.html'" tabindex="0" aria-label="Navigate to Future Plans">
-          <h2>FUTURE PLANS</h2>
-          <p>Research goals, engineering aspirations, and long-term vision...</p>
-          <div class="explore-btn">&gt; See Future Plans</div>
-        </div>
-      </section>
-
-      <section class="projects-section" aria-label="Other projects section">
-        <h2>OTHER PROJECTS</h2>
-        <div class="project-grid">
-          <div class="project-card" id="mathsReportCard" onclick="window.open('https://github.com/linge-human/Lingeshiwebsite-/blob/1f5d6af493bd9c084f989ddbb9246a4399c7e53a/Senior_Box_Hill_High_School_Funky_Derivatives_L.SHI_and_Y.deCoonghe.pdf','_blank')" tabindex="0" role="button" aria-label="Maths & Stats Challenge Research Paper">
-            <h3>Maths & Stats Challenge Research Paper</h3>
-            <p class="highlight-text">My 2024 research paper on mathematical modelling and statistics.</p>
-            <div class="project-description">
-              <p>Produced for the 2024 Maths & Stats Challenge, this paper showcases in-depth mathematical modelling, statistics, and scientific writing. Check it out for a real sample of my work!</p>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/linge-human/Lingeshiwebsite-/blob/1f5d6af493bd9c084f989ddbb9246a4399c7e53a/Senior_Box_Hill_High_School_Funky_Derivatives_L.SHI_and_Y.deCoonghe.pdf" class="project-link" target="_blank" rel="noopener noreferrer">📄 View or Download My Report (PDF, GitHub)</a>
-            </div>
-          </div>
-          <div class="project-card" onclick="window.open('https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427','_blank')" tabindex="0" role="button" aria-label="Higher Order Derivatives Simulation Project">
-            <h3>Higher Order Derivatives & Photon Diffraction</h3>
-            <p class="highlight-text">Interactive simulations for derivatives and diffraction patterns.</p>
-            <div class="project-description">
-              <p>Explore a mathematical simulation of higher-order derivatives and a laser diffraction pattern intensity analyzer, showcasing my skills in computational modeling.</p>
-            </div>
-            <div class="project-links">
-              <a href="https://claude.ai/public/artifacts/bdc1b762-6886-4e1f-a946-65be9a906427" class="project-link" target="_blank" rel="noopener noreferrer">Function Testing App</a>
-              <a href="https://claude.ai/public/artifacts/08c76f32-10b2-44ee-a1b9-6e1e912bf16f" class="project-link" target="_blank" rel="noopener noreferrer">Laser Diffraction Pattern Intensity Analyzer</a>
-              <a href="higher_order_derivatives_with_first.tsx" class="project-link" download>Download Remix Code</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    <section class="contact-section" aria-label="Contact me section">
-  <h2>Contact Me</h2>
-  <p class="contact-consent">
-    Please note: Do not send unnecessary emails.<br />
-    Kindly reach out for opportunities related to experiments, volunteering, collaborations, and making meaningful connections.<br />
-    Professional and positive inquiries only.
-  </p>
-  <div class="contact-links">
-    <!-- Email Reveal Button -->
-    <div class="email-placeholder" id="revealEmailBtn" tabindex="0" role="button" aria-label="Reveal contact emails (purpose required)">📧 Click to reveal email (choose your purpose)</div>
-    <!-- Modal Dialog for Purpose Selection -->
-    <div id="emailModal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-content">
-        <h3 id="modalTitle">Before you get my email...</h3>
-        <p>
-          I do a lot! Please let me know what you're reaching out for (select all that apply):<br>
-          <small>(This helps me prioritize and keep my inbox meaningful!)</small>
-        </p>
-        <form id="purposeForm">
-          <label><input type="checkbox" name="purpose" value="university"> University/Research Outreach</label><br>
-          <label><input type="checkbox" name="purpose" value="work"> Work Experience Opportunities</label><br>
-          <label><input type="checkbox" name="purpose" value="volunteering"> Volunteering Opportunities</label><br>
-          <label><input type="checkbox" name="purpose" value="connection"> Making Connections</label><br>
-          <label><input type="checkbox" name="purpose" value="collaboration"> Project Collaboration</label><br>
-          <label><input type="checkbox" name="purpose" value="other"> Other (please specify below)</label>
-          <input type="text" name="otherText" id="otherText" style="display:none; margin-left:20px;" placeholder="Type your purpose...">
-          <hr>
-          <p>
-            Please confirm you are reaching out for a good purpose:<br>
-            <label><input type="checkbox" id="consentCheckbox" required> Yes, I am contacting for a genuine and positive reason.</label>
-          </p>
-          <div style="display: flex; gap: 12px;">
-            <button type="submit" id="revealBtn" disabled>Reveal Email</button>
-            <button type="button" id="cancelBtn">Cancel</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!-- Revealed Emails (hidden by default) -->
-    <div id="emailDisplay" style="display:none; margin-top:1em;">
-      <div>
-        <a href="mailto:LingeShinice@outlook.com" class="contact-link">Email: Linge Shi &lt;LingeShinice@outlook.com&gt;</a>
-      </div>
-      <div>
-        <a href="mailto:SHI0064@boxhillhs.vic.edu.au" class="contact-link">Email: Linge Shi &lt;SHI0064@boxhillhs.vic.edu.au&gt;</a>
-      </div>
-      <p style="font-size: 0.92em; color: #666; margin-top: 0.8em;">
-        Thank you for choosing a purpose! I look forward to your meaningful message.<br>
-        (If you just want to connect or collaborate, be sure to mention it!)
+  <main>
+    <section class="about-section">
+      <h2>About</h2>
+      <p>
+        [Your introduction paragraph here. Describe your research interests, academic background, and professional focus.]
       </p>
-    </div>
-  </div>
-</section>
+      <p>
+        [Additional context about your work, achievements, and goals.]
+      </p>
+    </section>
 
-<!-- Modal CSS (you can move this to your CSS file) -->
-<style>
-.modal {
-  position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center;
-}
-.modal-content {
-  background: #fff; border-radius: 8px; padding: 2em 1.5em; max-width: 380px; width: 100%;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.18);
-}
-@media (max-width: 500px) {
-  .modal-content { max-width: 97vw; padding: 1.2em 0.5em; }
-}
-</style>
+    <section class="section-grid">
+      <div class="card">
+        <h3>Curriculum Vitae</h3>
+        <p>Complete academic and professional background, qualifications, and experience.</p>
+        <a href="cv.html" class="card-link">View CV →</a>
+      </div>
 
-<!-- Modal/Reveal JS (put before </body> or in your JS file) -->
-<script>
-  // Elements
-  const revealBtn = document.getElementById("revealEmailBtn");
-  const modal = document.getElementById("emailModal");
-  const form = document.getElementById("purposeForm");
-  const consent = document.getElementById("consentCheckbox");
-  const submitBtn = document.getElementById("revealBtn");
-  const cancelBtn = document.getElementById("cancelBtn");
-  const emailDisplay = document.getElementById("emailDisplay");
-  const otherCheckbox = form.querySelector('input[value="other"]');
-  const otherText = document.getElementById("otherText");
+      <div class="card">
+        <h3>VCE Studies</h3>
+        <p>Victorian Certificate of Education subjects, results, and academic achievements.</p>
+        <a href="vce.html" class="card-link">View VCE →</a>
+      </div>
 
-  // Show modal
-  revealBtn.onclick = () => { modal.style.display = "flex"; }
-  revealBtn.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { modal.style.display = "flex"; } }
+      <div class="card">
+        <h3>Projects</h3>
+        <p>Research projects, experiments, and scientific work across various disciplines.</p>
+        <a href="projects.html" class="card-link">View Projects →</a>
+      </div>
 
-  // Cancel modal
-  cancelBtn.onclick = () => { modal.style.display = "none"; form.reset(); submitBtn.disabled = true; otherText.style.display = "none"; }
+      <div class="card">
+        <h3>Blog</h3>
+        <p>Thoughts, insights, and reflections on science, research, and learning.</p>
+        <a href="blog.html" class="card-link">View Blog →</a>
+      </div>
+    </section>
 
-  // Enable submit if consent checked
-  form.addEventListener("input", () => {
-    submitBtn.disabled = !consent.checked;
-    otherText.style.display = otherCheckbox.checked ? "inline-block" : "none";
-  });
+    <section class="contact-section">
+      <h2>Get in Touch</h2>
+      <p>Interested in collaboration, research opportunities, or academic discussion?</p>
+      <div class="contact-links">
+        <a href="mailto:your.email@institution.edu" class="contact-link">Email</a>
+      </div>
+    </section>
+  </main>
 
-  // Submit: show email, hide modal
-  form.onsubmit = function(e) {
-    e.preventDefault();
-    modal.style.display = "none";
-    emailDisplay.style.display = "block";
-    revealBtn.style.display = "none";
-    // (Optional) You can log the purposes, or send to analytics here
-    return false;
-  };
-
-  // Accessibility: close on Escape
-  window.addEventListener("keydown", function(e) {
-    if (modal.style.display === "flex" && e.key === "Escape") {
-      modal.style.display = "none";
-      form.reset();
-      submitBtn.disabled = true;
-      otherText.style.display = "none";
-    }
-  });
-</script>
-
-    <footer>
-      <p>&copy; 2025 Linge Shi • Built with 🚀</p>
-    </footer>
-  </div>
-
-  <img
-    id="billCipherWandering"
-    src="https://raw.githubusercontent.com/linge-human/Lingeshiwebsite-/main/bill_cipher__render__by_yessing_dfldlfh-fullview.png"
-    alt="Bill Cipher, your AI assistant"
-    draggable="false"
-  />
-
-  <div id="billSpeechBubble" class="bill-speech-bubble"></div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const consentOverlay = document.getElementById('consentOverlay');
-      const emailConsentOverlay = document.getElementById('emailConsentOverlay');
-      const consentButton = document.getElementById('consentButton');
-      const emailConsentAgree = document.getElementById('emailConsentAgree');
-      const emailConsentCancel = document.getElementById('emailConsentCancel');
-      const mainContent = document.getElementById('main-content');
-      const body = document.body;
-      const billWandering = document.getElementById('billCipherWandering');
-      const billSpeechBubble = document.getElementById('billSpeechBubble');
-      const email1 = document.getElementById('email1');
-      const email2 = document.getElementById('email2');
-      const emailPlaceholder1 = document.getElementById('emailPlaceholder1');
-      const emailPlaceholder2 = document.getElementById('emailPlaceholder2');
-      const mathsReportCard = document.getElementById('mathsReportCard');
-
-      let hasEmailConsent = false;
-      let billCipherActive = false;
-      let currentX = window.innerWidth / 4;
-      let currentY = window.innerHeight / 2;
-      let targetX = currentX;
-      let targetY = currentY;
-      let velocityX = 0;
-      let velocityY = 0;
-      let exploringTarget = null;
-
-      const sectionMessages = {
-        'grid-container': 'Ooh, lots of cool stuff to check out here!',
-        'projects-section': 'These projects look intriguing!',
-        'contact-section': 'Wanna connect? Agree to the terms first!'
-      };
-
-      function clamp(value, min, max) {
-        return Math.min(Math.max(value, min), max);
-      }
-
-      function showBillMessage(message, duration = 3000) {
-        const billRect = billWandering.getBoundingClientRect();
-        billSpeechBubble.textContent = message;
-        billSpeechBubble.style.left = `${billRect.left + billRect.width + 10}px`;
-        billSpeechBubble.style.top = `${billRect.top - 20}px`;
-        billSpeechBubble.classList.add('show');
-        setTimeout(() => billSpeechBubble.classList.remove('show'), duration);
-      }
-
-      function getRandomSideTarget() {
-        const padding = 130; // Keep Bill away from edges
-        const sideWidth = window.innerWidth * 0.2; // 20% of width for each side
-        const isLeftSide = Math.random() < 0.5;
-        return {
-          x: isLeftSide
-            ? padding + Math.random() * sideWidth
-            : window.innerWidth - padding - sideWidth + Math.random() * sideWidth,
-          y: padding + Math.random() * (window.innerHeight - 2 * padding)
-        };
-      }
-
-      function animateBill() {
-        if (!billCipherActive) {
-          billWandering.style.display = 'none';
-          return;
-        }
-
-        if (exploringTarget) {
-          targetX = exploringTarget.x;
-          targetY = exploringTarget.y;
-        } else {
-          // Random wandering on sides
-          if (Math.hypot(currentX - targetX, currentY - targetY) < 50) {
-            const newTarget = getRandomSideTarget();
-            targetX = newTarget.x;
-            targetY = newTarget.y;
-          }
-        }
-
-        // Smooth, slower movement with velocity
-        const dx = targetX - currentX;
-        const dy = targetY - currentY;
-        velocityX = velocityX * 0.9 + dx * 0.01; // Slower movement
-        velocityY = velocityY * 0.9 + dy * 0.01;
-
-        currentX += velocityX;
-        currentY += velocityY;
-
-        // Clamp to viewport, bias toward sides
-        currentX = clamp(currentX, 60, window.innerWidth - 60);
-        currentY = clamp(currentY, 60, window.innerHeight - 60);
-
-        billWandering.style.left = `${currentX}px`;
-        billWandering.style.top = `${currentY}px`;
-        billWandering.style.transform = velocityX > 0 ? 'scaleX(1)' : 'scaleX(-1)';
-
-        requestAnimationFrame(animateBill);
-      }
-
-      function startBill() {
-        billWandering.style.display = 'block';
-        billCipherActive = true;
-        currentX = window.innerWidth / 4; // Start on left side
-        currentY = window.innerHeight / 2;
-        targetX = currentX;
-        targetY = currentY;
-        billWandering.classList.add('swim-right');
-        requestAnimationFrame(animateBill);
-        showBillMessage('Hey, let’s explore Linge’s world!');
-      }
-
-      function pointBillToMathsReport() {
-        if (!mathsReportCard) return;
-        const cardRect = mathsReportCard.getBoundingClientRect();
-        exploringTarget = {
-          x: cardRect.left - 60, // Position to the side of the card
-          y: cardRect.top + cardRect.height / 2
-        };
-        showBillMessage('This research paper looks awesome!', 4000);
-        setTimeout(() => exploringTarget = null, 4000);
-      }
-
-      consentButton.addEventListener('click', () => {
-        consentOverlay.style.display = 'none';
-        mainContent.style.visibility = 'visible';
-        body.classList.remove('no-consent');
-        startBill();
-        setTimeout(pointBillToMathsReport, 600);
-      });
-
-      [emailPlaceholder1, emailPlaceholder2].forEach(elem => {
-        elem.addEventListener('click', () => {
-          if (!hasEmailConsent) emailConsentOverlay.style.display = 'flex';
-        });
-        elem.addEventListener('keydown', (e) => {
-          if ((e.key === 'Enter' || e.key === ' ') && !hasEmailConsent) {
-            e.preventDefault();
-            emailConsentOverlay.style.display = 'flex';
-          }
-        });
-      });
-
-      emailConsentAgree.addEventListener('click', () => {
-        hasEmailConsent = true;
-        emailConsentOverlay.style.display = 'none';
-        email1.classList.remove('email-hidden');
-        email2.classList.remove('email-hidden');
-        emailPlaceholder1.style.display = 'none';
-        emailPlaceholder2.style.display = 'none';
-        showBillMessage('Emails revealed! Be responsible, pal!');
-      });
-
-      emailConsentCancel.addEventListener('click', () => {
-        emailConsentOverlay.style.display = 'none';
-        showBillMessage('Good call! Respect is the name of the game.');
-      });
-
-      [email1, email2].forEach(email => {
-        email.addEventListener('click', (e) => {
-          if (!hasEmailConsent) {
-            e.preventDefault();
-            emailConsentOverlay.style.display = 'flex';
-          }
-        });
-      });
-
-      document.querySelectorAll('.grid-item, .project-card, .contact-section').forEach(elem => {
-        elem.addEventListener('mouseenter', () => {
-          const sectionClass = elem.className.split(' ')[0];
-          const message = sectionMessages[sectionClass] || 'What’s this? Let’s take a look!';
-          const rect = elem.getBoundingClientRect();
-          const isLeft = rect.left < window.innerWidth / 2;
-          exploringTarget = {
-            x: isLeft ? rect.right + 60 : rect.left - 60, // Position to the side
-            y: rect.top + rect.height / 2
-          };
-          showBillMessage(message, 2000);
-        });
-        elem.addEventListener('mouseleave', () => {
-          exploringTarget = null;
-        });
-      });
-
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          if (!billCipherActive) return;
-          currentX = clamp(currentX, 60, window.innerWidth - 60);
-          currentY = clamp(currentY, 60, window.innerHeight - 60);
-          billWandering.style.left = `${currentX}px`;
-          billWandering.style.top = `${currentY}px`;
-        }, 100);
-      });
-    });
-  </script>
+  <footer>
+    <p>&copy; 2025 Your Name. All rights reserved.</p>
+  </footer>
 </body>
 </html>
