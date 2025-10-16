@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>projects</title>
+  <title>Projects</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -28,162 +28,223 @@
 
   <main>
     <!-- Featured Project -->
-    <section class="featured-project">
+    <section class="featured-project project-popup-trigger"
+      data-title="Amazing Physics Research"
+      data-category="Physics • Research"
+      data-date="2025"
+      data-status="Ongoing"
+      data-description="This project explores the intersection of quantum physics and material science, using simulations and real-world experiments to uncover new phenomena. My role includes designing experiments and analyzing data."
+      data-links='<a href="#">View Paper</a> <a href="#">GitHub</a>'
+      data-image="images/physics_project.jpg">
       <div class="featured-image">
-        [Featured Project Image]
+        <img src="images/physics_project.jpg" alt="Featured Physics Project" />
       </div>
       <div class="featured-content">
         <div class="project-category">Featured Project</div>
-        <h2>Project Title</h2>
+        <h2>Amazing Physics Research</h2>
         <p>
-          [Detailed description of your featured/most important project. Explain the background, methodology, results, and significance of this work.]
+          This project explores the intersection of quantum physics and material science, using simulations and real-world experiments to uncover new phenomena. My role includes designing experiments and analyzing data.
         </p>
         <div class="project-links">
-          <a href="#" class="project-link">View Paper</a>
-          <a href="#" class="project-link">GitHub</a>
+          <a href="#">View Paper</a>
+          <a href="#">GitHub</a>
         </div>
       </div>
     </section>
 
-    <!-- Current Projects -->
     <div class="section-header">
       <h2>Current Projects</h2>
     </div>
 
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card project-popup-trigger"
+        data-title="Robot Arm Project"
+        data-category="Engineering • Design"
+        data-date="2024-2025"
+        data-status="In Progress"
+        data-description="An engineering challenge involving designing and building a programmable robot arm, including CAD modeling and code. I developed the control system and managed the build process."
+        data-links='<a href="#">CAD Files</a> <a href="#">Code</a>'
+        data-image="images/robot_arm.jpg">
         <div class="project-image">
-          [Project Image]
-        </div>
-        <div class="project-content">
-          <div class="project-category">Physics • Research</div>
-          <h3>Project Title</h3>
-          <p>
-            [Brief description of the project, your role, objectives, and current progress.]
-          </p>
-          <div class="project-meta">
-            <span>📅 2025</span>
-            <span>🔬 Ongoing</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="project-link">Learn More</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image">
-          [Project Image]
+          <img src="images/robot_arm.jpg" alt="Robot Arm" />
         </div>
         <div class="project-content">
           <div class="project-category">Engineering • Design</div>
           <h3>Robot Arm Project</h3>
           <p>
-            [Description of engineering project, design process, and technical details.]
+            An engineering challenge involving designing and building a programmable robot arm, including CAD modeling and code. I developed the control system and managed the build process.
           </p>
           <div class="project-meta">
             <span>📅 2024-2025</span>
             <span>⚙️ In Progress</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">CAD Files</a>
-            <a href="#" class="project-link">Code</a>
+            <a href="#">CAD Files</a>
+            <a href="#">Code</a>
           </div>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card project-popup-trigger"
+        data-title="Statistics Challenge"
+        data-category="Mathematics • Analysis"
+        data-date="2024"
+        data-status="Complete"
+        data-description="A deep dive into advanced statistical methods and data analysis, culminating in a published report. I led the analysis and visualization efforts."
+        data-links='<a href="#">View Report</a>'
+        data-image="images/statistics.jpg">
         <div class="project-image">
-          [Project Image]
+          <img src="images/statistics.jpg" alt="Statistics Challenge" />
         </div>
         <div class="project-content">
           <div class="project-category">Mathematics • Analysis</div>
           <h3>Statistics Challenge</h3>
           <p>
-            [Description of mathematics or statistics project.]
+            A deep dive into advanced statistical methods and data analysis, culminating in a published report. I led the analysis and visualization efforts.
           </p>
           <div class="project-meta">
             <span>📅 2024</span>
             <span>📊 Complete</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">View Report</a>
+            <a href="#">View Report</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Completed Projects -->
     <div class="section-header">
       <h2>Completed Projects</h2>
     </div>
 
     <div class="projects-grid">
-      <div class="project-card">
+      <div class="project-card project-popup-trigger"
+        data-title="Science Talent Search"
+        data-category="Science • Experiment"
+        data-date="2024"
+        data-status="Completed"
+        data-description="A competition project involving scientific experimentation and reporting. Led the experiment design and wrote the final report."
+        data-links='<a href="#">Full Report</a> <a href="#">Results</a>'
+        data-image="images/science_talent.jpg">
         <div class="project-image">
-          [Project Image]
+          <img src="images/science_talent.jpg" alt="Science Talent Search" />
         </div>
         <div class="project-content">
           <div class="project-category">Science • Experiment</div>
           <h3>Science Talent Search</h3>
           <p>
-            [Description of completed science experiment, methodology, and findings.]
+            A competition project involving scientific experimentation and reporting. Led the experiment design and wrote the final report.
           </p>
           <div class="project-meta">
             <span>📅 2024</span>
             <span>✅ Completed</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">Full Report</a>
-            <a href="#" class="project-link">Results</a>
+            <a href="#">Full Report</a>
+            <a href="#">Results</a>
           </div>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card project-popup-trigger"
+        data-title="Deakin Laboratory Experience"
+        data-category="Lab Work • Biology"
+        data-date="2024"
+        data-status="Completed"
+        data-description="Hands-on lab work at Deakin, learning techniques and conducting biology experiments. I learned how to operate new lab equipment and contributed to group research."
+        data-links='<a href="#">Details</a>'
+        data-image="images/lab_biology.jpg">
         <div class="project-image">
-          [Project Image]
+          <img src="images/lab_biology.jpg" alt="Deakin Laboratory Experience" />
         </div>
         <div class="project-content">
           <div class="project-category">Lab Work • Biology</div>
           <h3>Deakin Laboratory Experience</h3>
           <p>
-            [Description of laboratory work and techniques learned.]
+            Hands-on lab work at Deakin, learning techniques and conducting biology experiments. I learned how to operate new lab equipment and contributed to group research.
           </p>
           <div class="project-meta">
             <span>📅 2024</span>
             <span>🔬 Completed</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">Details</a>
+            <a href="#">Details</a>
           </div>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card project-popup-trigger"
+        data-title="Model United Nations"
+        data-category="Competition • Academic"
+        data-date="2024"
+        data-status="Completed"
+        data-description="Represented a country in Model UN, debated world issues, and contributed to resolutions. Developed leadership and negotiation skills."
+        data-links='<a href="#">Experience</a>'
+        data-image="images/mun.jpg">
         <div class="project-image">
-          [Project Image]
+          <img src="images/mun.jpg" alt="Model United Nations" />
         </div>
         <div class="project-content">
           <div class="project-category">Competition • Academic</div>
           <h3>Model United Nations</h3>
           <p>
-            [Description of MUN participation, position represented, and outcomes.]
+            Represented a country in Model UN, debated world issues, and contributed to resolutions. Developed leadership and negotiation skills.
           </p>
           <div class="project-meta">
             <span>📅 2024</span>
             <span>🏆 Completed</span>
           </div>
           <div class="project-links">
-            <a href="#" class="project-link">Experience</a>
+            <a href="#">Experience</a>
           </div>
         </div>
       </div>
     </div>
   </main>
 
+  <!-- Project Overlay Popup -->
+  <div id="project-overlay" class="overlay">
+    <div class="overlay-content">
+      <span class="close-btn" id="close-project-overlay">&times;</span>
+      <div class="overlay-meta" id="project-overlay-meta"></div>
+      <h2 id="project-overlay-title"></h2>
+      <div class="overlay-category" id="project-overlay-category"></div>
+      <div class="overlay-date-status" id="project-overlay-date-status"></div>
+      <div class="overlay-image" id="project-overlay-image"></div>
+      <p id="project-overlay-description"></p>
+      <div class="overlay-links" id="project-overlay-links"></div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2025 Your Name. All rights reserved.</p>
   </footer>
+  <script>
+    // Projects Overlay logic
+    document.querySelectorAll('.project-popup-trigger').forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Prevent link clicks inside project-links from triggering popup
+        if (e.target.tagName === 'A') return;
+        document.getElementById('project-overlay-title').textContent = card.dataset.title;
+        document.getElementById('project-overlay-category').innerHTML = `<span class="tag">${card.dataset.category}</span>`;
+        document.getElementById('project-overlay-date-status').innerHTML = `<span>📅 ${card.dataset.date}</span> <span>🔖 ${card.dataset.status}</span>`;
+        document.getElementById('project-overlay-description').textContent = card.dataset.description;
+        document.getElementById('project-overlay-links').innerHTML = card.dataset.links;
+        document.getElementById('project-overlay-image').innerHTML = `<img src="${card.dataset.image}" alt="${card.dataset.title}" style="width:100%;max-height:250px;object-fit:cover;">`;
+        document.getElementById('project-overlay').classList.add('active');
+        document.body.classList.add('overlay-open');
+      });
+    });
+    document.getElementById('close-project-overlay').onclick = function() {
+      document.getElementById('project-overlay').classList.remove('active');
+      document.body.classList.remove('overlay-open');
+    };
+    document.getElementById('project-overlay').onclick = function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        document.body.classList.remove('overlay-open');
+      }
+    };
+  </script>
 </body>
 </html>
