@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="logo">YOUR NAME</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="CV.html">CV</a></li>
+        <li><a href="VCE.html">VCE</a></li>
+        <li><a href="Projects.html" class="active">Projects</a></li>
+        <li><a href="Blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Research & Projects</h1>
+    <div class="page-divider"></div>
+  </div>
+
+  <main>
+    <!-- Featured Project -->
+    <section class="featured-project project-popup-trigger"
+      data-project="physics-research">
+      <div class="featured-image">
+        <img src="images/physics_project.jpg" alt="Featured Physics Project" />
+      </div>
+      <div class="featured-content">
+        <div class="project-category">Featured Project</div>
+        <h2>Amazing Physics Research</h2>
+        <p>
+          This project explores the intersection of quantum physics and material science, using simulations and real-world experiments to uncover new phenomena. My role includes designing experiments and analyzing data.
+        </p>
+        <div class="project-links">
+          <a href="#" onclick="event.stopPropagation();">View Paper</a>
+          <a href="#" onclick="event.stopPropagation();">GitHub</a>
+          <button class="read-more-btn" onclick="event.stopPropagation(); openProjectPopup('physics-research');">Read More</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-header">
+      <h2>Current Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card project-popup-trigger"
+        data-project="robot-arm">
+        <div class="project-image">
+          <img src="images/robot_arm.jpg" alt="Robot Arm" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Engineering • Design</div>
+          <h3>Robot Arm Project</h3>
+          <p>
+            An engineering challenge involving designing and building a programmable robot arm, including CAD modeling and code. I developed the control system and managed the build process.
+          </p>
+          <div class="project-meta">
+            <span>📅 2024-2025</span>
+            <span>⚙️ In Progress</span>
+          </div>
+          <div class="project-links">
+            <a href="#" onclick="event.stopPropagation();">CAD Files</a>
+            <a href="#" onclick="event.stopPropagation();">Code</a>
+            <button class="read-more-btn" onclick="event.stopPropagation(); openProjectPopup('robot-arm');">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-popup-trigger"
+        data-project="statistics-challenge">
+        <div class="project-image">
+          <img src="images/statistics.jpg" alt="Statistics Challenge" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Mathematics • Analysis</div>
+          <h3>Statistics Challenge</h3>
+          <p>
+            A deep dive into advanced statistical methods and data analysis, culminating in a published report. I led the analysis and visualization efforts.
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>📊 Complete</span>
+          </div>
+          <div class="project-links">
+            <a href="#" onclick="event.stopPropagation();">View Report</a>
+            <button class="read-more-btn" onclick="event.stopPropagation(); openProjectPopup('statistics-challenge');">Read More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <h2>Completed Projects</h2>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card project-popup-trigger"
+        data-project="science-talent">
+        <div class="project-image">
+          <img src="images/science_talent.jpg" alt="Science Talent Search" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Science • Experiment</div>
+          <h3>Science Talent Search</h3>
+          <p>
+            A competition project involving scientific experimentation and reporting. Led the experiment design and wrote the final report.
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>✅ Completed</span>
+          </div>
+          <div class="project-links">
+            <a href="#" onclick="event.stopPropagation();">Full Report</a>
+            <a href="#" onclick="event.stopPropagation();">Results</a>
+            <button class="read-more-btn" onclick="event.stopPropagation(); openProjectPopup('science-talent');">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-popup-trigger"
+        data-project="deakin-lab">
+        <div class="project-image">
+          <img src="images/lab_biology.jpg" alt="Deakin Laboratory Experience" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Lab Work • Biology</div>
+          <h3>Deakin Laboratory Experience</h3>
+          <p>
+            Hands-on lab work at Deakin, learning techniques and conducting biology experiments. I learned how to operate new lab equipment and contributed to group research.
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🔬 Completed</span>
+          </div>
+          <div class="project-links">
+            <a href="#" onclick="event.stopPropagation();">Details</a>
+            <button class="read-more-btn" onclick="event.stopPropagation(); openProjectPopup('deakin-lab');">Read More</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card project-popup-trigger"
+        data-project="model-un">
+        <div class="project-image">
+          <img src="images/mun.jpg" alt="Model United Nations" />
+        </div>
+        <div class="project-content">
+          <div class="project-category">Competition • Academic</div>
+          <h3>Model United Nations</h3>
+          <p>
+            Represented a country in Model UN, debated world issues, and contributed to resolutions. Developed leadership and negotiation skills.
+          </p>
+          <div class="project-meta">
+            <span>📅 2024</span>
+            <span>🏆 Completed</span>
+          </div>
+          <div class="project-links">
+            <a href="#" onclick="event.stopPropagation();">Experience</a>
+            <button class="read-more-btn" onclick="event.stopPropagation(); openProjectPopup('model-un');">Read More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Project Detail Popup -->
+  <div id="project-popup" class="popup-overlay">
+    <div class="popup-content">
+      <span class="popup-close" onclick="closeProjectPopup()">&times;</span>
+      <div id="popup-project-content">
+        <!-- Project details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Your Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+/*
+================================================================================
+PROJECT TEMPLATE FOR EASY COPY-PASTE
+================================================================================
+Copy this template to add new projects. Replace all placeholder values with your actual content.
+
+TEMPLATE START:
+"your-project-id": {
+  id: "your-project-id",
+  title: "Your Project Title",
+  category: "Your Category • Type",
+  date: "YYYY or YYYY-YYYY",
+  status: "Ongoing/In Progress/Complete/Completed",
+  content: `
+    <div class="popup-project-header">
+      <div class="popup-project-category">Your Category • Type</div>
+      <h1>Your Project Title</h1>
+      <div class="popup-project-meta">
+        <span>📅 2024</span>
+        <span>🔖 Status</span>
+      </div>
+    </div>
+
+    <div class="popup-project-image">
+      <img src="images/your-image.jpg" alt="Your Project Title" />
+    </div>
+
+    <div class="popup-project-content">
+      <section class="popup-section">
+        <h2>Project Overview</h2>
+        <p>Detailed description of your project goes here. Explain what the project is about, its goals, and significance.</p>
+        <p>Add multiple paragraphs as needed to fully describe your project.</p>
+      </section>
+
+      <section class="popup-section">
+        <h2>My Role & Contributions</h2>
+        <ul>
+          <li>Specific contribution or responsibility</li>
+          <li>Another key responsibility</li>
+          <li>Skills or technologies used</li>
+        </ul>
+      </section>
+
+      <section class="popup-section">
+        <h2>Technical Details</h2>
+        <p>Describe technical aspects, methodologies, tools, or technologies used.</p>
+      </section>
+
+      <section class="popup-section">
+        <h2>Results & Outcomes</h2>
+        <p>Describe what was achieved, learned, or discovered through this project.</p>
+      </section>
+
+      <section class="popup-section">
+        <h2>Links & Resources</h2>
+        <div class="popup-project-links">
+          <a href="#" class="popup-project-link">View Paper</a>
+          <a href="#" class="popup-project-link">GitHub Repository</a>
+          <a href="#" class="popup-project-link">Additional Resource</a>
+        </div>
+      </section>
+    </div>
+  `
+},
+
+TEMPLATE END
+================================================================================
+*/
+
+// Project data - Add your projects here
+const projectData = {
+  "physics-research": {
+    id: "physics-research",
+    title: "Amazing Physics Research",
+    category: "Physics • Research",
+    date: "2025",
+    status: "Ongoing",
+    content: `
+      <div class="popup-project-header">
+        <div class="popup-project-category">Physics • Research</div>
+        <h1>Amazing Physics Research</h1>
+        <div class="popup-project-meta">
+          <span>📅 2025</span>
+          <span>🔖 Ongoing</span>
+        </div>
+      </div>
+
+      <div class="popup-project-image">
+        <img src="images/physics_project.jpg" alt="Amazing Physics Research" />
+      </div>
+
+      <div class="popup-project-content">
+        <section class="popup-section">
+          <h2>Project Overview</h2>
+          <p>This project explores the intersection of quantum physics and material science, using simulations and real-world experiments to uncover new phenomena. The research focuses on understanding quantum behavior in novel materials and its potential applications.</p>
+          <p>Working with advanced computational models and laboratory equipment, this project aims to bridge theoretical physics with practical applications in material engineering. The work involves both theoretical modeling and hands-on experimentation with cutting-edge equipment.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>My Role & Contributions</h2>
+          <ul>
+            <li>Designed and conducted quantum simulation experiments using specialized software</li>
+            <li>Analyzed experimental data using statistical software including Python and MATLAB</li>
+            <li>Collaborated with university researchers on theoretical models and interpretations</li>
+            <li>Presented findings at science symposiums and academic conferences</li>
+            <li>Contributed to research paper preparation and peer review process</li>
+          </ul>
+        </section>
+
+        <section class="popup-section">
+          <h2>Technical Details</h2>
+          <p>Utilizing quantum simulation software and laboratory equipment including spectrometers and microscopes. Data analysis performed using Python and MATLAB for statistical modeling and visualization.</p>
+          <p>The project employs advanced computational techniques including Monte Carlo simulations and quantum mechanical modeling to predict material behavior under various conditions.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Results & Outcomes</h2>
+          <p>Preliminary results show promising quantum effects in the studied materials. Currently preparing research paper for submission to undergraduate research journal.</p>
+          <p>The findings have potential applications in quantum computing and advanced materials engineering, with implications for future technology development.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Links & Resources</h2>
+          <div class="popup-project-links">
+            <a href="#" class="popup-project-link">Research Paper (Draft)</a>
+            <a href="#" class="popup-project-link">Simulation Code</a>
+            <a href="#" class="popup-project-link">Data Analysis</a>
+            <a href="#" class="popup-project-link">Conference Presentation</a>
+          </div>
+        </section>
+      </div>
+    `
+  },
+
+  "robot-arm": {
+    id: "robot-arm",
+    title: "Robot Arm Project",
+    category: "Engineering • Design",
+    date: "2024-2025",
+    status: "In Progress",
+    content: `
+      <div class="popup-project-header">
+        <div class="popup-project-category">Engineering • Design</div>
+        <h1>Robot Arm Project</h1>
+        <div class="popup-project-meta">
+          <span>📅 2024-2025</span>
+          <span>🔖 In Progress</span>
+        </div>
+      </div>
+
+      <div class="popup-project-image">
+        <img src="images/robot_arm.jpg" alt="Robot Arm Project" />
+      </div>
+
+      <div class="popup-project-content">
+        <section class="popup-section">
+          <h2>Project Overview</h2>
+          <p>An engineering challenge involving designing and building a programmable robot arm from scratch. This project encompasses mechanical design, electronics integration, and software programming.</p>
+          <p>The goal is to create a fully functional robotic arm capable of precise movements and programmable tasks for educational and research purposes. The project integrates multiple engineering disciplines including mechanical design, electronics, and computer programming.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>My Role & Contributions</h2>
+          <ul>
+            <li>CAD modeling and mechanical design using SolidWorks software</li>
+            <li>Developed control system using Arduino microcontroller and servo motors</li>
+            <li>Programmed movement algorithms and user interface in C++</li>
+            <li>Managed project timeline, budget, and component sourcing</li>
+            <li>Designed and fabricated custom PCB for motor control</li>
+          </ul>
+        </section>
+
+        <section class="popup-section">
+          <h2>Technical Details</h2>
+          <p>Mechanical components designed in SolidWorks and 3D printed using PLA material. Control system implemented with Arduino Uno, servo motors, and custom PCB. Programming done in C++ with Python interface for user control.</p>
+          <p>The arm features 6 degrees of freedom with precision servo motors, enabling complex movement patterns and precise positioning for various tasks.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Current Progress</h2>
+          <p>Mechanical assembly 90% complete. Control system functional for basic movements. Currently working on precision calibration and advanced programming features.</p>
+          <p>Next phases include implementing computer vision for object recognition and developing a graphical user interface for easier operation.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Links & Resources</h2>
+          <div class="popup-project-links">
+            <a href="#" class="popup-project-link">CAD Files</a>
+            <a href="#" class="popup-project-link">Arduino Code</a>
+            <a href="#" class="popup-project-link">Project Documentation</a>
+            <a href="#" class="popup-project-link">Assembly Guide</a>
+          </div>
+        </section>
+      </div>
+    `
+  },
+
+  "statistics-challenge": {
+    id: "statistics-challenge",
+    title: "Statistics Challenge",
+    category: "Mathematics • Analysis",
+    date: "2024",
+    status: "Complete",
+    content: `
+      <div class="popup-project-header">
+        <div class="popup-project-category">Mathematics • Analysis</div>
+        <h1>Statistics Challenge</h1>
+        <div class="popup-project-meta">
+          <span>📅 2024</span>
+          <span>🔖 Complete</span>
+        </div>
+      </div>
+
+      <div class="popup-project-image">
+        <img src="images/statistics.jpg" alt="Statistics Challenge" />
+      </div>
+
+      <div class="popup-project-content">
+        <section class="popup-section">
+          <h2>Project Overview</h2>
+          <p>A comprehensive dive into advanced statistical methods and data analysis, culminating in a published research report. This project involved analyzing large datasets and developing statistical models to identify meaningful patterns and relationships.</p>
+          <p>The challenge focused on real-world data problems, requiring the application of multiple statistical techniques and the development of original analytical approaches.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>My Role & Contributions</h2>
+          <ul>
+            <li>Led statistical analysis using R and Python programming languages</li>
+            <li>Created comprehensive data visualizations and interpretive charts</li>
+            <li>Developed predictive models using machine learning algorithms</li>
+            <li>Authored final research report and presentation materials</li>
+            <li>Presented findings to academic panel and received feedback</li>
+          </ul>
+        </section>
+
+        <section class="popup-section">
+          <h2>Technical Methods</h2>
+          <p>Applied regression analysis, hypothesis testing, and machine learning algorithms. Used R for statistical computing and Python for data preprocessing and visualization.</p>
+          <p>Employed advanced techniques including multivariate analysis, time series forecasting, and cluster analysis to extract insights from complex datasets.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Results & Impact</h2>
+          <p>Successfully identified significant patterns in the dataset with 95% confidence levels. Research report was accepted for publication in student research journal and presented at mathematics symposium.</p>
+          <p>The analytical framework developed during this project has been adopted by other researchers for similar data analysis challenges.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Links & Resources</h2>
+          <div class="popup-project-links">
+            <a href="#" class="popup-project-link">Published Report</a>
+            <a href="#" class="popup-project-link">Analysis Code</a>
+            <a href="#" class="popup-project-link">Data Visualizations</a>
+            <a href="#" class="popup-project-link">Presentation Slides</a>
+          </div>
+        </section>
+      </div>
+    `
+  },
+
+  "science-talent": {
+    id: "science-talent",
+    title: "Science Talent Search",
+    category: "Science • Experiment",
+    date: "2024",
+    status: "Completed",
+    content: `
+      <div class="popup-project-header">
+        <div class="popup-project-category">Science • Experiment</div>
+        <h1>Science Talent Search</h1>
+        <div class="popup-project-meta">
+          <span>📅 2024</span>
+          <span>🔖 Completed</span>
+        </div>
+      </div>
+
+      <div class="popup-project-image">
+        <img src="images/science_talent.jpg" alt="Science Talent Search" />
+      </div>
+
+      <div class="popup-project-content">
+        <section class="popup-section">
+          <h2>Project Overview</h2>
+          <p>A competitive research project involving original scientific experimentation and comprehensive reporting. This project focused on investigating environmental factors affecting plant growth rates.</p>
+          <p>The research aimed to identify optimal growing conditions for sustainable agriculture and understand the complex interactions between environmental variables and plant development.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>My Role & Contributions</h2>
+          <ul>
+            <li>Designed experimental methodology with proper controls and variables</li>
+            <li>Conducted multi-week plant growth experiments with daily monitoring</li>
+            <li>Collected and analyzed quantitative data using statistical methods</li>
+            <li>Wrote comprehensive research report and abstract for competition</li>
+            <li>Presented findings to panel of scientific judges</li>
+          </ul>
+        </section>
+
+        <section class="popup-section">
+          <h2>Methodology</h2>
+          <p>Controlled experiment testing effects of light wavelength, soil pH, and nutrient concentrations on plant growth. Used statistical analysis to determine significant factors.</p>
+          <p>The experiment included 120 test subjects across 8 different experimental conditions, with measurements taken every 48 hours over a 6-week period.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Results & Recognition</h2>
+          <p>Identified optimal growing conditions resulting in 30% improved growth rates compared to control groups. Project received regional recognition and qualified for state-level competition.</p>
+          <p>The research findings have practical applications for local farmers and contribute to sustainable agriculture practices.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Links & Resources</h2>
+          <div class="popup-project-links">
+            <a href="#" class="popup-project-link">Full Research Report</a>
+            <a href="#" class="popup-project-link">Experimental Data</a>
+            <a href="#" class="popup-project-link">Competition Results</a>
+            <a href="#" class="popup-project-link">Photo Documentation</a>
+          </div>
+        </section>
+      </div>
+    `
+  },
+
+  "deakin-lab": {
+    id: "deakin-lab",
+    title: "Deakin Laboratory Experience",
+    category: "Lab Work • Biology",
+    date: "2024",
+    status: "Completed",
+    content: `
+      <div class="popup-project-header">
+        <div class="popup-project-category">Lab Work • Biology</div>
+        <h1>Deakin Laboratory Experience</h1>
+        <div class="popup-project-meta">
+          <span>📅 2024</span>
+          <span>🔖 Completed</span>
+        </div>
+      </div>
+
+      <div class="popup-project-image">
+        <img src="images/lab_biology.jpg" alt="Deakin Laboratory Experience" />
+      </div>
+
+      <div class="popup-project-content">
+        <section class="popup-section">
+          <h2>Experience Overview</h2>
+          <p>Hands-on laboratory work at Deakin University, learning advanced techniques and conducting biology experiments. This immersive experience provided exposure to university-level research methods.</p>
+          <p>The program offered direct mentorship from graduate students and faculty, providing insight into academic research careers and advanced laboratory practices.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Skills Developed</h2>
+          <ul>
+            <li>Mastered use of advanced microscopy equipment including confocal microscopes</li>
+            <li>Learned cell culture and isolation techniques for various cell types</li>
+            <li>Practiced sterile laboratory procedures and contamination prevention</li>
+            <li>Contributed to ongoing research project data collection and analysis</li>
+            <li>Gained experience with laboratory safety protocols and chemical handling</li>
+          </ul>
+        </section>
+
+        <section class="popup-section">
+          <h2>Laboratory Techniques</h2>
+          <p>Gained experience with fluorescence microscopy, PCR techniques, gel electrophoresis, and cell staining procedures. Worked with both plant and animal cell cultures.</p>
+          <p>Advanced techniques included protein extraction, Western blotting, and quantitative analysis of cellular responses to environmental stimuli.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Research Contribution</h2>
+          <p>Assisted in data collection for ongoing research into cellular responses to environmental stress. Contributed quality data that was included in published research.</p>
+          <p>My work specifically focused on documenting cellular changes under varying temperature conditions, contributing to a broader understanding of climate adaptation in organisms.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Links & Resources</h2>
+          <div class="popup-project-links">
+            <a href="#" class="popup-project-link">Experience Summary</a>
+            <a href="#" class="popup-project-link">Lab Techniques Learned</a>
+            <a href="#" class="popup-project-link">Research Contribution</a>
+            <a href="#" class="popup-project-link">Mentor Recommendations</a>
+          </div>
+        </section>
+      </div>
+    `
+  },
+
+  "model-un": {
+    id: "model-un",
+    title: "Model United Nations",
+    category: "Competition • Academic",
+    date: "2024",
+    status: "Completed",
+    content: `
+      <div class="popup-project-header">
+        <div class="popup-project-category">Competition • Academic</div>
+        <h1>Model United Nations</h1>
+        <div class="popup-project-meta">
+          <span>📅 2024</span>
+          <span>🔖 Completed</span>
+        </div>
+      </div>
+
+      <div class="popup-project-image">
+        <img src="images/mun.jpg" alt="Model United Nations" />
+      </div>
+
+      <div class="popup-project-content">
+        <section class="popup-section">
+          <h2>Experience Overview</h2>
+          <p>Represented [Country Name] in Model United Nations conferences, engaging in diplomatic simulation and international relations. Participated in debates on global issues and contributed to resolution drafting.</p>
+          <p>The experience involved intensive preparation, research into international policies, and real-time negotiation with delegates from diverse backgrounds and perspectives.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Role & Responsibilities</h2>
+          <ul>
+            <li>Researched country's historical and current positions on international issues</li>
+            <li>Participated in committee debates and formal negotiations</li>
+            <li>Collaborated on drafting international resolutions and amendments</li>
+            <li>Developed public speaking and diplomatic communication skills</li>
+            <li>Built coalitions with other delegates to advance policy initiatives</li>
+          </ul>
+        </section>
+
+        <section class="popup-section">
+          <h2>Key Issues Addressed</h2>
+          <p>Focused on climate change policy, international trade agreements, and conflict resolution. Successfully advocated for sustainable development initiatives and peaceful diplomatic solutions.</p>
+          <p>Participated in crisis committees addressing urgent global challenges including humanitarian aid distribution and international security concerns.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Skills Developed</h2>
+          <p>Enhanced research abilities, public speaking confidence, negotiation skills, and understanding of international relations. Gained appreciation for global perspectives and diplomatic processes.</p>
+          <p>Developed critical thinking skills for complex problem-solving and learned to articulate positions clearly under pressure in formal debate settings.</p>
+        </section>
+
+        <section class="popup-section">
+          <h2>Links & Resources</h2>
+          <div class="popup-project-links">
+            <a href="#" class="popup-project-link">Conference Experience</a>
+            <a href="#" class="popup-project-link">Position Papers</a>
+            <a href="#" class="popup-project-link">Resolutions Drafted</a>
+            <a href="#" class="popup-project-link">Awards Received</a>
+          </div>
+        </section>
+      </div>
+    `
+  }
+};
+
+// Popup functions
+function openProjectPopup(projectId) {
+  const project = projectData[projectId];
+  if (project) {
+    document.getElementById('popup-project-content').innerHTML = project.content;
+    document.getElementById('project-popup').style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+}
+
+function closeProjectPopup() {
+  document.getElementById('project-popup').style.display = 'none';
+  document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close popup when clicking outside content
+document.getElementById('project-popup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeProjectPopup();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('project-popup').style.display === 'flex') {
+    closeProjectPopup();
+  }
+});
+  </script>
+</body>
+</html>
